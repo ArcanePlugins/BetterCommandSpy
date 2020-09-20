@@ -1,4 +1,4 @@
-CommandSpy: A SpigotMC resource to spy on the commands that your players run.
+BetterCommandSpy: A SpigotMC resource to spy on the commands that your players run.
 Copyright (C) 2020  Lachlan Adamson
 
 This program is free software: you can redistribute it and/or modify

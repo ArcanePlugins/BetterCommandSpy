@@ -6,3 +6,6 @@
 ### v1.0.1-ALPHA
 * Renamed CommandSpy > BetterCommandSpy
 * Added bStats metrics
+
+### v1.0.2-ALPHA
+* Updated Metrics
