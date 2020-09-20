@@ -1,0 +1,24 @@
+name: ${project.name}
+version: ${project.version}
+api-version: '1.13'
+main: me.lokka30.commandspy.CommandSpy
+author: lokka30
+description: ${project.description}
+commands:
+  commandspy:
+    description: Manage the plugin.
+    usage: /<command> [on/off/reload]
+    aliases: [cspy, cmdspy]
+permissions:
+  commandspy.toggle:
+    default: op
+    description: Ability to set commandspy on / off (/commandspy on/off)
+  commandspy.toggle.others:
+    default: op
+    description: Ability to toggle commandspy for other players
+  commandspy.reload:
+    default: op
+    description: Ability to reload the configuration (/commandspy reload)
+  commandspy.bypass:
+    default: none
+    description: Commands sent from users with this permission will not be shown in command spy.

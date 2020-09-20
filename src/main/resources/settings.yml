@@ -1,0 +1,14 @@
+# General settings.
+general:
+
+  # Should CommandSpy be enabled for new players by default?
+  default-commandspy-state: true
+
+# Do not touch anything in here unless you know what you are doing!
+advanced:
+
+  # The version of this file.
+  file-version: 1
+
+  # The version of CommandSpy that this configuration was originally generated with.
+  generated-with: '${project.version}'
