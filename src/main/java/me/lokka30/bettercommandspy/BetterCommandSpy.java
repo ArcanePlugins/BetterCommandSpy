@@ -44,15 +44,15 @@ public class BetterCommandSpy extends JavaPlugin implements Listener, TabExecuto
 
         createIfNotExists(settingsFile);
         settingsCfg = YamlConfiguration.loadConfiguration(settingsFile);
-        checkFileVersion(settingsCfg, 1);
+        checkFileVersion(settingsCfg, "settings.yml", 1);
 
         createIfNotExists(messagesFile);
         messagesCfg = YamlConfiguration.loadConfiguration(messagesFile);
-        checkFileVersion(messagesCfg, 1);
+        checkFileVersion(messagesCfg, "messages.yml", 1);
 
         createIfNotExists(dataFile);
         dataCfg = YamlConfiguration.loadConfiguration(dataFile);
-        checkFileVersion(dataCfg, 1);
+        checkFileVersion(dataCfg, "data.yml", 1);
     }
 
     private void createIfNotExists(File file) {
@@ -61,9 +61,9 @@ public class BetterCommandSpy extends JavaPlugin implements Listener, TabExecuto
         }
     }
 
-    private void checkFileVersion(YamlConfiguration cfg, int recommendedVersion) {
-        if(cfg.getInt("advanced.file-version") != recommendedVersion) {
-            getLogger().warning(colorize("&7Configuration file '&b" + cfg.getName() + "&7' is not running the correct right file version for this version of BetterCommandSpy. Please regenerate or merge to the latest version of that file."));
+    private void checkFileVersion(YamlConfiguration cfg, String name, int recommendedVersion) {
+        if (cfg.getInt("advanced.file-version") != recommendedVersion) {
+            getLogger().warning(colorize("&7Configuration file '&b" + name + "&7' is not running the correct right file version for this version of BetterCommandSpy. Please regenerate or merge to the latest version of that file."));
         }
     }
 
@@ -83,9 +83,10 @@ public class BetterCommandSpy extends JavaPlugin implements Listener, TabExecuto
                     listeners.add(uuid);
                 }
             } else {
-                if(settingsCfg.getBoolean("general.default-commandspy-state")) {
-                    dataCfg.set(path, true);
-                    dataCfg.save(dataFile);
+                boolean state = settingsCfg.getBoolean("general.default-commandspy-state");
+                dataCfg.set(path, state);
+                dataCfg.save(dataFile);
+                if (state) {
                     listeners.add(uuid);
                 }
             }
@@ -228,6 +229,7 @@ public class BetterCommandSpy extends JavaPlugin implements Listener, TabExecuto
                                     } catch (IOException e) {
                                         e.printStackTrace();
                                     }
+                                    getLogger().warning("[DEBUG] " + messagesCfg.getString("command.off.self") + ":" + messagesCfg.getString("general.prefix"));
                                     sender.sendMessage(colorize(messagesCfg.getString("command.off.self"))
                                             .replace("%prefix%", Objects.requireNonNull(messagesCfg.getString("general.prefix"))));
                                 } else {

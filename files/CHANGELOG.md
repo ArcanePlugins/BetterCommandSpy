@@ -22,3 +22,7 @@
 ### v1.0.5-ALPHA
 * Fixed the issue 'Cannot translate null text' when a player has already got an enabled / disabled state.
 * Save config when state is first set on join.
+
+### v1.0.6-ALPHA
+* Adjusted and fixed file versioning system
+* First joins now save a default state of 'false' if configured as well
