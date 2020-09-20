@@ -167,7 +167,7 @@ public class BetterCommandSpy extends JavaPlugin implements Listener, TabExecuto
                                             } catch (IOException e) {
                                                 e.printStackTrace();
                                             }
-                                            sender.sendMessage(colorize(Objects.requireNonNull(messagesCfg.getString("commandspy.toggle_on.others"))
+                                            sender.sendMessage(colorize(Objects.requireNonNull(messagesCfg.getString("command.toggle_on.others"))
                                                     .replace("%prefix%", Objects.requireNonNull(messagesCfg.getString("general.prefix")))
                                                     .replace("%player%", Objects.requireNonNull(target.getName()))));
                                             if (target.isOnline()) {
@@ -193,25 +193,25 @@ public class BetterCommandSpy extends JavaPlugin implements Listener, TabExecuto
                                             final Player player = target.getPlayer();
                                             assert player != null;
                                             listeners.add(player.getUniqueId());
-                                            player.sendMessage(colorize(Objects.requireNonNull(messagesCfg.getString("command.toggle_on.by"))
+                                            player.sendMessage(colorize(Objects.requireNonNull(Objects.requireNonNull(messagesCfg.getString("command.toggle_on.by"))
                                                     .replace("%prefix%", Objects.requireNonNull(messagesCfg.getString("general.prefix")))
-                                                    .replace("%player%", sender.getName())));
+                                                    .replace("%player%", sender.getName()))));
                                         }
                                     }
                                 } else {
-                                    sender.sendMessage(colorize(messagesCfg.getString("command.player-never-joined"))
+                                    sender.sendMessage(colorize(Objects.requireNonNull(messagesCfg.getString("command.player-never-joined"))
                                             .replace("%prefix%", Objects.requireNonNull(messagesCfg.getString("general.prefix")))
-                                            .replace("%player%", args[1]));
+                                            .replace("%player%", args[1])));
                                 }
                             }
                         } else {
-                            sender.sendMessage(colorize(Objects.requireNonNull(messagesCfg.getString("command.toggle_on.usage"))
+                            sender.sendMessage(colorize(Objects.requireNonNull(Objects.requireNonNull(messagesCfg.getString("command.toggle_on.usage"))
                                     .replace("%prefix%", Objects.requireNonNull(messagesCfg.getString("general.prefix")))
-                                    .replace("%label%", label)));
+                                    .replace("%label%", label))));
                         }
                     } else {
-                        sender.sendMessage(colorize(messagesCfg.getString("command.no-permission"))
-                                .replace("%prefix%", Objects.requireNonNull(messagesCfg.getString("general.prefix"))));
+                        sender.sendMessage(colorize(Objects.requireNonNull(messagesCfg.getString("command.no-permission"))
+                                .replace("%prefix%", Objects.requireNonNull(messagesCfg.getString("general.prefix")))));
                     }
                     break;
                 case "off":

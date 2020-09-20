@@ -30,3 +30,4 @@
 ### v1.0.7-ALPHA
 * File changes: `messages.yml`. Please update this file else you will get errors!
 * Changed `command.on` to `command.toggle_on` to fix a weird bug (also `command.off` to `command.toggle_off`)
+* Code file path fixes

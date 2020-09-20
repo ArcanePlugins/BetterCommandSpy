@@ -1,6 +1,6 @@
 # General messages.
 general:
-  prefix: '&b&lCommandSpy: &7'
+  prefix: '&b&lCommandSpy:&7'
 
 # The alert message (spying on player's commands)
 alert: '%prefix% &7%player%: &8%command%'
