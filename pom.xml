@@ -6,7 +6,7 @@
 
     <groupId>me.lokka30</groupId>
     <artifactId>BetterCommandSpy</artifactId>
-    <version>1.0.7-ALPHA</version>
+    <version>1.0.7-ALPHA b13</version>
 
     <name>BetterCommandSpy</name>
     <description>A SpigotMC plugin which alerts players with permission of what commands other players are running.
