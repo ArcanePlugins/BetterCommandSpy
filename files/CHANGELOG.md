@@ -27,10 +27,11 @@
 * Adjusted and fixed file versioning system
 * First joins now save a default state of 'false' if configured as well
 
-### v1.0.7-ALPHA b13
+### v1.0.7-ALPHA b14
 * **[Important]** File changes: `messages.yml`. Please update this file else you will get errors!
 * Changed `command.on` to `command.toggle_on` to fix a weird bug (also `command.off` to `command.toggle_off`)
 * Code file path fixes
 * Code permission fixes
 * Skip sending 'by' message if target = sender
-* Added build number (e.g. 'b13') to the version.
+* Added build number (e.g. 'b14') to the version.
+* Removed extra `/` in command alert message.

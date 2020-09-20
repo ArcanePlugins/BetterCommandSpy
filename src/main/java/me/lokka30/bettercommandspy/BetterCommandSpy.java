@@ -103,7 +103,7 @@ public class BetterCommandSpy extends JavaPlugin implements Listener, TabExecuto
                     onlinePlayer.sendMessage(colorize(Objects.requireNonNull(messagesCfg.getString("alert"))
                             .replace("%prefix%", Objects.requireNonNull(messagesCfg.getString("general.prefix")))
                             .replace("%player%", player.getName())
-                            .replace("%command%", "/" + command)));
+                            .replace("%command%", command)));
                 }
             }
         }
