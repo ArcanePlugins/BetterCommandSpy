@@ -5,11 +5,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>me.lokka30</groupId>
-    <artifactId>CommandSpy</artifactId>
-    <version>1.0.2-ALPHA</version>
+    <artifactId>BetterCommandSpy</artifactId>
+    <version>1.0.3-ALPHA</version>
 
     <name>BetterCommandSpy</name>
-    <description>A SpigotMC plugin which alerts players with permission of what commands other players are running.</description>
+    <description>A SpigotMC plugin which alerts players with permission of what commands other players are running.
+    </description>
 
     <properties>
         <java.version>1.8</java.version>

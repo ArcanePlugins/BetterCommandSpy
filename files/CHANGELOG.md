@@ -9,3 +9,9 @@
 
 ### v1.0.2-ALPHA
 * Updated Metrics
+
+### v1.0.3-ALPHA
+* Fixed file name of jar
+* Renamed permissions
+* Added `/bettercommandspy` alias to `/commandspy`
+* Created documentation on the [Wiki](https://github.com/lokka30/BetterCommandSpy/wiki/).
