@@ -2,26 +2,9 @@
 Ordered from first to be completed to last to be completed:
 * Testing
 * Add to bStats
-* Add to GitHub
 * Add to SpigotMC
-    * Add License
-```
-CommandSpy: A SpigotMC resource to spy on the commands that your players run.
-Copyright (C) 2020  Lachlan Adamson
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU Affero General Public License as
-published by the Free Software Foundation, either version 3 of the
-License, or (at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU Affero General Public License for more details.
-
-You should have received a copy of the GNU Affero General Public License
-along with this program.  If not, see <https://www.gnu.org/licenses/>.
-```
+    * Add License from license.txt
+* Ignored Commands List
 * Add MicroLib dependency
     * Add new logging methods
     * Add update checker
