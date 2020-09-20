@@ -37,5 +37,5 @@ advanced:
   # The version of this file.
   file-version: 1
 
-  # The version of CommandSpy that this configuration was originally generated with.
+  # The version of BetterCommandSpy that this configuration was originally generated with.
   generated-with: '${project.version}'

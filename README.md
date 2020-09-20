@@ -6,14 +6,14 @@ This README is currently work-in-progress:
 * the SpigotMC resource page has not been released yet.
 
 ## Learn more
-If you wish to learn more about CommandSpy, please visit its [SpigotMC resource page]().
+If you wish to learn more about BetterCommandSpy, please visit its [SpigotMC resource page]().
 
 ## Contact / Technical Support
 If you wish to contact the developer, please join the [ArcanePlugins Discord Server](https://discord.io/arcaneplugins);
 
 ## License
 ```
-CommandSpy: A SpigotMC resource to spy on the commands that your players run.
+BetterCommandSpy: A SpigotMC resource to spy on the commands that your players run.
 Copyright (C) 2020  Lachlan Adamson
 
 This program is free software: you can redistribute it and/or modify

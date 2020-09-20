@@ -1,7 +1,7 @@
 name: ${project.name}
 version: ${project.version}
 api-version: '1.13'
-main: me.lokka30.commandspy.CommandSpy
+main: me.lokka30.bettercommandspy.BetterCommandSpy
 author: lokka30
 description: ${project.description}
 commands:

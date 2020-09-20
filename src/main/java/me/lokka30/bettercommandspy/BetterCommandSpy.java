@@ -1,5 +1,6 @@
-package me.lokka30.commandspy;
+package me.lokka30.bettercommandspy;
 
+import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
@@ -21,7 +22,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
-public class CommandSpy extends JavaPlugin implements Listener, TabExecutor {
+public class BetterCommandSpy extends JavaPlugin implements Listener, TabExecutor {
 
     ArrayList<UUID> listeners = new ArrayList<>();
 
@@ -35,6 +36,7 @@ public class CommandSpy extends JavaPlugin implements Listener, TabExecutor {
         loadFiles();
         registerEvents();
         Objects.requireNonNull(getCommand("commandspy")).setExecutor(this);
+        new Metrics(this, 8907);
     }
 
     private void loadFiles() {
@@ -61,7 +63,7 @@ public class CommandSpy extends JavaPlugin implements Listener, TabExecutor {
 
     private void checkFileVersion(YamlConfiguration cfg, int recommendedVersion) {
         if(cfg.getInt("advanced.file-version") != recommendedVersion) {
-            getLogger().warning(colorize("&7Configuration file '&b" + cfg.getName() + "&7' is not running the correct right file version for this version of CommandSpy. Please regenerate or merge to the latest version of that file."));
+            getLogger().warning(colorize("&7Configuration file '&b" + cfg.getName() + "&7' is not running the correct right file version for this version of BetterCommandSpy. Please regenerate or merge to the latest version of that file."));
         }
     }
 
