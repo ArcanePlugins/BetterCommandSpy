@@ -72,19 +72,20 @@ public class BetterCommandSpy extends JavaPlugin implements Listener, TabExecuto
     }
 
     @EventHandler
-    public void onJoin(final PlayerJoinEvent event) {
+    public void onJoin(final PlayerJoinEvent event) throws IOException {
         final Player player = event.getPlayer();
         final UUID uuid = player.getUniqueId();
         final String path = "players." + uuid.toString() + ".state";
 
-        if(player.hasPermission("commandspy.toggle")) {
-            if(dataCfg.contains(path)) {
-                if(dataCfg.getBoolean(path)) {
+        if (player.hasPermission("commandspy.toggle")) {
+            if (dataCfg.contains(path)) {
+                if (dataCfg.getBoolean(path)) {
                     listeners.add(uuid);
                 }
             } else {
                 if(settingsCfg.getBoolean("general.default-commandspy-state")) {
                     dataCfg.set(path, true);
+                    dataCfg.save(dataFile);
                     listeners.add(uuid);
                 }
             }
@@ -129,7 +130,7 @@ public class BetterCommandSpy extends JavaPlugin implements Listener, TabExecuto
                                 final Player player = (Player) sender;
                                 final UUID uuid = player.getUniqueId();
                                 if(listeners.contains(uuid)) {
-                                    sender.sendMessage(colorize(messagesCfg.getString("command.on.already-self"))
+                                    sender.sendMessage(colorize(messagesCfg.getString("command.on.self-already"))
                                             .replace("%prefix%", Objects.requireNonNull(messagesCfg.getString("general.prefix"))));
                                 } else {
                                     listeners.add(uuid);
@@ -156,7 +157,7 @@ public class BetterCommandSpy extends JavaPlugin implements Listener, TabExecuto
                                     String path = "players." + uuid.toString() + ".state";
                                     if(dataCfg.contains(path)) {
                                         if(dataCfg.getBoolean(path)) {
-                                            sender.sendMessage(colorize(messagesCfg.getString("command.on.already-others"))
+                                            sender.sendMessage(colorize(messagesCfg.getString("command.on.others-already"))
                                                     .replace("%prefix%", Objects.requireNonNull(messagesCfg.getString("general.prefix")))
                                                     .replace("%player%", Objects.requireNonNull(target.getName())));
                                         } else {
@@ -230,7 +231,7 @@ public class BetterCommandSpy extends JavaPlugin implements Listener, TabExecuto
                                     sender.sendMessage(colorize(messagesCfg.getString("command.off.self"))
                                             .replace("%prefix%", Objects.requireNonNull(messagesCfg.getString("general.prefix"))));
                                 } else {
-                                    sender.sendMessage(colorize(messagesCfg.getString("command.off.already-self"))
+                                    sender.sendMessage(colorize(messagesCfg.getString("command.off.self-already"))
                                             .replace("%prefix%", Objects.requireNonNull(messagesCfg.getString("general.prefix"))));
                                 }
                             } else {
@@ -265,7 +266,7 @@ public class BetterCommandSpy extends JavaPlugin implements Listener, TabExecuto
                                                         .replace("%player%", sender.getName()));
                                             }
                                         } else {
-                                            sender.sendMessage(colorize(messagesCfg.getString("command.off.already-others"))
+                                            sender.sendMessage(colorize(messagesCfg.getString("command.off.others-already"))
                                                     .replace("%prefix%", Objects.requireNonNull(messagesCfg.getString("general.prefix")))
                                                     .replace("%player%", Objects.requireNonNull(target.getName())));
                                         }

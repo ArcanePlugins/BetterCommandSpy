@@ -22,5 +22,5 @@ permissions:
     default: op
     description: Ability to reload the configuration (/commandspy reload)
   bettercommandspy.bypass:
-    default: none
+    default: false
     description: Commands sent from users with this permission will not be shown in command spy.
