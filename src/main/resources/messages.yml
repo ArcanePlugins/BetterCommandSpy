@@ -10,7 +10,7 @@ command:
   no-permission: '%prefix% You don''t have access to that.'
   main-usage: '%prefix% Usage: &b/%label% [on/off/reload]'
   player-never-joined: '%prefix% &r%player%&7 hasn''t joined the server before.'
-  on:
+  toggle_on:
     self: '%prefix% &aEnabled&7 command spy alerts.'
     others: '%prefix &aEnabled&7 command spy alerts for &r%player%&7.'
     by: '%prefix% &r%player% &aenabled&7 your command spy alerts.'
@@ -18,7 +18,7 @@ command:
     others-already: '%prefix% &r%player%&7 already has command spy alerts &aenabled&7.'
     usage: '%prefix% Usage: &b/%label% on [player]'
     usage-console: '%prefix% Usage (console): &b/%label% on <player>'
-  off:
+  toggle_off:
     self: '%prefix% &cDisabled&7 command spy alerts.'
     others: '%prefix% &cDisabled&7 command spy alerts for &r%player%&7.'
     by: '%prefix% &r%player% &cdisabled&7 your command spy alerts.'
@@ -35,7 +35,7 @@ command:
 advanced:
 
   # The version of this file.
-  file-version: 1
+  file-version: 2
 
   # The version of BetterCommandSpy that this configuration was originally generated with.
   generated-with: '${project.version}'

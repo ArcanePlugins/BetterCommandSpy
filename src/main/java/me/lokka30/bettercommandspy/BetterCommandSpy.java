@@ -24,11 +24,11 @@ import java.util.UUID;
 
 public class BetterCommandSpy extends JavaPlugin implements Listener, TabExecutor {
 
-    ArrayList<UUID> listeners = new ArrayList<>();
+    final ArrayList<UUID> listeners = new ArrayList<>();
 
-    File settingsFile = new File(getDataFolder(), "settings.yml");
-    File messagesFile = new File(getDataFolder(), "messages.yml");
-    File dataFile = new File(getDataFolder(), "data.yml");
+    final File settingsFile = new File(getDataFolder(), "settings.yml");
+    final File messagesFile = new File(getDataFolder(), "messages.yml");
+    final File dataFile = new File(getDataFolder(), "data.yml");
     YamlConfiguration settingsCfg, messagesCfg, dataCfg;
 
     @Override
@@ -48,7 +48,7 @@ public class BetterCommandSpy extends JavaPlugin implements Listener, TabExecuto
 
         createIfNotExists(messagesFile);
         messagesCfg = YamlConfiguration.loadConfiguration(messagesFile);
-        checkFileVersion(messagesCfg, "messages.yml", 1);
+        checkFileVersion(messagesCfg, "messages.yml", 2);
 
         createIfNotExists(dataFile);
         dataCfg = YamlConfiguration.loadConfiguration(dataFile);
@@ -56,7 +56,7 @@ public class BetterCommandSpy extends JavaPlugin implements Listener, TabExecuto
     }
 
     private void createIfNotExists(File file) {
-        if(!file.exists()) {
+        if (!file.exists()) {
             saveResource(file.getName(), false);
         }
     }
@@ -97,9 +97,9 @@ public class BetterCommandSpy extends JavaPlugin implements Listener, TabExecuto
     public void onCommand(final PlayerCommandPreprocessEvent event) {
         final Player player = event.getPlayer();
         final String command = event.getMessage();
-        if(!player.hasPermission("commandspy.bypass")) {
-            for(Player onlinePlayer : Bukkit.getOnlinePlayers()) {
-                if(player != onlinePlayer && listeners.contains(onlinePlayer.getUniqueId())) {
+        if (!player.hasPermission("commandspy.bypass")) {
+            for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
+                if (player != onlinePlayer && listeners.contains(onlinePlayer.getUniqueId())) {
                     onlinePlayer.sendMessage(colorize(Objects.requireNonNull(messagesCfg.getString("alert"))
                             .replace("%prefix%", Objects.requireNonNull(messagesCfg.getString("general.prefix")))
                             .replace("%player%", player.getName())
@@ -111,7 +111,7 @@ public class BetterCommandSpy extends JavaPlugin implements Listener, TabExecuto
 
     @Override
     public boolean onCommand(final CommandSender sender, final Command cmd, final String label, final String[] args) {
-        if(args.length == 0) {
+        if (args.length == 0) {
             sender.sendMessage(" ");
             sender.sendMessage(colorize("&f&nAbout"));
             sender.sendMessage(colorize("&8 &m->&7 Running &b&lCommandSpy &bv" + getDescription().getVersion() + "&7, developed by &flokka30&7."));
@@ -123,16 +123,16 @@ public class BetterCommandSpy extends JavaPlugin implements Listener, TabExecuto
             sender.sendMessage(colorize("&8 &m->&b /commandspy reload &8(&7reload commandspy configuration files&8)"));
             sender.sendMessage(" ");
         } else {
-            switch(args[0].toLowerCase()) {
+            switch (args[0].toLowerCase()) {
                 case "on":
-                    if(sender.hasPermission("commandspy.toggle")) {
-                        if(args.length == 1) {
-                            if(sender instanceof Player) {
+                    if (sender.hasPermission("commandspy.toggle")) {
+                        if (args.length == 1) {
+                            if (sender instanceof Player) {
                                 final Player player = (Player) sender;
                                 final UUID uuid = player.getUniqueId();
-                                if(listeners.contains(uuid)) {
-                                    sender.sendMessage(colorize(messagesCfg.getString("command.on.self-already"))
-                                            .replace("%prefix%", Objects.requireNonNull(messagesCfg.getString("general.prefix"))));
+                                if (listeners.contains(uuid)) {
+                                    sender.sendMessage(colorize(Objects.requireNonNull(messagesCfg.getString("command.toggle_on.self-already"))
+                                            .replace("%prefix%", Objects.requireNonNull(messagesCfg.getString("general.prefix")))));
                                 } else {
                                     listeners.add(uuid);
                                     dataCfg.set("players." + uuid.toString() + ".state", true);
@@ -141,26 +141,25 @@ public class BetterCommandSpy extends JavaPlugin implements Listener, TabExecuto
                                     } catch (IOException e) {
                                         e.printStackTrace();
                                     }
-                                    sender.sendMessage(colorize(messagesCfg.getString("command.on.self"))
-                                            .replace("%prefix%", Objects.requireNonNull(messagesCfg.getString("general.prefix"))));
+                                    sender.sendMessage(colorize(Objects.requireNonNull(messagesCfg.getString("command.toggle_on.self"))
+                                            .replace("%prefix%", Objects.requireNonNull(messagesCfg.getString("general.prefix")))));
                                 }
                             } else {
-                                sender.sendMessage(colorize(messagesCfg.getString("command.on.usage-console"))
+                                sender.sendMessage(colorize(Objects.requireNonNull(messagesCfg.getString("command.toggle_on.usage-console"))
                                         .replace("%prefix%", Objects.requireNonNull(messagesCfg.getString("general.prefix")))
-                                        .replace("%label%", label));
+                                        .replace("%label%", label)));
                             }
-                        } else if(args.length == 2) {
-                            if(sender.hasPermission("commandspy.toggle.others")) {
-                                @SuppressWarnings("deprecation")
-                                final OfflinePlayer target = Bukkit.getOfflinePlayer(args[1]);
-                                if(target.hasPlayedBefore() || target.isOnline()) {
+                        } else if (args.length == 2) {
+                            if (sender.hasPermission("commandspy.toggle.others")) {
+                                @SuppressWarnings("deprecation") final OfflinePlayer target = Bukkit.getOfflinePlayer(args[1]);
+                                if (target.hasPlayedBefore() || target.isOnline()) {
                                     UUID uuid = target.getUniqueId();
                                     String path = "players." + uuid.toString() + ".state";
-                                    if(dataCfg.contains(path)) {
-                                        if(dataCfg.getBoolean(path)) {
-                                            sender.sendMessage(colorize(messagesCfg.getString("command.on.others-already"))
+                                    if (dataCfg.contains(path)) {
+                                        if (dataCfg.getBoolean(path)) {
+                                            sender.sendMessage(colorize(Objects.requireNonNull(messagesCfg.getString("command.toggle_on.others-already"))
                                                     .replace("%prefix%", Objects.requireNonNull(messagesCfg.getString("general.prefix")))
-                                                    .replace("%player%", Objects.requireNonNull(target.getName())));
+                                                    .replace("%player%", Objects.requireNonNull(target.getName()))));
                                         } else {
                                             dataCfg.set(path, true);
                                             try {
@@ -168,16 +167,16 @@ public class BetterCommandSpy extends JavaPlugin implements Listener, TabExecuto
                                             } catch (IOException e) {
                                                 e.printStackTrace();
                                             }
-                                            sender.sendMessage(colorize(messagesCfg.getString("commandspy.on.others"))
+                                            sender.sendMessage(colorize(Objects.requireNonNull(messagesCfg.getString("commandspy.toggle_on.others"))
                                                     .replace("%prefix%", Objects.requireNonNull(messagesCfg.getString("general.prefix")))
-                                                    .replace("%player%", Objects.requireNonNull(target.getName())));
-                                            if(target.isOnline()) {
+                                                    .replace("%player%", Objects.requireNonNull(target.getName()))));
+                                            if (target.isOnline()) {
                                                 final Player player = target.getPlayer();
                                                 assert player != null;
                                                 listeners.add(player.getUniqueId());
-                                                player.sendMessage(colorize(messagesCfg.getString("command.on.by"))
+                                                player.sendMessage(colorize(Objects.requireNonNull(messagesCfg.getString("command.toggle_on.by"))
                                                         .replace("%prefix%", Objects.requireNonNull(messagesCfg.getString("general.prefix")))
-                                                        .replace("%player%", sender.getName()));
+                                                        .replace("%player%", sender.getName())));
                                             }
                                         }
                                     } else {
@@ -187,16 +186,16 @@ public class BetterCommandSpy extends JavaPlugin implements Listener, TabExecuto
                                         } catch (IOException e) {
                                             e.printStackTrace();
                                         }
-                                        sender.sendMessage(colorize(messagesCfg.getString("commandspy.on.others"))
+                                        sender.sendMessage(colorize(Objects.requireNonNull(messagesCfg.getString("commandspy.toggle_on.others"))
                                                 .replace("%prefix%", Objects.requireNonNull(messagesCfg.getString("general.prefix")))
-                                                .replace("%player%", Objects.requireNonNull(target.getName())));
-                                        if(target.isOnline()) {
+                                                .replace("%player%", Objects.requireNonNull(target.getName()))));
+                                        if (target.isOnline()) {
                                             final Player player = target.getPlayer();
                                             assert player != null;
                                             listeners.add(player.getUniqueId());
-                                            player.sendMessage(colorize(messagesCfg.getString("command.on.by"))
+                                            player.sendMessage(colorize(Objects.requireNonNull(messagesCfg.getString("command.toggle_on.by"))
                                                     .replace("%prefix%", Objects.requireNonNull(messagesCfg.getString("general.prefix")))
-                                                    .replace("%player%", sender.getName()));
+                                                    .replace("%player%", sender.getName())));
                                         }
                                     }
                                 } else {
@@ -206,9 +205,9 @@ public class BetterCommandSpy extends JavaPlugin implements Listener, TabExecuto
                                 }
                             }
                         } else {
-                            sender.sendMessage(colorize(messagesCfg.getString("command.on.usage"))
+                            sender.sendMessage(colorize(Objects.requireNonNull(messagesCfg.getString("command.toggle_on.usage"))
                                     .replace("%prefix%", Objects.requireNonNull(messagesCfg.getString("general.prefix")))
-                                    .replace("%label%", label));
+                                    .replace("%label%", label)));
                         }
                     } else {
                         sender.sendMessage(colorize(messagesCfg.getString("command.no-permission"))
@@ -216,12 +215,12 @@ public class BetterCommandSpy extends JavaPlugin implements Listener, TabExecuto
                     }
                     break;
                 case "off":
-                    if(sender.hasPermission("commandspy.toggle")) {
-                        if(args.length == 1) {
-                            if(sender instanceof Player) {
+                    if (sender.hasPermission("commandspy.toggle")) {
+                        if (args.length == 1) {
+                            if (sender instanceof Player) {
                                 final Player player = (Player) sender;
                                 final UUID uuid = player.getUniqueId();
-                                if(listeners.contains(uuid)) {
+                                if (listeners.contains(uuid)) {
                                     listeners.remove(uuid);
                                     dataCfg.set("players." + uuid.toString() + ".state", false);
                                     try {
@@ -229,48 +228,46 @@ public class BetterCommandSpy extends JavaPlugin implements Listener, TabExecuto
                                     } catch (IOException e) {
                                         e.printStackTrace();
                                     }
-                                    getLogger().warning("[DEBUG] " + messagesCfg.getString("command.off.self") + ":" + messagesCfg.getString("general.prefix"));
-                                    sender.sendMessage(colorize(messagesCfg.getString("command.off.self"))
-                                            .replace("%prefix%", Objects.requireNonNull(messagesCfg.getString("general.prefix"))));
+                                    sender.sendMessage(colorize(Objects.requireNonNull(messagesCfg.getString("command.toggle_off.self"))
+                                            .replace("%prefix%", Objects.requireNonNull(messagesCfg.getString("general.prefix")))));
                                 } else {
-                                    sender.sendMessage(colorize(messagesCfg.getString("command.off.self-already"))
-                                            .replace("%prefix%", Objects.requireNonNull(messagesCfg.getString("general.prefix"))));
+                                    sender.sendMessage(colorize(Objects.requireNonNull(messagesCfg.getString("command.toggle_off.self-already"))
+                                            .replace("%prefix%", Objects.requireNonNull(messagesCfg.getString("general.prefix")))));
                                 }
                             } else {
-                                sender.sendMessage(colorize(messagesCfg.getString("command.off.usage-console"))
-                                        .replace("%prefix%", Objects.requireNonNull(messagesCfg.getString("general.prefix")))
+                                sender.sendMessage(colorize(Objects.requireNonNull(messagesCfg.getString("command.toggle_off.usage-console"))
+                                        .replace("%prefix%", Objects.requireNonNull(messagesCfg.getString("general.prefix"))))
                                         .replace("%label%", label));
                             }
-                        } else if(args.length == 2) {
-                            if(sender.hasPermission("commandspy.toggle.others")) {
-                                @SuppressWarnings("deprecation")
-                                final OfflinePlayer target = Bukkit.getOfflinePlayer(args[1]);
-                                if(target.hasPlayedBefore() || target.isOnline()) {
+                        } else if (args.length == 2) {
+                            if (sender.hasPermission("commandspy.toggle.others")) {
+                                @SuppressWarnings("deprecation") final OfflinePlayer target = Bukkit.getOfflinePlayer(args[1]);
+                                if (target.hasPlayedBefore() || target.isOnline()) {
                                     UUID uuid = target.getUniqueId();
                                     String path = "players." + uuid.toString() + ".state";
-                                    if(dataCfg.contains(path)) {
-                                        if(dataCfg.getBoolean(path)) {
+                                    if (dataCfg.contains(path)) {
+                                        if (dataCfg.getBoolean(path)) {
                                             dataCfg.set(path, false);
                                             try {
                                                 dataCfg.save(dataFile);
                                             } catch (IOException e) {
                                                 e.printStackTrace();
                                             }
-                                            sender.sendMessage(colorize(messagesCfg.getString("commandspy.off.others"))
+                                            sender.sendMessage(colorize(Objects.requireNonNull(messagesCfg.getString("commandspy.toggle_off.others"))
                                                     .replace("%prefix%", Objects.requireNonNull(messagesCfg.getString("general.prefix")))
-                                                    .replace("%player%", Objects.requireNonNull(target.getName())));
-                                            if(target.isOnline()) {
+                                                    .replace("%player%", Objects.requireNonNull(target.getName()))));
+                                            if (target.isOnline()) {
                                                 final Player player = target.getPlayer();
                                                 assert player != null;
                                                 listeners.remove(player.getUniqueId());
-                                                player.sendMessage(colorize(messagesCfg.getString("command.off.by"))
+                                                player.sendMessage(colorize(Objects.requireNonNull(messagesCfg.getString("command.toggle_off.by"))
                                                         .replace("%prefix%", Objects.requireNonNull(messagesCfg.getString("general.prefix")))
-                                                        .replace("%player%", sender.getName()));
+                                                        .replace("%player%", sender.getName())));
                                             }
                                         } else {
-                                            sender.sendMessage(colorize(messagesCfg.getString("command.off.others-already"))
+                                            sender.sendMessage(colorize(Objects.requireNonNull(messagesCfg.getString("command.toggle_off.others-already"))
                                                     .replace("%prefix%", Objects.requireNonNull(messagesCfg.getString("general.prefix")))
-                                                    .replace("%player%", Objects.requireNonNull(target.getName())));
+                                                    .replace("%player%", Objects.requireNonNull(target.getName()))));
                                         }
                                     } else {
                                         dataCfg.set(path, false);
@@ -279,50 +276,57 @@ public class BetterCommandSpy extends JavaPlugin implements Listener, TabExecuto
                                         } catch (IOException e) {
                                             e.printStackTrace();
                                         }
-                                        sender.sendMessage(colorize(messagesCfg.getString("commandspy.off.others"))
+                                        sender.sendMessage(colorize(Objects.requireNonNull(messagesCfg.getString("commandspy.toggle_off.others"))
                                                 .replace("%prefix%", Objects.requireNonNull(messagesCfg.getString("general.prefix")))
-                                                .replace("%player%", Objects.requireNonNull(target.getName())));
-                                        if(target.isOnline()) {
+                                                .replace("%player%", Objects.requireNonNull(target.getName()))));
+                                        if (target.isOnline()) {
                                             final Player player = target.getPlayer();
                                             assert player != null;
                                             listeners.remove(player.getUniqueId());
-                                            player.sendMessage(colorize(messagesCfg.getString("command.off.by"))
+                                            player.sendMessage(colorize(Objects.requireNonNull(messagesCfg.getString("command.toggle_off.by"))
                                                     .replace("%prefix%", Objects.requireNonNull(messagesCfg.getString("general.prefix")))
-                                                    .replace("%player%", sender.getName()));
+                                                    .replace("%player%", sender.getName())));
                                         }
                                     }
                                 } else {
-                                    sender.sendMessage(colorize(messagesCfg.getString("command.player-never-joined"))
+                                    sender.sendMessage(colorize(Objects.requireNonNull(messagesCfg.getString("command.player-never-joined"))
                                             .replace("%prefix%", Objects.requireNonNull(messagesCfg.getString("general.prefix")))
-                                            .replace("%player%", args[1]));
+                                            .replace("%player%", args[1])));
                                 }
                             }
                         } else {
-                            sender.sendMessage(colorize(messagesCfg.getString("command.off.usage"))
+                            sender.sendMessage(colorize(Objects.requireNonNull(messagesCfg.getString("command.toggle_off.usage"))
                                     .replace("%prefix%", Objects.requireNonNull(messagesCfg.getString("general.prefix")))
-                                    .replace("%label%", label));
+                                    .replace("%label%", label)));
                         }
                     } else {
-                        sender.sendMessage(colorize(messagesCfg.getString("command.no-permission"))
-                                .replace("%prefix%", Objects.requireNonNull(messagesCfg.getString("general.prefix"))));
+                        sender.sendMessage(colorize(Objects.requireNonNull(messagesCfg.getString("command.no-permission"))
+                                .replace("%prefix%", Objects.requireNonNull(messagesCfg.getString("general.prefix")))));
                     }
                     break;
                 case "reload":
-                    if(sender.hasPermission("commandspy.reload")) {
-                        sender.sendMessage(colorize(messagesCfg.getString("command.reload.start"))
-                                .replace("%prefix%", Objects.requireNonNull(messagesCfg.getString("general.prefix"))));
+                    if (sender.hasPermission("commandspy.reload")) {
+                        sender.sendMessage(colorize(Objects.requireNonNull(messagesCfg.getString("command.reload.start"))
+                                .replace("%prefix%", Objects.requireNonNull(messagesCfg.getString("general.prefix")))));
                         loadFiles();
-                        sender.sendMessage(colorize(messagesCfg.getString("command.reload.complete"))
-                                .replace("%prefix%", Objects.requireNonNull(messagesCfg.getString("general.prefix"))));
+                        sender.sendMessage(colorize(Objects.requireNonNull(messagesCfg.getString("command.reload.complete"))
+                                .replace("%prefix%", Objects.requireNonNull(messagesCfg.getString("general.prefix")))));
                     } else {
-                        sender.sendMessage(colorize(messagesCfg.getString("command.no-permission"))
-                                .replace("%prefix%", Objects.requireNonNull(messagesCfg.getString("general.prefix"))));
+                        sender.sendMessage(colorize(Objects.requireNonNull(messagesCfg.getString("command.no-permission"))
+                                .replace("%prefix%", Objects.requireNonNull(messagesCfg.getString("general.prefix")))));
+                    }
+                    break;
+                case "debug_test":
+                    if (messagesCfg.contains(args[1])) {
+                        sender.sendMessage("Yes");
+                    } else {
+                        sender.sendMessage("No");
                     }
                     break;
                 default:
-                    sender.sendMessage(colorize(Objects.requireNonNull(messagesCfg.getString("command.main-usage"))
+                    sender.sendMessage(colorize(Objects.requireNonNull(Objects.requireNonNull(messagesCfg.getString("command.main-usage"))
                             .replace("%prefix%", Objects.requireNonNull(messagesCfg.getString("general.prefix")))
-                            .replace("%label%", label)));
+                            .replace("%label%", label))));
                     break;
             }
         }
@@ -332,21 +336,21 @@ public class BetterCommandSpy extends JavaPlugin implements Listener, TabExecuto
     @Override
     public List<String> onTabComplete(final CommandSender sender, final Command cmd, final String label, final String[] args) {
         List<String> suggestions = new ArrayList<>();
-        if(args.length == 0) {
+        if (args.length == 0) {
             suggestions.add("on");
             suggestions.add("off");
             suggestions.add("reload");
-        } else if(args.length == 1) {
-            if(args[0].equalsIgnoreCase("on") || args[0].equalsIgnoreCase("off")) {
-                if(sender instanceof Player) {
+        } else if (args.length == 1) {
+            if (args[0].equalsIgnoreCase("on") || args[0].equalsIgnoreCase("off")) {
+                if (sender instanceof Player) {
                     Player player = (Player) sender;
-                    for(Player onlinePlayer : Bukkit.getOnlinePlayers()) {
-                        if(player.canSee(onlinePlayer)) {
+                    for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
+                        if (player.canSee(onlinePlayer)) {
                             suggestions.add(onlinePlayer.getName());
                         }
                     }
                 } else {
-                    for(Player onlinePlayer : Bukkit.getOnlinePlayers()) {
+                    for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
                         suggestions.add(onlinePlayer.getName());
                     }
                 }

@@ -26,3 +26,7 @@
 ### v1.0.6-ALPHA
 * Adjusted and fixed file versioning system
 * First joins now save a default state of 'false' if configured as well
+
+### v1.0.7-ALPHA
+* File changes: `messages.yml`. Please update this file else you will get errors!
+* Changed `command.on` to `command.toggle_on` to fix a weird bug (also `command.off` to `command.toggle_off`)
