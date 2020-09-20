@@ -1,6 +1,6 @@
 # BetterCommandSpy Changelog
 
-### v1.0.0-ALPHA
+### v1.0.0-ALPHA b1
 * Initial Release
 
 ### v1.0.1-ALPHA b3
