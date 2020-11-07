@@ -4,11 +4,28 @@ general:
   # Should Command Spy be enabled for new players by default?
   default-commandspy-state: true
 
+  # What commands shouldn't be shown in the commandspy alerts?
+  ignored-commands:
+
+    # Should this function be enabled?
+    enabled: false
+
+    # What type should the ignored commands list be?
+    # WHITELIST = all commands that are listed will be blocked
+    # BLACKLIST = all commands that aren't listed will be blocked
+    type: WHITELIST
+
+    # The list of commands to block :)
+    list:
+      - '/tpa'
+      - '/spawn'
+      - '/home'
+
 # Do not touch anything in here unless you know what you are doing!
 advanced:
 
   # The version of this file.
-  file-version: 1
+  file-version: 2
 
   # The version of BetterCommandSpy that this configuration was originally generated with.
   generated-with: '${project.version}'

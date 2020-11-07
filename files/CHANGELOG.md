@@ -35,3 +35,10 @@
 * Skip sending 'by' message if target = sender
 * Added build number (e.g. 'b14') to the version.
 * Removed extra `/` in command alert message.
+
+### v1.1.0
+* **IMPORTANT:** `settings.yml` has been updated. You must update this file, else you will experience errors.
+* **IMPORTANT:** This update has not been tested. Please test it before deploying it on a production server.
+* Added: ignorable commands section in the settings file with whitelistable and blacklistable commands!
+* Improved: a decent amount of code has been moved around to make the code cleaner :)
+* Improved: shaded in my MicroLib library which made some minor improvements.

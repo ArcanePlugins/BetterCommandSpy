@@ -6,7 +6,7 @@
 
     <groupId>me.lokka30</groupId>
     <artifactId>BetterCommandSpy</artifactId>
-    <version>1.0.7-ALPHA</version>
+    <version>1.1.0</version>
 
     <name>BetterCommandSpy</name>
     <description>A SpigotMC plugin which alerts players with permission of what commands other players are running.
@@ -26,6 +26,10 @@
             <id>CodeMC</id>
             <url>https://repo.codemc.org/repository/maven-public</url>
         </repository>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -40,6 +44,11 @@
             <artifactId>bstats-bukkit</artifactId>
             <version>1.7</version>
             <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.lokka30</groupId>
+            <artifactId>MicroLib</artifactId>
+            <version>2.0.0</version>
         </dependency>
     </dependencies>
 
