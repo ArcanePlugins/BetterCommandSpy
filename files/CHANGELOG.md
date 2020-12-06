@@ -42,3 +42,8 @@
 * Added: ignorable commands section in the settings file with whitelistable and blacklistable commands!
 * Improved: a decent amount of code has been moved around to make the code cleaner :)
 * Improved: shaded in my MicroLib library which made some minor improvements.
+
+### v1.1.1
+* **No configuration changes.**
+* Removed hidden debug feature that I forgot to remove a while ago.
+* Updated deps. (Spigot, MicroLib)

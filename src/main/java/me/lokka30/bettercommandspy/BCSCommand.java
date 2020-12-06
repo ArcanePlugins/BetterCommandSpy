@@ -237,13 +237,6 @@ public class BCSCommand implements TabExecutor {
                                 .replace("%prefix%", Objects.requireNonNull(instance.messagesCfg.getString("general.prefix")))));
                     }
                     break;
-                case "debug_test":
-                    if (instance.messagesCfg.contains(args[1])) {
-                        sender.sendMessage("Yes");
-                    } else {
-                        sender.sendMessage("No");
-                    }
-                    break;
                 default:
                     sender.sendMessage(MicroUtils.colorize(Objects.requireNonNull(Objects.requireNonNull(instance.messagesCfg.getString("command.main-usage"))
                             .replace("%prefix%", Objects.requireNonNull(instance.messagesCfg.getString("general.prefix")))

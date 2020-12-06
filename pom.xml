@@ -6,7 +6,7 @@
 
     <groupId>me.lokka30</groupId>
     <artifactId>BetterCommandSpy</artifactId>
-    <version>1.1.0</version>
+    <version>1.1.1</version>
 
     <name>BetterCommandSpy</name>
     <description>A SpigotMC plugin which alerts players with permission of what commands other players are running.
@@ -36,7 +36,7 @@
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
-            <version>1.16.3-R0.1-SNAPSHOT</version>
+            <version>1.16.4-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -48,7 +48,7 @@
         <dependency>
             <groupId>com.github.lokka30</groupId>
             <artifactId>MicroLib</artifactId>
-            <version>2.0.0</version>
+            <version>2.1.1</version>
         </dependency>
     </dependencies>
 
