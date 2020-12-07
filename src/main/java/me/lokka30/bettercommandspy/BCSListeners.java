@@ -64,8 +64,9 @@ public class BCSListeners implements Listener {
                 Validate.notNull(alertMessage, "Message 'alert' in the 'messages.yml' file must be specified");
 
                 onlinePlayer.sendMessage(MicroUtils.colorize(alertMessage)
-                        .replace("%prefix%", Objects.requireNonNull(instance.messagesCfg.getString("general.prefix")))
+                        .replace("%prefix%", MicroUtils.colorize(Objects.requireNonNull(instance.messagesCfg.getString("general.prefix"))))
                         .replace("%player%", player.getName())
+                        .replace("%displayname%", player.getDisplayName())
                         .replace("%command%", command));
             }
         }

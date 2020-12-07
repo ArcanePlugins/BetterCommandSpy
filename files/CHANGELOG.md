@@ -47,3 +47,8 @@
 * **No configuration changes.**
 * Removed hidden debug feature that I forgot to remove a while ago.
 * Updated deps. (Spigot, MicroLib)
+
+### v1.1.2
+* Fixed outdated README.md
+* Fixed alert messages not having a coloured prefix (thanks lolsloths for reporting this!)
+* Added `%displayname%` placeholder for alert messages
