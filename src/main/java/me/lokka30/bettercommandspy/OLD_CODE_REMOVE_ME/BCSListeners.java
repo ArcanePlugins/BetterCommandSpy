@@ -1,4 +1,4 @@
-package me.lokka30.bettercommandspy.v1;
+package me.lokka30.bettercommandspy.OLD_CODE_REMOVE_ME;
 
 import me.lokka30.microlib.MessageUtils;
 import org.apache.commons.lang.Validate;
