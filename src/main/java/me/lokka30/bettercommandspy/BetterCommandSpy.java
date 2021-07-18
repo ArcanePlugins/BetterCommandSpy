@@ -1,64 +1,112 @@
 package me.lokka30.bettercommandspy;
 
-import me.lokka30.microlib.MicroLogger;
+import me.lokka30.bettercommandspy.commands.BetterCommandSpyCommand;
+import me.lokka30.bettercommandspy.handlers.FileHandler;
+import me.lokka30.bettercommandspy.listeners.CommandListener;
+import me.lokka30.bettercommandspy.misc.Utils;
+import me.lokka30.microlib.QuickTimer;
+import me.lokka30.microlib.YamlConfigFile;
 import org.bstats.bukkit.Metrics;
-import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Objects;
-import java.util.UUID;
 
+/**
+ * Main class of the plugin, loaded by Bukkit.
+ *
+ * @author lokka30
+ * @since v2.0.0
+ */
 public class BetterCommandSpy extends JavaPlugin {
 
-    final MicroLogger logger = new MicroLogger("&b&lBetterCommandSpy: &7");
+    /* Handler Classes */
+    public final FileHandler fileHandler = new FileHandler(this);
 
-    final ArrayList<UUID> listeners = new ArrayList<>();
+    /* Config Files */
+    public final YamlConfigFile settings = new YamlConfigFile(this, new File(getDataFolder(), "settings.yml"));
+    public final YamlConfigFile messages = new YamlConfigFile(this, new File(getDataFolder(), "messages.yml"));
+    public final YamlConfigFile data = new YamlConfigFile(this, new File(getDataFolder(), "data.yml"));
 
-    final File settingsFile = new File(getDataFolder(), "settings.yml");
-    final File messagesFile = new File(getDataFolder(), "messages.yml");
-    final File dataFile = new File(getDataFolder(), "data.yml");
-    YamlConfiguration settingsCfg, messagesCfg, dataCfg;
-
+    /**
+     * @author lokka30
+     * @since v2.0.0
+     */
     @Override
     public void onEnable() {
+        final QuickTimer quickTimer = new QuickTimer();
+        Utils.LOGGER.info("&3Start-up: &f~ &7Initiating start-up procedure &f~");
+
         loadFiles();
-        registerEvents();
-        Objects.requireNonNull(getCommand("commandspy")).setExecutor(new BCSCommand(this));
+        registerListeners();
+        registerCommands();
+
+        Utils.LOGGER.info("&3Start-up: &7Running misc startup procedures...");
+        startBStats();
+        checkForUpdates();
+
+        Utils.LOGGER.info("&3Start-up: &f~ &bStart-up complete&7, took &b" + quickTimer.getTimer() + "ms&f ~");
+    }
+
+    /**
+     * @author lokka30
+     * @since v2.0.0
+     */
+    @Override
+    public void onDisable() {
+        final QuickTimer quickTimer = new QuickTimer();
+        Utils.LOGGER.info("&3Shut-down: &f~ &7Initiating shut-down procedure &f~");
+
+        /* Add any onDisable methods here. Nothing for now. */
+
+        Utils.LOGGER.info("&3Shut-down: &f~ &bShut-down complete&7, took &b" + quickTimer.getTimer() + "ms&f ~");
+    }
+
+    /**
+     * @author lokka30
+     * @since v2.0.0
+     */
+    protected void loadFiles() {
+        Utils.LOGGER.info("&3Files: &7Loading files...");
+
+        fileHandler.load();
+    }
+
+    /**
+     * @author lokka30
+     * @since v2.0.0
+     */
+    private void registerListeners() {
+        Utils.LOGGER.info("&3Listeners: &7Registering listeners...");
+
+        Bukkit.getPluginManager().registerEvents(new CommandListener(this), this);
+    }
+
+    /**
+     * @author lokka30
+     * @since v2.0.0
+     */
+    private void registerCommands() {
+        Utils.LOGGER.info("&3Commands: &7Registering commands...");
+
+        Utils.registerCommand(this, new BetterCommandSpyCommand(this), "bettercommandspy");
+    }
+
+    /**
+     * @author lokka30
+     * @since v2.0.0
+     */
+    private void startBStats() {
         new Metrics(this, 8907);
     }
 
-    public void loadFiles() {
-        saveResource("license.txt", true);
-
-        createIfNotExists(settingsFile);
-        settingsCfg = YamlConfiguration.loadConfiguration(settingsFile);
-        checkFileVersion(settingsCfg, "settings.yml", 2);
-
-        createIfNotExists(messagesFile);
-        messagesCfg = YamlConfiguration.loadConfiguration(messagesFile);
-        checkFileVersion(messagesCfg, "messages.yml", 2);
-
-        createIfNotExists(dataFile);
-        dataCfg = YamlConfiguration.loadConfiguration(dataFile);
-        checkFileVersion(dataCfg, "data.yml", 1);
+    /**
+     * TODO
+     *
+     * @author lokka30
+     * @since v2.0.0
+     */
+    protected void checkForUpdates() {
+        // ...
     }
-
-    private void createIfNotExists(File file) {
-        if (!file.exists()) {
-            saveResource(file.getName(), false);
-        }
-    }
-
-    private void checkFileVersion(YamlConfiguration cfg, String name, int recommendedVersion) {
-        if (cfg.getInt("advanced.file-version") != recommendedVersion) {
-            logger.warning("&7Configuration file '&b" + name + "&7' is not running the correct right file version for this version of the plugin. Please regenerate or merge to the latest version of that file, else it is likely errors will occur!");
-        }
-    }
-
-    private void registerEvents() {
-        getServer().getPluginManager().registerEvents(new BCSListeners(this), this);
-    }
-
 }

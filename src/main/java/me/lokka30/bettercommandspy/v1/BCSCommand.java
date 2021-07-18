@@ -1,6 +1,6 @@
-package me.lokka30.bettercommandspy;
+package me.lokka30.bettercommandspy.v1;
 
-import me.lokka30.microlib.MicroUtils;
+import me.lokka30.microlib.MessageUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
@@ -16,9 +16,9 @@ import java.util.UUID;
 
 public class BCSCommand implements TabExecutor {
 
-    private final BetterCommandSpy instance;
+    private final BCSMain instance;
 
-    public BCSCommand(final BetterCommandSpy instance) {
+    public BCSCommand(final BCSMain instance) {
         this.instance = instance;
     }
 
@@ -26,14 +26,14 @@ public class BCSCommand implements TabExecutor {
     public boolean onCommand(final CommandSender sender, final Command cmd, final String label, final String[] args) {
         if (args.length == 0) {
             sender.sendMessage(" ");
-            sender.sendMessage(MicroUtils.colorize("&f&nAbout"));
-            sender.sendMessage(MicroUtils.colorize("&8 &m->&7 Running &b&lCommandSpy &bv" + instance.getDescription().getVersion() + "&7, developed by &flokka30&7."));
-            sender.sendMessage(MicroUtils.colorize("&8 &m->&7&o '" + instance.getDescription().getDescription() + "'"));
+            sender.sendMessage(MessageUtils.colorizeAll("&f&nAbout"));
+            sender.sendMessage(MessageUtils.colorizeAll("&8 &m->&7 Running &b&lCommandSpy &bv" + instance.getDescription().getVersion() + "&7, developed by &flokka30&7."));
+            sender.sendMessage(MessageUtils.colorizeAll("&8 &m->&7&o '" + instance.getDescription().getDescription() + "'"));
             sender.sendMessage(" ");
-            sender.sendMessage(MicroUtils.colorize("&f&nAvailable Commands"));
-            sender.sendMessage(MicroUtils.colorize("&8 &m->&b /commandspy on [player] &8(&7enable commandspy&8)"));
-            sender.sendMessage(MicroUtils.colorize("&8 &m->&b /commandspy off [player] &8(&7disable commandspy&8)"));
-            sender.sendMessage(MicroUtils.colorize("&8 &m->&b /commandspy reload &8(&7reload commandspy configuration files&8)"));
+            sender.sendMessage(MessageUtils.colorizeAll("&f&nAvailable Commands"));
+            sender.sendMessage(MessageUtils.colorizeAll("&8 &m->&b /commandspy on [player] &8(&7enable commandspy&8)"));
+            sender.sendMessage(MessageUtils.colorizeAll("&8 &m->&b /commandspy off [player] &8(&7disable commandspy&8)"));
+            sender.sendMessage(MessageUtils.colorizeAll("&8 &m->&b /commandspy reload &8(&7reload commandspy configuration files&8)"));
             sender.sendMessage(" ");
         } else {
             switch (args[0].toLowerCase()) {
@@ -44,21 +44,21 @@ public class BCSCommand implements TabExecutor {
                                 final Player player = (Player) sender;
                                 final UUID uuid = player.getUniqueId();
                                 if (instance.listeners.contains(uuid)) {
-                                    sender.sendMessage(MicroUtils.colorize(Objects.requireNonNull(instance.messagesCfg.getString("command.toggle_on.self-already"))
+                                    sender.sendMessage(MessageUtils.colorizeAll(Objects.requireNonNull(instance.messagesCfg.getString("command.toggle_on.self-already"))
                                             .replace("%prefix%", Objects.requireNonNull(instance.messagesCfg.getString("general.prefix")))));
                                 } else {
                                     instance.listeners.add(uuid);
-                                    instance.dataCfg.set("players." + uuid.toString() + ".state", true);
+                                    instance.dataCfg.set("players." + uuid + ".state", true);
                                     try {
                                         instance.dataCfg.save(instance.dataFile);
                                     } catch (IOException e) {
                                         e.printStackTrace();
                                     }
-                                    sender.sendMessage(MicroUtils.colorize(Objects.requireNonNull(instance.messagesCfg.getString("command.toggle_on.self"))
+                                    sender.sendMessage(MessageUtils.colorizeAll(Objects.requireNonNull(instance.messagesCfg.getString("command.toggle_on.self"))
                                             .replace("%prefix%", Objects.requireNonNull(instance.messagesCfg.getString("general.prefix")))));
                                 }
                             } else {
-                                sender.sendMessage(MicroUtils.colorize(Objects.requireNonNull(instance.messagesCfg.getString("command.toggle_on.usage-console"))
+                                sender.sendMessage(MessageUtils.colorizeAll(Objects.requireNonNull(instance.messagesCfg.getString("command.toggle_on.usage-console"))
                                         .replace("%prefix%", Objects.requireNonNull(instance.messagesCfg.getString("general.prefix")))
                                         .replace("%label%", label)));
                             }
@@ -67,10 +67,10 @@ public class BCSCommand implements TabExecutor {
                                 @SuppressWarnings("deprecation") final OfflinePlayer target = Bukkit.getOfflinePlayer(args[1]);
                                 if (target.hasPlayedBefore() || target.isOnline()) {
                                     UUID uuid = target.getUniqueId();
-                                    String path = "players." + uuid.toString() + ".state";
+                                    String path = "players." + uuid + ".state";
                                     if (instance.dataCfg.contains(path)) {
                                         if (instance.dataCfg.getBoolean(path)) {
-                                            sender.sendMessage(MicroUtils.colorize(Objects.requireNonNull(instance.messagesCfg.getString("command.toggle_on.others-already"))
+                                            sender.sendMessage(MessageUtils.colorizeAll(Objects.requireNonNull(instance.messagesCfg.getString("command.toggle_on.others-already"))
                                                     .replace("%prefix%", Objects.requireNonNull(instance.messagesCfg.getString("general.prefix")))
                                                     .replace("%player%", Objects.requireNonNull(target.getName()))));
                                         } else {
@@ -80,7 +80,7 @@ public class BCSCommand implements TabExecutor {
                                             } catch (IOException e) {
                                                 e.printStackTrace();
                                             }
-                                            sender.sendMessage(MicroUtils.colorize(Objects.requireNonNull(instance.messagesCfg.getString("command.toggle_on.others"))
+                                            sender.sendMessage(MessageUtils.colorizeAll(Objects.requireNonNull(instance.messagesCfg.getString("command.toggle_on.others"))
                                                     .replace("%prefix%", Objects.requireNonNull(instance.messagesCfg.getString("general.prefix")))
                                                     .replace("%player%", Objects.requireNonNull(target.getName()))));
                                             if (target.isOnline()) {
@@ -88,7 +88,7 @@ public class BCSCommand implements TabExecutor {
                                                 assert player != null;
                                                 instance.listeners.add(player.getUniqueId());
                                                 if (!player.getName().equals(sender.getName())) {
-                                                    player.sendMessage(MicroUtils.colorize(Objects.requireNonNull(instance.messagesCfg.getString("command.toggle_on.by"))
+                                                    player.sendMessage(MessageUtils.colorizeAll(Objects.requireNonNull(instance.messagesCfg.getString("command.toggle_on.by"))
                                                             .replace("%prefix%", Objects.requireNonNull(instance.messagesCfg.getString("general.prefix")))
                                                             .replace("%player%", sender.getName())));
                                                 }
@@ -101,7 +101,7 @@ public class BCSCommand implements TabExecutor {
                                         } catch (IOException e) {
                                             e.printStackTrace();
                                         }
-                                        sender.sendMessage(MicroUtils.colorize(Objects.requireNonNull(instance.messagesCfg.getString("commandspy.toggle_on.others"))
+                                        sender.sendMessage(MessageUtils.colorizeAll(Objects.requireNonNull(instance.messagesCfg.getString("commandspy.toggle_on.others"))
                                                 .replace("%prefix%", Objects.requireNonNull(instance.messagesCfg.getString("general.prefix")))
                                                 .replace("%player%", Objects.requireNonNull(target.getName()))));
                                         if (target.isOnline()) {
@@ -109,25 +109,25 @@ public class BCSCommand implements TabExecutor {
                                             assert player != null;
                                             instance.listeners.add(player.getUniqueId());
                                             if (!player.getName().equals(sender.getName())) {
-                                                player.sendMessage(MicroUtils.colorize(Objects.requireNonNull(Objects.requireNonNull(instance.messagesCfg.getString("command.toggle_on.by"))
+                                                player.sendMessage(MessageUtils.colorizeAll(Objects.requireNonNull(Objects.requireNonNull(instance.messagesCfg.getString("command.toggle_on.by"))
                                                         .replace("%prefix%", Objects.requireNonNull(instance.messagesCfg.getString("general.prefix")))
                                                         .replace("%player%", sender.getName()))));
                                             }
                                         }
                                     }
                                 } else {
-                                    sender.sendMessage(MicroUtils.colorize(Objects.requireNonNull(instance.messagesCfg.getString("command.player-never-joined"))
+                                    sender.sendMessage(MessageUtils.colorizeAll(Objects.requireNonNull(instance.messagesCfg.getString("command.player-never-joined"))
                                             .replace("%prefix%", Objects.requireNonNull(instance.messagesCfg.getString("general.prefix")))
                                             .replace("%player%", args[1])));
                                 }
                             }
                         } else {
-                            sender.sendMessage(MicroUtils.colorize(Objects.requireNonNull(Objects.requireNonNull(instance.messagesCfg.getString("command.toggle_on.usage"))
+                            sender.sendMessage(MessageUtils.colorizeAll(Objects.requireNonNull(Objects.requireNonNull(instance.messagesCfg.getString("command.toggle_on.usage"))
                                     .replace("%prefix%", Objects.requireNonNull(instance.messagesCfg.getString("general.prefix")))
                                     .replace("%label%", label))));
                         }
                     } else {
-                        sender.sendMessage(MicroUtils.colorize(Objects.requireNonNull(instance.messagesCfg.getString("command.no-permission"))
+                        sender.sendMessage(MessageUtils.colorizeAll(Objects.requireNonNull(instance.messagesCfg.getString("command.no-permission"))
                                 .replace("%prefix%", Objects.requireNonNull(instance.messagesCfg.getString("general.prefix")))));
                     }
                     break;
@@ -139,20 +139,20 @@ public class BCSCommand implements TabExecutor {
                                 final UUID uuid = player.getUniqueId();
                                 if (instance.listeners.contains(uuid)) {
                                     instance.listeners.remove(uuid);
-                                    instance.dataCfg.set("players." + uuid.toString() + ".state", false);
+                                    instance.dataCfg.set("players." + uuid + ".state", false);
                                     try {
                                         instance.dataCfg.save(instance.dataFile);
                                     } catch (IOException e) {
                                         e.printStackTrace();
                                     }
-                                    sender.sendMessage(MicroUtils.colorize(Objects.requireNonNull(instance.messagesCfg.getString("command.toggle_off.self"))
+                                    sender.sendMessage(MessageUtils.colorizeAll(Objects.requireNonNull(instance.messagesCfg.getString("command.toggle_off.self"))
                                             .replace("%prefix%", Objects.requireNonNull(instance.messagesCfg.getString("general.prefix")))));
                                 } else {
-                                    sender.sendMessage(MicroUtils.colorize(Objects.requireNonNull(instance.messagesCfg.getString("command.toggle_off.self-already"))
+                                    sender.sendMessage(MessageUtils.colorizeAll(Objects.requireNonNull(instance.messagesCfg.getString("command.toggle_off.self-already"))
                                             .replace("%prefix%", Objects.requireNonNull(instance.messagesCfg.getString("general.prefix")))));
                                 }
                             } else {
-                                sender.sendMessage(MicroUtils.colorize(Objects.requireNonNull(instance.messagesCfg.getString("command.toggle_off.usage-console"))
+                                sender.sendMessage(MessageUtils.colorizeAll(Objects.requireNonNull(instance.messagesCfg.getString("command.toggle_off.usage-console"))
                                         .replace("%prefix%", Objects.requireNonNull(instance.messagesCfg.getString("general.prefix"))))
                                         .replace("%label%", label));
                             }
@@ -161,7 +161,7 @@ public class BCSCommand implements TabExecutor {
                                 @SuppressWarnings("deprecation") final OfflinePlayer target = Bukkit.getOfflinePlayer(args[1]);
                                 if (target.hasPlayedBefore() || target.isOnline()) {
                                     UUID uuid = target.getUniqueId();
-                                    String path = "players." + uuid.toString() + ".state";
+                                    String path = "players." + uuid + ".state";
                                     if (instance.dataCfg.contains(path)) {
                                         if (instance.dataCfg.getBoolean(path)) {
                                             instance.dataCfg.set(path, false);
@@ -170,7 +170,7 @@ public class BCSCommand implements TabExecutor {
                                             } catch (IOException e) {
                                                 e.printStackTrace();
                                             }
-                                            sender.sendMessage(MicroUtils.colorize(Objects.requireNonNull(instance.messagesCfg.getString("command.toggle_off.others"))
+                                            sender.sendMessage(MessageUtils.colorizeAll(Objects.requireNonNull(instance.messagesCfg.getString("command.toggle_off.others"))
                                                     .replace("%prefix%", Objects.requireNonNull(instance.messagesCfg.getString("general.prefix")))
                                                     .replace("%player%", Objects.requireNonNull(target.getName()))));
                                             if (target.isOnline()) {
@@ -178,13 +178,13 @@ public class BCSCommand implements TabExecutor {
                                                 assert player != null;
                                                 instance.listeners.remove(player.getUniqueId());
                                                 if (!player.getName().equals(sender.getName())) {
-                                                    player.sendMessage(MicroUtils.colorize(Objects.requireNonNull(instance.messagesCfg.getString("command.toggle_off.by"))
+                                                    player.sendMessage(MessageUtils.colorizeAll(Objects.requireNonNull(instance.messagesCfg.getString("command.toggle_off.by"))
                                                             .replace("%prefix%", Objects.requireNonNull(instance.messagesCfg.getString("general.prefix")))
                                                             .replace("%player%", sender.getName())));
                                                 }
                                             }
                                         } else {
-                                            sender.sendMessage(MicroUtils.colorize(Objects.requireNonNull(instance.messagesCfg.getString("command.toggle_off.others-already"))
+                                            sender.sendMessage(MessageUtils.colorizeAll(Objects.requireNonNull(instance.messagesCfg.getString("command.toggle_off.others-already"))
                                                     .replace("%prefix%", Objects.requireNonNull(instance.messagesCfg.getString("general.prefix")))
                                                     .replace("%player%", Objects.requireNonNull(target.getName()))));
                                         }
@@ -195,7 +195,7 @@ public class BCSCommand implements TabExecutor {
                                         } catch (IOException e) {
                                             e.printStackTrace();
                                         }
-                                        sender.sendMessage(MicroUtils.colorize(Objects.requireNonNull(instance.messagesCfg.getString("command.toggle_off.others"))
+                                        sender.sendMessage(MessageUtils.colorizeAll(Objects.requireNonNull(instance.messagesCfg.getString("command.toggle_off.others"))
                                                 .replace("%prefix%", Objects.requireNonNull(instance.messagesCfg.getString("general.prefix")))
                                                 .replace("%player%", Objects.requireNonNull(target.getName()))));
                                         if (target.isOnline()) {
@@ -203,42 +203,42 @@ public class BCSCommand implements TabExecutor {
                                             assert player != null;
                                             instance.listeners.remove(player.getUniqueId());
                                             if (!player.getName().equals(sender.getName())) {
-                                                player.sendMessage(MicroUtils.colorize(Objects.requireNonNull(instance.messagesCfg.getString("command.toggle_off.by"))
+                                                player.sendMessage(MessageUtils.colorizeAll(Objects.requireNonNull(instance.messagesCfg.getString("command.toggle_off.by"))
                                                         .replace("%prefix%", Objects.requireNonNull(instance.messagesCfg.getString("general.prefix")))
                                                         .replace("%player%", sender.getName())));
                                             }
                                         }
                                     }
                                 } else {
-                                    sender.sendMessage(MicroUtils.colorize(Objects.requireNonNull(instance.messagesCfg.getString("command.player-never-joined"))
+                                    sender.sendMessage(MessageUtils.colorizeAll(Objects.requireNonNull(instance.messagesCfg.getString("command.player-never-joined"))
                                             .replace("%prefix%", Objects.requireNonNull(instance.messagesCfg.getString("general.prefix")))
                                             .replace("%player%", args[1])));
                                 }
                             }
                         } else {
-                            sender.sendMessage(MicroUtils.colorize(Objects.requireNonNull(instance.messagesCfg.getString("command.toggle_off.usage"))
+                            sender.sendMessage(MessageUtils.colorizeAll(Objects.requireNonNull(instance.messagesCfg.getString("command.toggle_off.usage"))
                                     .replace("%prefix%", Objects.requireNonNull(instance.messagesCfg.getString("general.prefix")))
                                     .replace("%label%", label)));
                         }
                     } else {
-                        sender.sendMessage(MicroUtils.colorize(Objects.requireNonNull(instance.messagesCfg.getString("command.no-permission"))
+                        sender.sendMessage(MessageUtils.colorizeAll(Objects.requireNonNull(instance.messagesCfg.getString("command.no-permission"))
                                 .replace("%prefix%", Objects.requireNonNull(instance.messagesCfg.getString("general.prefix")))));
                     }
                     break;
                 case "reload":
                     if (sender.hasPermission("bettercommandspy.reload")) {
-                        sender.sendMessage(MicroUtils.colorize(Objects.requireNonNull(instance.messagesCfg.getString("command.reload.start"))
+                        sender.sendMessage(MessageUtils.colorizeAll(Objects.requireNonNull(instance.messagesCfg.getString("command.reload.start"))
                                 .replace("%prefix%", Objects.requireNonNull(instance.messagesCfg.getString("general.prefix")))));
                         instance.loadFiles();
-                        sender.sendMessage(MicroUtils.colorize(Objects.requireNonNull(instance.messagesCfg.getString("command.reload.complete"))
+                        sender.sendMessage(MessageUtils.colorizeAll(Objects.requireNonNull(instance.messagesCfg.getString("command.reload.complete"))
                                 .replace("%prefix%", Objects.requireNonNull(instance.messagesCfg.getString("general.prefix")))));
                     } else {
-                        sender.sendMessage(MicroUtils.colorize(Objects.requireNonNull(instance.messagesCfg.getString("command.no-permission"))
+                        sender.sendMessage(MessageUtils.colorizeAll(Objects.requireNonNull(instance.messagesCfg.getString("command.no-permission"))
                                 .replace("%prefix%", Objects.requireNonNull(instance.messagesCfg.getString("general.prefix")))));
                     }
                     break;
                 default:
-                    sender.sendMessage(MicroUtils.colorize(Objects.requireNonNull(Objects.requireNonNull(instance.messagesCfg.getString("command.main-usage"))
+                    sender.sendMessage(MessageUtils.colorizeAll(Objects.requireNonNull(Objects.requireNonNull(instance.messagesCfg.getString("command.main-usage"))
                             .replace("%prefix%", Objects.requireNonNull(instance.messagesCfg.getString("general.prefix")))
                             .replace("%label%", label))));
                     break;

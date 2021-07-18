@@ -1,26 +1,56 @@
-name: ${project.name}
-version: ${project.version}
+#  _____    _____   _____
+# |  __ \  /  __ \ /  ___\
+# | |_/ / | /  \_/ `--.
+# |  __ \ | |   __ `--. \
+# | |_/ / | \__/ / ,__/ /
+# \____/   \____/ \____/
+
+# <!> WARNING - NOT A CONFIG! <!>
+# This is not a configuration file!
+# This file is used by your server
+# software when it loads the plugin.
+
+# About the plugin
+name: 'BetterCommandSpy'
+version: '${project.version}'
+description: '${project.description}'
+authors: [ 'lokka30' ]
+
+# Information for Bukkit
+main: 'me.lokka30.bettercommandspy.v1.BetterCommandSpy'
 api-version: '1.13'
-main: me.lokka30.bettercommandspy.BetterCommandSpy
-author: lokka30
-description: ${project.description}
+
+# Commands registered by the plugin
 commands:
-  commandspy:
-    description: Manage the plugin.
-    usage: /<command> [on/off/reload]
-    aliases: [bettercommandspy, cspy, cmdspy]
+  bettercommandspy:
+    description: 'Interact with BetterCommandSpy.'
+    usage: '/<command>'
+    aliases: [ 'bcs', 'commandspy', 'cspy', 'cmdspy', 'cs' ]
+
 permissions:
-  bettercommandspy.toggle:
-    default: op
-    description: Ability to set commandspy on / off (/commandspy on/off)
-  bettercommandspy.toggle.others:
-    default: op
-    description: Ability to toggle commandspy for other players
+  bettercommandspy.*:
+    default: 'op'
+    description: 'All permissions!'
     children:
       bettercommandspy.toggle: true
+      bettercommandspy.toggle.others: true
+      bettercommandspy.reload: true
+      bettercommandspy.bypass: true
+
+  bettercommandspy.toggle:
+    default: 'op'
+    description: 'Ability to set commandspy on / off (/commandspy on/off)'
+
+  bettercommandspy.toggle.others:
+    default: 'op'
+    description: 'Ability to toggle commandspy for other players'
+    children:
+      bettercommandspy.toggle: true
+
   bettercommandspy.reload:
-    default: op
-    description: Ability to reload the configuration (/commandspy reload)
+    default: 'op'
+    description: 'Ability to reload the configuration (/commandspy reload)'
+
   bettercommandspy.bypass:
     default: false
-    description: Commands sent from users with this permission will not be shown in command spy.
+    description: 'Commands sent from users with this permission will not be shown in command spy.'

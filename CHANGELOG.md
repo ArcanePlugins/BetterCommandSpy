@@ -4,8 +4,22 @@
 
 ## v2.0.0 b23
 
-* Updated MicroLib dep to latest version
-* Updated bStats dep to latest version
+### Notable Changes
+
+* **Completely re-programmed the plugin from the ground up**. This took a while! Far better code now :) (@lokka30)
+* Now with **fully** customisable, **multi-line** messages in `messages.yml`!
+* All messages now have **hex color code support** (this feature is only accessible to 1.16+ servers, and not on
+  CraftBukkit servers) (@lokka30)
+
+### Other Changes
+
+* All console logs now have color code support for non-Paper servers. No more messy consoles :) (@stumper66)
+* Command spy now automatically disables itself when it detects a user no longer has permission to use it. (@lokka30)
+* Added permission `bettercommandspy.*` (@lokka30)
+* Using MicroLib's `YamlConfigFile` class to manage config files (@lokka30)
+* Updated shaded dependencies to latest version (@lokka30)
+  * MicroLib
+  * bStats
 
 # Old Changelog
 

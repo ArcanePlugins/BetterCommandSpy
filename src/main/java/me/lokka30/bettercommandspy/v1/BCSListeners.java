@@ -1,6 +1,6 @@
-package me.lokka30.bettercommandspy;
+package me.lokka30.bettercommandspy.v1;
 
-import me.lokka30.microlib.MicroUtils;
+import me.lokka30.microlib.MessageUtils;
 import org.apache.commons.lang.Validate;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -16,9 +16,9 @@ import java.util.UUID;
 
 public class BCSListeners implements Listener {
 
-    private final BetterCommandSpy instance;
+    private final BCSMain instance;
 
-    public BCSListeners(final BetterCommandSpy instance) {
+    public BCSListeners(final BCSMain instance) {
         this.instance = instance;
     }
 
@@ -26,7 +26,7 @@ public class BCSListeners implements Listener {
     public void onJoin(final PlayerJoinEvent event) throws IOException {
         final Player player = event.getPlayer();
         final UUID uuid = player.getUniqueId();
-        final String path = "players." + uuid.toString() + ".state";
+        final String path = "players." + uuid + ".state";
 
         if (player.hasPermission("bettercommandspy.toggle")) {
             if (instance.dataCfg.contains(path)) {
@@ -63,8 +63,8 @@ public class BCSListeners implements Listener {
                 String alertMessage = instance.messagesCfg.getString("alert");
                 Validate.notNull(alertMessage, "Message 'alert' in the 'messages.yml' file must be specified");
 
-                onlinePlayer.sendMessage(MicroUtils.colorize(alertMessage)
-                        .replace("%prefix%", MicroUtils.colorize(Objects.requireNonNull(instance.messagesCfg.getString("general.prefix"))))
+                onlinePlayer.sendMessage(MessageUtils.colorizeAll(alertMessage)
+                        .replace("%prefix%", MessageUtils.colorizeAll(Objects.requireNonNull(instance.messagesCfg.getString("general.prefix"))))
                         .replace("%player%", player.getName())
                         .replace("%displayname%", player.getDisplayName())
                         .replace("%command%", command));
