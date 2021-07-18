@@ -1,5 +1,21 @@
-# Do not touch this file unless you know what you are doing!
+#  _____    _____   _____
+# |  __ \  /  __ \ /  ___\
+# | |_/ / | /  \_/ `--.
+# |  __ \ | |   __ `--. \
+# | |_/ / | \__/ / ,__/ /
+# \____/   \____/ \____/
+
+# This is the data file, which stores information that the plugin
+# uses, persisting over restarts.
+
+# <!> WARNING <!>
+# This file is not meant to be user-configured.
+# Do not touch this file unless you know exactly
+# what you are doing! :)
+
 advanced:
   file-version: 1
   generated-with: '${project.version}'
+
+
 players:

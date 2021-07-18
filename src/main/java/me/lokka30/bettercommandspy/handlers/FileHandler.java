@@ -16,6 +16,21 @@ public class FileHandler {
         this.main = main;
     }
 
+    public enum Files {
+        SETTINGS("settings.yml", 3),
+        MESSAGES("messages.yml", 3),
+        DATA("data.yml", 1),
+        LICENSE("license.txt", -1);
+
+        public final String fileName;
+        public final int latestFileVersion; // -1 means that the file is not versioned.
+
+        Files(String fileName, int latestFileVersion) {
+            this.fileName = fileName;
+            this.latestFileVersion = latestFileVersion;
+        }
+    }
+
     public void load() {
         //TODO
     }

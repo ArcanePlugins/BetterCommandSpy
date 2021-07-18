@@ -1,3 +1,10 @@
+  _____    _____   _____
+ |  __ \  /  __ \ /  ___\
+ | |_/ / | /  \_/ `--.
+ |  __ \ | |   __ `--. \
+ | |_/ / | \__/ / ,__/ /
+ \____/   \____/ \____/
+
 BetterCommandSpy: A SpigotMC resource to spy on the commands that your players run.
 Copyright (C) 2021  lokka30
 
