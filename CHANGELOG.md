@@ -1,13 +1,27 @@
-# BetterCommandSpy Changelog
+# BCS Changelog
+
+(In descending order)
+
+## v2.0.0 b23
+
+* Updated MicroLib dep to latest version
+* Updated bStats dep to latest version
+
+# Old Changelog
+
+(In ascending order)
 
 ### v1.0.0-ALPHA b1
+
 * Initial Release
 
 ### v1.0.1-ALPHA b3
+
 * Renamed CommandSpy > BetterCommandSpy
 * Added bStats metrics
 
 ### v1.0.2-ALPHA b5
+
 * Updated Metrics
 
 ### v1.0.3-ALPHA b8
