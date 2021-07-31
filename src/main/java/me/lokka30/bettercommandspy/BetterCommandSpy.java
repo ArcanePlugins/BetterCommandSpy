@@ -6,6 +6,7 @@ package me.lokka30.bettercommandspy;
 
 import me.lokka30.bettercommandspy.commands.bettercommandspy.BetterCommandSpyCommand;
 import me.lokka30.bettercommandspy.handlers.FileHandler;
+import me.lokka30.bettercommandspy.handlers.UserHandler;
 import me.lokka30.bettercommandspy.listeners.CommandListener;
 import me.lokka30.bettercommandspy.misc.Utils;
 import me.lokka30.microlib.QuickTimer;
@@ -26,6 +27,7 @@ public class BetterCommandSpy extends JavaPlugin {
 
     /* Handler Classes */
     public final FileHandler fileHandler = new FileHandler(this);
+    public final UserHandler userHandler = new UserHandler(this);
 
     /* Config Files */
     public final YamlConfigFile settings = new YamlConfigFile(this, new File(getDataFolder(), "settings.yml"));
@@ -33,6 +35,8 @@ public class BetterCommandSpy extends JavaPlugin {
     public final YamlConfigFile data = new YamlConfigFile(this, new File(getDataFolder(), "data.yml"));
 
     /**
+     * Start-up sequence of the plugin. Called by Bukkit
+     *
      * @author lokka30
      * @since v2.0.0
      */
@@ -53,6 +57,8 @@ public class BetterCommandSpy extends JavaPlugin {
     }
 
     /**
+     * Shut-down sequence of the plugin. CAlled by Bukkit
+     *
      * @author lokka30
      * @since v2.0.0
      */
@@ -67,6 +73,8 @@ public class BetterCommandSpy extends JavaPlugin {
     }
 
     /**
+     * Load/reload the configs.
+     *
      * @author lokka30
      * @since v2.0.0
      */
@@ -77,6 +85,18 @@ public class BetterCommandSpy extends JavaPlugin {
     }
 
     /**
+     * Run checks to see if the server is compatible or not with this version of the plugin
+     *
+     * @author lokka30
+     * @since v2.0.0
+     */
+    private void checkCompatibility() {
+        //TODO
+    }
+
+    /**
+     * Register the listeners the plugin has.
+     *
      * @author lokka30
      * @since v2.0.0
      */
@@ -87,6 +107,8 @@ public class BetterCommandSpy extends JavaPlugin {
     }
 
     /**
+     * Register the commands.
+     *
      * @author lokka30
      * @since v2.0.0
      */
@@ -97,6 +119,8 @@ public class BetterCommandSpy extends JavaPlugin {
     }
 
     /**
+     * Start logging bStats metrics.
+     *
      * @author lokka30
      * @since v2.0.0
      */
@@ -106,6 +130,8 @@ public class BetterCommandSpy extends JavaPlugin {
 
     /**
      * TODO
+     * <p>
+     * Run the async update checker from MicroLib.
      *
      * @author lokka30
      * @since v2.0.0
