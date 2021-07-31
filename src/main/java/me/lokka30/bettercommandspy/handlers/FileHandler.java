@@ -15,16 +15,15 @@ import me.lokka30.bettercommandspy.BetterCommandSpy;
 public class FileHandler {
 
     private final BetterCommandSpy main;
-
     public FileHandler(final BetterCommandSpy main) {
         this.main = main;
     }
 
     public enum Files {
-        SETTINGS("settings.yml", 3),
-        MESSAGES("messages.yml", 3),
-        DATA("data.yml", 1),
-        LICENSE("license.txt", -1);
+        SETTINGS("settings.yml", 3), // Last modified v2.0.0
+        MESSAGES("messages.yml", 3), // Last modified v2.0.0
+        DATA("data.yml", 1), // Last modified v1.0.0
+        LICENSE("license.txt", -1); // Last modified v1.0.0
 
         public final String fileName;
         public final int latestFileVersion; // -1 means that the file is not versioned.

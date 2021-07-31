@@ -5,34 +5,41 @@
 # | |_/ / | \__/ / ,__/ /
 # \____/   \____/ \____/
 
-# General settings.
-general:
+# Should Command Spy be enabled for new players by default?
+default-commandspy-state: true
 
-  # Should Command Spy be enabled for new players by default?
-  default-commandspy-state: true
+# What commands shouldn't be shown in the commandspy alerts?
+ignored-commands:
 
-  # What commands shouldn't be shown in the commandspy alerts?
-  ignored-commands:
+  # Should this function be enabled?
+  enabled: false
 
-    # Should this function be enabled?
-    enabled: false
+  # What type should the ignored commands list be?
+  # WHITELIST = all commands that are listed will be blocked
+  # BLACKLIST = all commands that aren't listed will be blocked
+  type: WHITELIST
 
-    # What type should the ignored commands list be?
-    # WHITELIST = all commands that are listed will be blocked
-    # BLACKLIST = all commands that aren't listed will be blocked
-    type: WHITELIST
+  # The list of commands to block :)
+  list:
+    - '/tpa'
+    - '/spawn'
+    - '/home'
 
-    # The list of commands to block :)
-    list:
-      - '/tpa'
-      - '/spawn'
-      - '/home'
+# Should BetterCommandSpy make sure players that have Command Spy toggled ON
+# have an extra permission as a layer of security to actually be able to spy?
+# This permission is 'bettercommandspy.canListen', it is given to operators
+# by default. If this setting is TRUE and a player does not have this permission
+# but has Command Spy on (e.g. if they enabled it before getting their staff
+# rank removed), the player's command spy will be automatically disabled.
+# If this setting is FALSE then any player with command spy enabled can
+# still spy. For security purposes this setting is TRUE by default.
+use-canlisten-permission: true
 
 # Do not touch anything in here unless you know what you are doing!
 advanced:
 
   # The version of this file.
-  file-version: 2
+  file-version: 3
 
   # The version of BetterCommandSpy that this configuration was originally generated with.
   generated-with: '${project.version}'

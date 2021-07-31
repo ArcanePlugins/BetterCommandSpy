@@ -17,39 +17,57 @@ description: '${project.description}'
 authors: [ 'lokka30' ]
 
 # Information for Bukkit
-main: 'me.lokka30.bettercommandspy.v1.BetterCommandSpy'
-api-version: '1.13'
+main: 'me.lokka30.bettercommandspy.BetterCommandSpy' # Path to the main class
+api-version: '1.13' # Leave at '1.13', not the latest version, or it won't start on older versions.
 
 # Commands registered by the plugin
 commands:
   bettercommandspy:
-    description: 'Interact with BetterCommandSpy.'
+    description: 'Manage BetterCommandSpy.'
     usage: '/<command>'
     aliases: [ 'bcs', 'commandspy', 'cspy', 'cmdspy', 'cs' ]
 
+# Permissions this plugin checks
 permissions:
   bettercommandspy.*:
     default: 'op'
-    description: 'All permissions!'
+    description: 'Receive all permissions from the BetterCommandSpy plugin.'
     children:
-      bettercommandspy.toggle: true
-      bettercommandspy.toggle.others: true
-      bettercommandspy.reload: true
+      bettercommandspy.canListen: true
+      bettercommandspy.command.bettercommandspy.toggle: true
+      bettercommandspy.command.bettercommandspy.toggle.others: true
+      bettercommandspy.command.bettercommandspy.reload: true
+      bettercommandspy.command.bettercommandspy.info: true
+      bettercommandspy.command.bettercommandspy.compatibility: true
       bettercommandspy.bypass: true
 
-  bettercommandspy.toggle:
+  bettercommandspy.canListen:
     default: 'op'
-    description: 'Ability to set commandspy on / off (/commandspy on/off)'
+    description: 'Ability for a player to use command spy, REGARDLESS of their status.'
 
-  bettercommandspy.toggle.others:
+  bettercommandspy.command.bettercommandspy.toggle:
     default: 'op'
-    description: 'Ability to toggle commandspy for other players'
+    description: 'Ability to run the command `/bcs on` and `/bcs off`.'
+    children:
+      bettercommandspy.canListen: true
+
+  bettercommandspy.command.bettercommandspy.toggle.others:
+    default: 'op'
+    description: 'Ability to run the command `/bcs on` and `/bcs off` for other players.'
     children:
       bettercommandspy.toggle: true
 
-  bettercommandspy.reload:
+  bettercommandspy.command.bettercommandspy.reload:
     default: 'op'
-    description: 'Ability to reload the configuration (/commandspy reload)'
+    description: 'Ability to run the command `/bcs reload`.'
+
+  bettercommandspy.command.bettercommandspy.info:
+    default: true
+    description: 'Ability to run the command `/bcs info`.'
+
+  bettercommandspy.command.bettercommandspy.compatibility:
+    default: 'op'
+    description: 'Ability to run the command `/bcs compatibility`.'
 
   bettercommandspy.bypass:
     default: false
