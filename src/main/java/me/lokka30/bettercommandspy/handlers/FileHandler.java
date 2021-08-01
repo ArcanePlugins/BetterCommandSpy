@@ -14,11 +14,27 @@ import me.lokka30.bettercommandspy.BetterCommandSpy;
  */
 public class FileHandler {
 
+    /*
+    TODO
+        load method
+            file version checking
+            migration
+            loading the files
+     */
+
     private final BetterCommandSpy main;
+
     public FileHandler(final BetterCommandSpy main) {
         this.main = main;
     }
 
+    /**
+     * This enum contains all the files, their file name, and their respective latest (as of this plugin's version) file-versions.
+     * When file versions are changed, ensure the 'last modified' comment is also changed.
+     *
+     * @author lokka30
+     * @since v2.0.0
+     */
     public enum Files {
         SETTINGS("settings.yml", 3), // Last modified v2.0.0
         MESSAGES("messages.yml", 3), // Last modified v2.0.0
@@ -34,7 +50,13 @@ public class FileHandler {
         }
     }
 
-    public void load() {
+    /**
+     * Start the procedure to load/reload all files from BCS.
+     *
+     * @author lokka30
+     * @since v2.0.0
+     */
+    public void init() {
         //TODO
     }
 }

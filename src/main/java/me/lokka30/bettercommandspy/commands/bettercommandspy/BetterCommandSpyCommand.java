@@ -27,9 +27,9 @@ public class BetterCommandSpyCommand implements TabExecutor {
 
     /*
     TODO
-        Test
         Customisable Msg
-        Test
+        Test command
+        Test tab completion
      */
 
     private final BetterCommandSpy main;

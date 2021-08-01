@@ -19,6 +19,11 @@ import org.bukkit.event.player.PlayerCommandPreprocessEvent;
  */
 public class CommandListener implements Listener {
 
+    /*
+    TODO
+        listener.
+     */
+
     private final BetterCommandSpy main;
 
     public CommandListener(final BetterCommandSpy main) {

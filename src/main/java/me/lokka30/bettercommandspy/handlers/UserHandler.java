@@ -5,13 +5,23 @@
 package me.lokka30.bettercommandspy.handlers;
 
 import me.lokka30.bettercommandspy.BetterCommandSpy;
+import me.lokka30.bettercommandspy.misc.DebugCategory;
+import me.lokka30.bettercommandspy.misc.Utils;
 import org.bukkit.entity.Player;
 
 /**
+ * Contains methods to get & set the spy status of
+ * users.
+ *
  * @author lokka30
  * @since v2.0.0
  */
 public class UserHandler {
+
+    /*
+    TODO
+        setStatus method
+     */
 
     private final BetterCommandSpy main;
 
@@ -20,6 +30,8 @@ public class UserHandler {
     }
 
     /**
+     * Get the spy status of a player.
+     *
      * @param player player to get command spy status of
      * @return command spy status of player
      * @author lokka30
@@ -49,11 +61,11 @@ public class UserHandler {
     }
 
     /**
-     * @author lokka30
-     * @since v2.0.0
-     * <p>
      * This enum contains possible reasons as to why
      * a player's command spy status was changed.
+     *
+     * @author lokka30
+     * @since v2.0.0
      */
     public enum ChangedStatusCause {
         COMMAND, // The player's status was changed from the on/off command.
@@ -61,13 +73,18 @@ public class UserHandler {
     }
 
     /**
+     * Change the spy status of a player.
+     *
      * @param player player to set command spy status of
      * @param state  state that should be set
      * @param cause  the cause of this method being ran
+     *
      * @author lokka30
      * @since v2.0.0
      */
     public void setStatus(final Player player, final boolean state, final ChangedStatusCause cause) {
+        Utils.debugLog(main, DebugCategory.STATUS_CHANGED, "Player '" + player.getName() + "' spy status changing to state '" + state + "' with cause '" + cause + "'.");
+
         //TODO
     }
 }

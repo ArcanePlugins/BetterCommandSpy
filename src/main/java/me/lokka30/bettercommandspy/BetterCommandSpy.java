@@ -25,6 +25,12 @@ import java.io.File;
  */
 public class BetterCommandSpy extends JavaPlugin {
 
+    /*
+    TODO
+        Compatibility Checker method
+        Update Checker method
+     */
+
     /* Handler Classes */
     public final FileHandler fileHandler = new FileHandler(this);
     public final UserHandler userHandler = new UserHandler(this);
@@ -81,7 +87,7 @@ public class BetterCommandSpy extends JavaPlugin {
     protected void loadFiles() {
         Utils.LOGGER.info("&3Files: &7Loading files...");
 
-        fileHandler.load();
+        fileHandler.init();
     }
 
     /**

@@ -35,11 +35,12 @@ ignored-commands:
 # still spy. For security purposes this setting is TRUE by default.
 use-canlisten-permission: true
 
-# Do not touch anything in here unless you know what you are doing!
-advanced:
+# You shouldn't touch this unless developers/support ask you to.
+# Logs messages to console about what the plugin is doing in the
+# background, helps developers solve bugs in a lot of situations.
+debug: [ ]
 
-  # The version of this file.
-  file-version: 3
-
-  # The version of BetterCommandSpy that this configuration was originally generated with.
+# Don't touch any of this.
+file:
+  version: 3
   generated-with: '${project.version}'
