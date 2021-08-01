@@ -23,6 +23,14 @@ import java.util.List;
  */
 public class OffSubcommand implements ISubcommand {
 
+    /*
+    TODO
+        Command
+        Test
+        Tab Completion
+        Test
+     */
+
     @Override
     public void parseCmd(BetterCommandSpy main, CommandSender sender, String label, String[] args) {
         sender.sendMessage("Work in progress."); //TODO

@@ -8,7 +8,7 @@ import me.lokka30.bettercommandspy.BetterCommandSpy;
 import me.lokka30.bettercommandspy.commands.ISubcommand;
 import org.bukkit.command.CommandSender;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,6 +23,12 @@ import java.util.List;
  */
 public class InfoSubcommand implements ISubcommand {
 
+    /*
+    TODO
+        Command
+        Test
+     */
+
     @Override
     public void parseCmd(BetterCommandSpy main, CommandSender sender, String label, String[] args) {
         sender.sendMessage("Work in progress."); //TODO
@@ -30,6 +36,6 @@ public class InfoSubcommand implements ISubcommand {
 
     @Override
     public List<String> parseTabSuggestions(BetterCommandSpy main, CommandSender sender, String label, String[] args) {
-        return Collections.singletonList("Work in progress."); //TODO
+        return new ArrayList<>();
     }
 }

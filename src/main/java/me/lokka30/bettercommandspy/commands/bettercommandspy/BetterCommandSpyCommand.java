@@ -13,6 +13,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
@@ -24,6 +25,13 @@ import java.util.Locale;
  */
 public class BetterCommandSpyCommand implements TabExecutor {
 
+    /*
+    TODO
+        Test
+        Customisable Msg
+        Test
+     */
+
     private final BetterCommandSpy main;
 
     public BetterCommandSpyCommand(final BetterCommandSpy main) {
@@ -31,6 +39,7 @@ public class BetterCommandSpyCommand implements TabExecutor {
     }
 
     final CompatibilitySubcommand compatibilitySubcommand = new CompatibilitySubcommand();
+    final DebugSubcommand debugSubcommand = new DebugSubcommand();
     final InfoSubcommand infoSubcommand = new InfoSubcommand();
     final OffSubcommand offSubcommand = new OffSubcommand();
     final OnSubcommand onSubcommand = new OnSubcommand();
@@ -58,6 +67,9 @@ public class BetterCommandSpyCommand implements TabExecutor {
                 case "compatibility":
                     compatibilitySubcommand.parseCmd(main, sender, label, args);
                     break;
+                case "debug":
+                    debugSubcommand.parseCmd(main, sender, label, args);
+                    break;
                 default:
                     sendUsageBanner(sender, label);
                     break;
@@ -68,14 +80,21 @@ public class BetterCommandSpyCommand implements TabExecutor {
     }
 
     void sendUsageBanner(CommandSender sender, String label) {
-        //TODO customisable msg
-        sender.sendMessage("Invalid usage. label: " + label);
+        sender.sendMessage("Invalid usage. here is a list of commands:");
+        sender.sendMessage("- /" + label + " on");
+        sender.sendMessage("- /" + label + " off");
+        sender.sendMessage("- /" + label + " reload");
+        sender.sendMessage("- /" + label + " info");
+        sender.sendMessage("- /" + label + " compatibility");
+        sender.sendMessage("- /" + label + " debug");
     }
 
     @Nullable
     @Override
     public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, @NotNull String[] args) {
-        if (args.length == 0) return new ArrayList<>();
+        if (args.length == 0) {
+            return Arrays.asList("on", "off", "reload", "info", "compatibility", "debug");
+        }
 
         switch (args[0].toLowerCase(Locale.ROOT)) {
             case "on":
@@ -88,6 +107,8 @@ public class BetterCommandSpyCommand implements TabExecutor {
                 return infoSubcommand.parseTabSuggestions(main, sender, label, args);
             case "compatibility":
                 return compatibilitySubcommand.parseTabSuggestions(main, sender, label, args);
+            case "debug":
+                return debugSubcommand.parseTabSuggestions(main, sender, label, args);
             default:
                 return new ArrayList<>();
         }
