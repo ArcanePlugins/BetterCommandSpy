@@ -15,18 +15,16 @@ import java.util.List;
  * @author lokka30
  * @since v2.0.0
  * <p>
- * TODO Describe.
+ * This command reloads the plugin's configs.
  * <p>
- * cmd: /bcs
- * arg: -
- * len: 0
+ * cmd: /bcs reload
+ * arg: -    0
+ * len: 0    1
  */
 public class ReloadSubcommand implements ISubcommand {
 
     /*
     TODO
-        description at the top.
-        cmd, arg, len at the top.
         Command
         Test
      */

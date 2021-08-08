@@ -13,6 +13,7 @@ import me.lokka30.microlib.QuickTimer;
 import me.lokka30.microlib.YamlConfigFile;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
+import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
@@ -57,6 +58,7 @@ public class BetterCommandSpy extends JavaPlugin {
 
         Utils.LOGGER.info("&3Start-up: &7Running misc startup procedures...");
         startBStats();
+        checkCompatibility(Bukkit.getConsoleSender());
         checkForUpdates();
 
         Utils.LOGGER.info("&3Start-up: &f~ &bStart-up complete&7, took &b" + quickTimer.getTimer() + "ms&f ~");
@@ -96,7 +98,7 @@ public class BetterCommandSpy extends JavaPlugin {
      * @author lokka30
      * @since v2.0.0
      */
-    private void checkCompatibility() {
+    private void checkCompatibility(CommandSender recipient) {
         //TODO
     }
 

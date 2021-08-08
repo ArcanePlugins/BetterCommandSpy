@@ -15,18 +15,17 @@ import java.util.List;
  * @author lokka30
  * @since v2.0.0
  * <p>
- * TODO Describe.
+ * This command enables the sender or target player's
+ * command spy status.
  * <p>
- * cmd: /bcs
- * arg: -
- * len: 0
+ * cmd: /bcs on [player]
+ * arg: -    0   1
+ * len: 0    1   2
  */
 public class OnSubcommand implements ISubcommand {
 
     /*
     TODO
-        description at the top.
-        cmd, arg, len at the top.
         Command
         Test
         Tab Completion

@@ -6,7 +6,7 @@
  \____/   \____/ \____/
 
 BetterCommandSpy: A SpigotMC resource to spy on the commands that your players run.
-Copyright (C) 2021  lokka30
+Copyright (C) 2020-2021 lokka30
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as

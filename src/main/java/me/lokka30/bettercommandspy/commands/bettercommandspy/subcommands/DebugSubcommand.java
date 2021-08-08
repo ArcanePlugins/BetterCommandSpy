@@ -15,18 +15,18 @@ import java.util.List;
  * @author lokka30
  * @since v2.0.0
  * <p>
- * TODO Describe.
+ * This command contains various debug functions
+ * which should only be used if a developer of BCS
+ * tells a user to run it.
  * <p>
- * cmd: /bcs
- * arg: -
- * len: 0
+ * cmd: /bcs debug <...>
+ * arg: -    0     1+
+ * len: 0    1     2+
  */
 public class DebugSubcommand implements ISubcommand {
 
     /*
     TODO
-        description at the top.
-        cmd, arg, len at the top.
         Command
         Test
      */

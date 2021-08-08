@@ -15,18 +15,17 @@ import java.util.List;
  * @author lokka30
  * @since v2.0.0
  * <p>
- * TODO Describe.
+ * This command prints information about the
+ * installed version of the plugin.
  * <p>
- * cmd: /bcs
- * arg: -
- * len: 0
+ * cmd: /bcs info
+ * arg: -    0
+ * len: 0    1
  */
 public class InfoSubcommand implements ISubcommand {
 
     /*
     TODO
-        description at the top.
-        cmd, arg, len at the top.
         Command
         Test
      */

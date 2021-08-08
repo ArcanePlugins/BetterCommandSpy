@@ -31,7 +31,8 @@ public class CommandListener implements Listener {
     }
 
     /**
-     * TODO
+     * This listens for when a player runs a command.
+     * This allows BCS to inform spying players about the event.
      *
      * @param event PlayerCommandPreprocessEvent
      * @author lokka30
@@ -39,6 +40,6 @@ public class CommandListener implements Listener {
      */
     @EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
     public void onExecuteCommand(final PlayerCommandPreprocessEvent event) {
-        // ...
+        //TODO ...
     }
 }
