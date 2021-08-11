@@ -17,30 +17,35 @@ prefix: '&b&lCommandSpy:&7'
 alert: '%prefix% &r%player%&7 ran &8%command%'
 
 # Messages sent from the plugin's command, /commandspy.
-command:
-  no-permission: '%prefix% You don''t have access to that.'
-  main-usage: '%prefix% Usage: &b/%label% [on/off/reload]'
-  player-never-joined: '%prefix% &r%player%&7 hasn''t joined the server before.'
-  toggle_on:
-    self: '%prefix% &aEnabled&7 command spy alerts.'
-    others: '%prefix% &aEnabled&7 command spy alerts for &r%player%&7.'
-    by: '%prefix% &r%player% &aenabled&7 your command spy alerts.'
-    self-already: '%prefix% &7You already have command spy alerts &aenabled&7.'
-    others-already: '%prefix% &r%player%&7 already has command spy alerts &aenabled&7.'
-    usage: '%prefix% Usage: &b/%label% on [player]'
-    usage-console: '%prefix% Usage (console): &b/%label% on <player>'
-  toggle_off:
-    self: '%prefix% &cDisabled&7 command spy alerts.'
-    others: '%prefix% &cDisabled&7 command spy alerts for &r%player%&7.'
-    by: '%prefix% &r%player% &cdisabled&7 your command spy alerts.'
-    self-already: '%prefix% &7You already have command spy alerts &cdisabled&7.'
-    others-already: '%prefix% &r%player%&7 already has command spy alerts &cdisabled&7.'
-    usage: '%prefix% Usage: &b/%label% off [player]'
-    usage-console: '%prefix% Usage (console): &b/%label% off <player>'
-  reload:
-    start: '%prefix% Reloading configuration ...'
-    complete: '%prefix% ... Reload complete.'
-    usage: '%prefix% Usage: &b/%label% reload'
+commands:
+  common:
+    no-permission:
+      - '%prefix% You don''t have access to that &8(&7requires permission &b%permission%&8)&7.'
+
+    specified-player-never-joined:
+      - '%prefix% Specified player ''&r%player%&7'' hasn''t joined this server before.'
+
+  bettercommandspy:
+
+    usage:
+
+    subcommands:
+
+      compatibility:
+
+      debug:
+
+      info:
+
+      off:
+
+      on:
+
+      reload:
+
+compatibility-checker:
+
+update-checker:
 
 # Don't touch any of this.
 file:
