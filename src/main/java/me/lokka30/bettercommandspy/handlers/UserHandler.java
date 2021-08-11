@@ -5,8 +5,10 @@
 package me.lokka30.bettercommandspy.handlers;
 
 import me.lokka30.bettercommandspy.BetterCommandSpy;
+import me.lokka30.bettercommandspy.events.CommandSpyToggleEvent;
 import me.lokka30.bettercommandspy.misc.DebugCategory;
 import me.lokka30.bettercommandspy.misc.Utils;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
@@ -73,22 +75,26 @@ public class UserHandler {
     /**
      * Change the spy status of a player.
      *
-     * @param player player to set command spy status of
-     * @param state  state that should be set
-     * @param cause  the cause of this method being ran
+     * @param player        player to set command spy status of
+     * @param originalState state that should be set
+     * @param cause         the cause of this method being ran
      * @author lokka30
      * @since v2.0.0
      */
-    public void setStatus(@NotNull final Player player, final boolean state, @NotNull final ChangedStatusCause cause) {
-        /* Send a debug log regarding the method being ran */
-        Utils.debugLog(main, DebugCategory.STATUS_CHANGED, "Player '" + player.getName() + "' spy status changing to state '" + state + "' with cause '" + cause + "'.");
+    public void setStatus(@NotNull final Player player, final boolean originalState, @NotNull final ChangedStatusCause cause) {
+        /* Call the event */
+        CommandSpyToggleEvent event = new CommandSpyToggleEvent(player, originalState, cause);
+        Bukkit.getPluginManager().callEvent(event);
 
         /* Set & save the new value into the data file. */
-        main.data.getConfig().set("players." + player.getUniqueId() + ".state", state);
+        main.data.getConfig().set("players." + player.getUniqueId() + ".state", event.getState());
         try {
             main.data.save();
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+
+        /* Send a debug log regarding the method being ran */
+        Utils.debugLog(main, DebugCategory.STATUS_CHANGED, "Player '" + player.getName() + "' spy status changing to state '" + event.getState() + "' (modified by external plugin: " + event.getWasStateModified() + ") with cause '" + cause + "'.");
     }
 }

@@ -21,20 +21,57 @@ import org.jetbrains.annotations.NotNull;
  * @see me.lokka30.bettercommandspy.handlers.UserHandler#setStatus(Player, boolean, UserHandler.ChangedStatusCause)
  * @since v2.0.0
  */
+@SuppressWarnings("unused")
 public class CommandSpyToggleEvent extends Event {
 
-    /*
-    TODO
-        Add handler list variable
-        Add constructor
-        Add method that allows plugins to override the state of the player.
-        Add method to get changed reason, etc.
-        Fire event from UserHandler#setStatus. Add another debug log that runs only if the state was changed through the event.
-     */
+    private final Player player;
+    private boolean state;
+    private final UserHandler.ChangedStatusCause cause;
+
+    public CommandSpyToggleEvent(Player player, boolean state, UserHandler.ChangedStatusCause cause) {
+        this.player = player;
+        this.state = state;
+        this.cause = cause;
+    }
+
+    private boolean wasStateModified = false;
+
+    /* Getters & setters */
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public boolean getState() {
+        return state;
+    }
+
+    public boolean getWasStateModified() {
+        return wasStateModified;
+    }
+
+    public UserHandler.ChangedStatusCause getCause() {
+        return cause;
+    }
+
+    public void setState(boolean state) {
+        this.state = state;
+        this.wasStateModified = true;
+    }
+
+    /* Event handler list */
+
+    @NotNull
+    private static final HandlerList HANDLERS = new HandlerList();
 
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return null;
+        return HANDLERS;
+    }
+
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return HANDLERS;
     }
 }
