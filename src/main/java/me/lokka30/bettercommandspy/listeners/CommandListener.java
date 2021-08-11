@@ -9,6 +9,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * This class listens for whenever players execute a command.
@@ -26,7 +27,7 @@ public class CommandListener implements Listener {
 
     private final BetterCommandSpy main;
 
-    public CommandListener(final BetterCommandSpy main) {
+    public CommandListener(@NotNull final BetterCommandSpy main) {
         this.main = main;
     }
 
@@ -39,7 +40,7 @@ public class CommandListener implements Listener {
      * @since v2.0.0
      */
     @EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
-    public void onExecuteCommand(final PlayerCommandPreprocessEvent event) {
+    public void onExecuteCommand(@NotNull final PlayerCommandPreprocessEvent event) {
         //TODO ...
     }
 }

@@ -7,6 +7,7 @@ package me.lokka30.bettercommandspy.commands.bettercommandspy.subcommands;
 import me.lokka30.bettercommandspy.BetterCommandSpy;
 import me.lokka30.bettercommandspy.commands.ISubcommand;
 import org.bukkit.command.CommandSender;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,12 +31,12 @@ public class CompatibilitySubcommand implements ISubcommand {
      */
 
     @Override
-    public void parseCmd(BetterCommandSpy main, CommandSender sender, String label, String[] args) {
+    public void parseCmd(@NotNull BetterCommandSpy main, @NotNull CommandSender sender, @NotNull String label, @NotNull String @NotNull [] args) {
         sender.sendMessage("Work in progress.");
     }
 
     @Override
-    public List<String> parseTabSuggestions(BetterCommandSpy main, CommandSender sender, String label, String[] args) {
+    public List<String> parseTabSuggestions(@NotNull BetterCommandSpy main, @NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
         return new ArrayList<>();
     }
 }

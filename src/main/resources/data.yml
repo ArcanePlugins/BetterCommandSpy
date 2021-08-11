@@ -13,8 +13,8 @@
 # Do not touch this file unless you know exactly
 # what you are doing! :)
 
-advanced:
-  file-version: 1
+file:
+  version: 2
   generated-with: '${project.version}'
 
 players:

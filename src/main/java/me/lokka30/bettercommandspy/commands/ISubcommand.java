@@ -6,6 +6,7 @@ package me.lokka30.bettercommandspy.commands;
 
 import me.lokka30.bettercommandspy.BetterCommandSpy;
 import org.bukkit.command.CommandSender;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -28,7 +29,7 @@ public interface ISubcommand {
      * <p>
      * Run the subcommand.
      */
-    void parseCmd(BetterCommandSpy main, CommandSender sender, String label, String[] args);
+    void parseCmd(@NotNull BetterCommandSpy main, @NotNull CommandSender sender, @NotNull String label, @NotNull String[] args);
 
     /**
      * @param label label of the command (alias used). e.g., 'bcs' or 'commandspy' and so on.
@@ -39,5 +40,5 @@ public interface ISubcommand {
      * Get a list of tab suggestions.
      * Only 1.13+ servers are able to utilise this feature.
      */
-    List<String> parseTabSuggestions(BetterCommandSpy main, CommandSender sender, String label, String[] args);
+    List<String> parseTabSuggestions(@NotNull BetterCommandSpy main, @NotNull CommandSender sender, @NotNull String label, @NotNull String[] args);
 }

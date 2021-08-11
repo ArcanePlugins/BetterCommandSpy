@@ -10,7 +10,6 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -34,7 +33,7 @@ public class BetterCommandSpyCommand implements TabExecutor {
 
     private final BetterCommandSpy main;
 
-    public BetterCommandSpyCommand(final BetterCommandSpy main) {
+    public BetterCommandSpyCommand(@NotNull final BetterCommandSpy main) {
         this.main = main;
     }
 
@@ -79,7 +78,7 @@ public class BetterCommandSpyCommand implements TabExecutor {
         return true;
     }
 
-    void sendUsageBanner(CommandSender sender, String label) {
+    void sendUsageBanner(@NotNull CommandSender sender, @NotNull String label) {
         sender.sendMessage("Invalid usage. here is a list of commands:");
         sender.sendMessage("- /" + label + " on");
         sender.sendMessage("- /" + label + " off");
@@ -89,7 +88,7 @@ public class BetterCommandSpyCommand implements TabExecutor {
         sender.sendMessage("- /" + label + " debug");
     }
 
-    @Nullable
+    @NotNull
     @Override
     public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, @NotNull String[] args) {
         if (args.length == 0) {

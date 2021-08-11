@@ -8,6 +8,9 @@ import me.lokka30.bettercommandspy.BetterCommandSpy;
 import me.lokka30.bettercommandspy.misc.DebugCategory;
 import me.lokka30.bettercommandspy.misc.Utils;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
+
+import java.io.IOException;
 
 /**
  * Contains methods to get & set the spy status of
@@ -18,14 +21,9 @@ import org.bukkit.entity.Player;
  */
 public class UserHandler {
 
-    /*
-    TODO
-        setStatus method
-     */
-
     private final BetterCommandSpy main;
 
-    public UserHandler(final BetterCommandSpy main) {
+    public UserHandler(@NotNull final BetterCommandSpy main) {
         this.main = main;
     }
 
@@ -37,7 +35,7 @@ public class UserHandler {
      * @author lokka30
      * @since v2.0.0
      */
-    public boolean getStatus(final Player player) {
+    public boolean getStatus(@NotNull final Player player) {
 
         /* Check status */
         final boolean defaultCommandSpyStatus = main.settings.getConfig().getBoolean("default-commandspy-state", true);
@@ -78,13 +76,19 @@ public class UserHandler {
      * @param player player to set command spy status of
      * @param state  state that should be set
      * @param cause  the cause of this method being ran
-     *
      * @author lokka30
      * @since v2.0.0
      */
-    public void setStatus(final Player player, final boolean state, final ChangedStatusCause cause) {
+    public void setStatus(@NotNull final Player player, final boolean state, @NotNull final ChangedStatusCause cause) {
+        /* Send a debug log regarding the method being ran */
         Utils.debugLog(main, DebugCategory.STATUS_CHANGED, "Player '" + player.getName() + "' spy status changing to state '" + state + "' with cause '" + cause + "'.");
 
-        //TODO
+        /* Set & save the new value into the data file. */
+        main.data.getConfig().set("players." + player.getUniqueId() + ".state", state);
+        try {
+            main.data.save();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 }

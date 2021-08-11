@@ -8,6 +8,7 @@ import me.lokka30.bettercommandspy.BetterCommandSpy;
 import me.lokka30.microlib.MicroLogger;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.command.TabExecutor;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Class containing a bunch of utility methods and vars
@@ -36,7 +37,7 @@ public class Utils {
      * @author lokka30
      * @since v2.0.0
      */
-    public static void registerCommand(final BetterCommandSpy main, final TabExecutor clazz, final String command) {
+    public static void registerCommand(@NotNull final BetterCommandSpy main, @NotNull final TabExecutor clazz, @NotNull final String command) {
         Utils.LOGGER.info("&3Commands: &8[/" + command + "] &7Attempting to register command...");
 
         final PluginCommand pluginCommand = main.getCommand(command);
@@ -60,7 +61,7 @@ public class Utils {
      * @author lokka30
      * @since v2.0.0
      */
-    public static void debugLog(BetterCommandSpy main, DebugCategory debugCategory, String msg) {
+    public static void debugLog(@NotNull final BetterCommandSpy main, @NotNull final DebugCategory debugCategory, @NotNull final String msg) {
         if (!main.settings.getConfig().getStringList("debug").contains(debugCategory.toString())) return;
         Utils.LOGGER.info("&8[&3Debug &8| &3" + debugCategory + "&8]: &7" + msg);
     }

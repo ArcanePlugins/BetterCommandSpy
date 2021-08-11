@@ -6,8 +6,7 @@
 # \____/   \____/ \____/
 
 # General messages.
-general:
-  prefix: '&b&lCommandSpy:&7'
+prefix: '&b&lCommandSpy:&7'
 
 # The alert message (spying on player's commands)
 # Placeholders:
@@ -43,11 +42,7 @@ command:
     complete: '%prefix% ... Reload complete.'
     usage: '%prefix% Usage: &b/%label% reload'
 
-# Do not touch anything in here unless you know what you are doing!
-advanced:
-
-  # The version of this file.
-  file-version: 2
-
-  # The version of BetterCommandSpy that this configuration was originally generated with.
+# Don't touch any of this.
+file:
+  version: 2
   generated-with: '${project.version}'

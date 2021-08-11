@@ -15,6 +15,7 @@ import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 
@@ -98,7 +99,7 @@ public class BetterCommandSpy extends JavaPlugin {
      * @author lokka30
      * @since v2.0.0
      */
-    private void checkCompatibility(CommandSender recipient) {
+    private void checkCompatibility(@NotNull final CommandSender recipient) {
         //TODO
     }
 
