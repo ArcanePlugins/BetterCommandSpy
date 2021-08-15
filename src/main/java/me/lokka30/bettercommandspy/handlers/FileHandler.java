@@ -21,6 +21,11 @@ import java.nio.file.Files;
  */
 public class FileHandler {
 
+    /*
+    TODO
+        - Test.
+     */
+
     private final BetterCommandSpy main;
 
     public FileHandler(@NotNull final BetterCommandSpy main) {
@@ -42,7 +47,6 @@ public class FileHandler {
 
         public final String fileName;
         public final int latestFileVersion; // -1 means that the file is not versioned.
-
         BCSFile(String fileName, int latestFileVersion) {
             this.fileName = fileName;
             this.latestFileVersion = latestFileVersion;
@@ -63,7 +67,6 @@ public class FileHandler {
     }
 
     private void loadFile(@NotNull BCSFile bcsFile) {
-
         Utils.LOGGER.info("&3File Loader: &7Loading file '&b" + bcsFile.fileName + "&7'...");
 
         try {
@@ -117,7 +120,7 @@ public class FileHandler {
         }
 
         if (configFile.getConfig().getInt("file.version", 0) != bcsFile.latestFileVersion) {
-            Utils.LOGGER.warning("&3File Handler: &7File '&b" + bcsFile.fileName + "&7' is incompatible with this version of of the plugin. It has been backed up in the &b/plugins/BetterCommandSpy/backups/&7 folder, and your server will now run the latest default version of this file. You may want to consider configuring it.");
+            Utils.LOGGER.error("&3File Handler: &7File '&b" + bcsFile.fileName + "&7' is incompatible with this version of of the plugin. It has been backed up in the &b/plugins/BetterCommandSpy/backups/&7 folder, and your server will now run the latest default version of this file. You may want to consider configuring the newly generated file.");
             backup(configFile.getConfigFile());
             main.saveResource(bcsFile.fileName, true);
         }
