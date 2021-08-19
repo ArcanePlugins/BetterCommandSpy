@@ -5,7 +5,7 @@
 package me.lokka30.bettercommandspy.misc;
 
 import me.lokka30.bettercommandspy.BetterCommandSpy;
-import me.lokka30.microlib.MicroLogger;
+import me.lokka30.microlib.messaging.MicroLogger;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.command.TabExecutor;
 import org.jetbrains.annotations.NotNull;

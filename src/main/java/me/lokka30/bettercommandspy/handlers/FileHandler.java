@@ -6,7 +6,7 @@ package me.lokka30.bettercommandspy.handlers;
 
 import me.lokka30.bettercommandspy.BetterCommandSpy;
 import me.lokka30.bettercommandspy.misc.Utils;
-import me.lokka30.microlib.YamlConfigFile;
+import me.lokka30.microlib.files.YamlConfigFile;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
@@ -42,11 +42,12 @@ public class FileHandler {
     public enum BCSFile {
         SETTINGS("settings.yml", 3), // Last modified v2.0.0
         MESSAGES("messages.yml", 3), // Last modified v2.0.0
-        DATA("data.yml", 1), // Last modified v1.0.0
+        DATA("data.yml", 2), // Last modified v2.0.0
         LICENSE("license.txt", -1); // Last modified v1.0.0
 
         public final String fileName;
         public final int latestFileVersion; // -1 means that the file is not versioned.
+
         BCSFile(String fileName, int latestFileVersion) {
             this.fileName = fileName;
             this.latestFileVersion = latestFileVersion;
