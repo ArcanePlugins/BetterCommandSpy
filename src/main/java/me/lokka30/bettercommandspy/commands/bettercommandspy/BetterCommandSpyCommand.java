@@ -6,6 +6,7 @@ package me.lokka30.bettercommandspy.commands.bettercommandspy;
 
 import me.lokka30.bettercommandspy.BetterCommandSpy;
 import me.lokka30.bettercommandspy.commands.bettercommandspy.subcommands.*;
+import me.lokka30.microlib.messaging.MultiMessage;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
@@ -26,9 +27,7 @@ public class BetterCommandSpyCommand implements TabExecutor {
 
     /*
     TODO
-        Customisable Msg
-        Test command
-        Test tab completion
+        - Test command and tab completion.
      */
 
     private final BetterCommandSpy main;
@@ -79,35 +78,34 @@ public class BetterCommandSpyCommand implements TabExecutor {
     }
 
     void sendUsageBanner(@NotNull CommandSender sender, @NotNull String label) {
-        sender.sendMessage("Invalid usage. here is a list of commands:");
-        sender.sendMessage("- /" + label + " on");
-        sender.sendMessage("- /" + label + " off");
-        sender.sendMessage("- /" + label + " reload");
-        sender.sendMessage("- /" + label + " info");
-        sender.sendMessage("- /" + label + " compatibility");
-        sender.sendMessage("- /" + label + " debug");
+        new MultiMessage(main.messages.getConfig().getStringList("commands.bettercommandspy.usage"), Arrays.asList(
+                new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix"), true),
+                new MultiMessage.Placeholder("label", label, false)
+        )).send(sender);
     }
 
     @NotNull
     @Override
     public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, @NotNull String[] args) {
         if (args.length == 0) {
-            return Arrays.asList("on", "off", "reload", "info", "compatibility", "debug");
+            // Keep in alphabetical order
+            return Arrays.asList("compatibility", "debug", "info", "off", "on", "reload");
         }
 
         switch (args[0].toLowerCase(Locale.ROOT)) {
-            case "on":
-                return onSubcommand.parseTabSuggestions(main, sender, label, args);
-            case "off":
-                return offSubcommand.parseTabSuggestions(main, sender, label, args);
-            case "reload":
-                return reloadSubcommand.parseTabSuggestions(main, sender, label, args);
-            case "info":
-                return infoSubcommand.parseTabSuggestions(main, sender, label, args);
+            // Keep in alphabetical order
             case "compatibility":
                 return compatibilitySubcommand.parseTabSuggestions(main, sender, label, args);
             case "debug":
                 return debugSubcommand.parseTabSuggestions(main, sender, label, args);
+            case "info":
+                return infoSubcommand.parseTabSuggestions(main, sender, label, args);
+            case "off":
+                return offSubcommand.parseTabSuggestions(main, sender, label, args);
+            case "on":
+                return onSubcommand.parseTabSuggestions(main, sender, label, args);
+            case "reload":
+                return reloadSubcommand.parseTabSuggestions(main, sender, label, args);
             default:
                 return new ArrayList<>();
         }

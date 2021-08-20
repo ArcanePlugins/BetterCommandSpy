@@ -6,9 +6,11 @@ package me.lokka30.bettercommandspy.commands.bettercommandspy.subcommands;
 
 import me.lokka30.bettercommandspy.BetterCommandSpy;
 import me.lokka30.bettercommandspy.commands.ISubcommand;
+import me.lokka30.microlib.messaging.MultiMessage;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -35,6 +37,22 @@ public class OffSubcommand implements ISubcommand {
 
     @Override
     public void parseCmd(@NotNull BetterCommandSpy main, @NotNull CommandSender sender, @NotNull String label, @NotNull String @NotNull [] args) {
+        if (!sender.hasPermission("bettercommandspy.command.bettercommandspy.toggle")) {
+            new MultiMessage(main.messages.getConfig().getStringList("commands.common.no-permission"), Arrays.asList(
+                    new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix"), true),
+                    new MultiMessage.Placeholder("permissions", main.messages.getConfig().getString("bettercommandspy.command.bettercommandspy.toggle"), false)
+            )).send(sender);
+            return;
+        }
+
+        if (args.length != 1) {
+            new MultiMessage(main.messages.getConfig().getStringList("commands.bettercommandspy.subcommands.compatibility.toggle"), Arrays.asList(
+                    new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix"), true),
+                    new MultiMessage.Placeholder("label", label, false)
+            )).send(sender);
+            return;
+        }
+
         sender.sendMessage("Work in progress."); //TODO
     }
 

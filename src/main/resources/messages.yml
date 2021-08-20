@@ -8,44 +8,142 @@
 # General messages.
 prefix: '&b&lCommandSpy:&7'
 
-# The alert message (spying on player's commands)
+# This is the alert message, sent to spying players when a
+# user runs a command.
+#
 # Placeholders:
-#  %prefix% ~ the prefix defined above.
+#  %prefix% ~ the plugin prefix
 #  %player% ~ the player's username.
 #  %displayname% ~ the player's displayname (e.g. including vault prefix, so on)
 #  %command% ~ the command the player ran
 alert: '%prefix% &r%player%&7 ran &8%command%'
 
-# Messages sent from the plugin's command, /commandspy.
+# These messages are sent to players that use
+# any commands from BetterCommandSpy.
 commands:
+
+  # These messages are grouped into the 'common' category
+  # as they are used in many different locations.
   common:
+
+    # Sent when a player attempts to run a command from BetterCommandSpy
+    # but does not have the required permission(s) to do so.
+    #
+    # Placeholders:
+    #  %prefix% ~ the plugin prefix
+    #  %permission% ~ the required permission
     no-permission:
       - '%prefix% You don''t have access to that &8(&7requires permission &b%permission%&8)&7.'
 
+    # Sent when someone specifies a player name in a BetterCommandSpy
+    # command that accepts the argument although the specified player
+    # has never joined the server.
+    #
+    # Note: Wiping an old world can make the server unaware of all the
+    # users that played on that world. BetterCommandSpy only knows about
+    # the players that the server does.
+    #
+    # Placeholders:
+    #  %prefix% ~ the plugin prefix
+    #  %player% ~ the specified player name
     specified-player-never-joined:
       - '%prefix% Specified player ''&r%player%&7'' hasn''t joined this server before.'
 
+  # The following messages are sent by using the command
+  # '/bettercommandspy', or its aliases ('/cspy', etc).
   bettercommandspy:
 
+    # Sent when a player does not specify a
+    # subcommand or specifies an invalid subcommand.
+    #
+    # Placeholders:
+    #  %prefix% ~ the plugin prefix
+    #  %label% ~ the alias used to run the command
     usage:
+      - '%prefix% Unspecified or invalid subcommand, please see the list below:'
+      - ' '
+      - '&f&nPrimary subcommands:'
+      - '&8 &m->&b /%label% off [player] &8~ &7disable commandspy for a player'
+      - '&8 &m->&b /%label% on [player] &8~ &7enable commandspy for a player'
+      - '&8 &m->&b /%label% reload &8~ &7reload config files'
+      - ' '
+      - '&f&nOther subcommands:'
+      - '&8 &m->&b /%label% compatibility &8~ &7run compatibility checker'
+      - '&8 &m->&b /%label% debug <method> &8~ &7run debug methods (for developers)'
+      - '&8 &m->&b /%label% info &8~ &7view info about installed plugin version'
 
+    # TODO Comment.
     subcommands:
 
+      # TODO Comment.
       compatibility:
 
+        # TODO Comment.
+        usage:
+          - '%prefix% Invalid usage, try ''&b/%label% compatibility&7''.'
+
+      # TODO Comment.
       debug:
 
+        # TODO Comment.
+        usage:
+          - '%prefix% Invalid usage, try ''&b/%label% debug <method>&7''.'
+          - '%prefix% &eWarning:&7 This command should only be used if a BetterCommandSpy developer advises you to.'
+
+      # TODO Comment.
       info:
 
+        # TODO Comment.
+        print:
+          - '%prefix% Plugin information:'
+          - '&8 &m->&7 Running &bBCS v%version%'
+          - '&8 &m->&7 Authors: &b%authors%'
+          - '&8 &m->&7 Contributors: &b%contributors%'
+
+        # TODO Comment.
+        usage:
+          - '%prefix% Invalid usage, try ''&b/%label% info&7''.'
+
+      # TODO Comment.
       off:
 
+        # TODO more messages ...
+
+        # TODO Comment.
+        usage:
+          - '%prefix% Invalid usage, try ''&b/%label% off [player]&7''.'
+
+      # TODO Comment.
       on:
 
+        # TODO more messages ...
+
+        # TODO Comment.
+        usage:
+          - '%prefix% Invalid usage, try ''&b/%label% on [player]&7''.'
+
+      # TODO Comment.
       reload:
 
-compatibility-checker:
+        # TODO Comment.
+        start:
+          - '%prefix% Reloading BetterCommandSpy...'
 
+        # TODO Comment.
+        finish:
+          - '%prefix% Reload complete, took &b%time%ms&7.'
+
+        # TODO Comment.
+        usage:
+          - '%prefix% Invalid usage, try ''&b/%label% reload&7''.'
+
+# TODO Comment.
+compatibility-checker:
+#TODO
+
+# TODO Comment.
 update-checker:
+#TODO
 
 # Don't touch any of this.
 file:
