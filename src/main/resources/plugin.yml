@@ -43,7 +43,7 @@ permissions:
 
   bettercommandspy.canListen:
     default: 'op'
-    description: 'Ability for a player to use command spy, REGARDLESS of their status.'
+    description: 'Ability for a player to view command spy alerts.'
 
   bettercommandspy.command.bettercommandspy.toggle:
     default: 'op'
@@ -56,6 +56,7 @@ permissions:
     description: 'Ability to run the command `/bcs on` and `/bcs off` for other players.'
     children:
       bettercommandspy.toggle: true
+      bettercommandspy.canListen: true
 
   bettercommandspy.command.bettercommandspy.reload:
     default: 'op'

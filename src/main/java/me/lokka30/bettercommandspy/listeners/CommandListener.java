@@ -5,6 +5,8 @@
 package me.lokka30.bettercommandspy.listeners;
 
 import me.lokka30.bettercommandspy.BetterCommandSpy;
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -42,5 +44,20 @@ public class CommandListener implements Listener {
     @EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
     public void onExecuteCommand(@NotNull final PlayerCommandPreprocessEvent event) {
         //TODO ...
+        broadcastAlert(event.getPlayer(), event.getMessage());
+    }
+
+    /**
+     * @param commandSender the player who sent a command
+     * @param command       the command the player ran
+     * @author lokka30
+     * @since v2.0.0
+     */
+    void broadcastAlert(Player commandSender, String command) {
+        for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
+
+            // make sure the online player is listening
+            if (!main.userHandler.getStatus(onlinePlayer)) continue;
+        }
     }
 }
