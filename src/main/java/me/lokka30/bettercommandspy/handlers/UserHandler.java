@@ -33,7 +33,7 @@ public class UserHandler {
      * Get the spy status of a player.
      *
      * @param player player to get command spy status of
-     * @return command spy status of player
+     * @return command spying status of player
      * @author lokka30
      * @since v2.0.0
      */

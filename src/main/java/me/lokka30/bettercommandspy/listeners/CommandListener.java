@@ -5,6 +5,7 @@
 package me.lokka30.bettercommandspy.listeners;
 
 import me.lokka30.bettercommandspy.BetterCommandSpy;
+import me.lokka30.microlib.messaging.MultiMessage;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -12,6 +13,9 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * This class listens for whenever players execute a command.
@@ -24,7 +28,7 @@ public class CommandListener implements Listener {
 
     /*
     TODO
-        listener.
+        test this
      */
 
     private final BetterCommandSpy main;
@@ -43,21 +47,27 @@ public class CommandListener implements Listener {
      */
     @EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
     public void onExecuteCommand(@NotNull final PlayerCommandPreprocessEvent event) {
-        //TODO ...
-        broadcastAlert(event.getPlayer(), event.getMessage());
-    }
+        if (event.getPlayer().hasPermission("bettercommandspy.bypass")) return;
 
-    /**
-     * @param commandSender the player who sent a command
-     * @param command       the command the player ran
-     * @author lokka30
-     * @since v2.0.0
-     */
-    void broadcastAlert(Player commandSender, String command) {
+        // cache the alert message
+        ArrayList<String> alertMessage = new MultiMessage(
+                main.messages.getConfig().getStringList("alert"),
+                Arrays.asList(
+                        new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix"), true),
+                        new MultiMessage.Placeholder("username", event.getPlayer().getName(), false),
+                        new MultiMessage.Placeholder("displayname", event.getPlayer().getDisplayName(), false),
+                        new MultiMessage.Placeholder("command", event.getMessage(), false)
+                )
+        ).getTranslatedContent();
+
+        // check what online players should be alerted
         for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
 
-            // make sure the online player is listening
+            // make sure the online player has the required status
             if (!main.userHandler.getStatus(onlinePlayer)) continue;
+
+            // send alert msg to these players
+            alertMessage.forEach(onlinePlayer::sendMessage);
         }
     }
 }

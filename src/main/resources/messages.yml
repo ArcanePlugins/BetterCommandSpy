@@ -13,10 +13,11 @@ prefix: '&b&lCommandSpy:&7'
 #
 # Placeholders:
 #  %prefix% ~ the plugin prefix
-#  %player% ~ the player's username.
+#  %username% ~ the player's username.
 #  %displayname% ~ the player's displayname (e.g. including vault prefix, so on)
 #  %command% ~ the command the player ran
-alert: '%prefix% &r%player%&7 ran &8%command%'
+alert:
+  - '%prefix% &r%displayname%&7 ran &8%command%'
 
 # These messages are sent to players that use
 # any commands from BetterCommandSpy.
@@ -45,9 +46,9 @@ commands:
     #
     # Placeholders:
     #  %prefix% ~ the plugin prefix
-    #  %player% ~ the specified player name
+    #  %username% ~ the specified player name
     specified-player-never-joined:
-      - '%prefix% Specified player ''&r%player%&7'' hasn''t joined this server before.'
+      - '%prefix% Specified player ''&r%username%&7'' hasn''t joined this server before.'
 
   # The following messages are sent by using the command
   # '/bettercommandspy', or its aliases ('/cspy', etc).
