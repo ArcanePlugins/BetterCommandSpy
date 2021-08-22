@@ -95,6 +95,6 @@ public class UserHandler {
         }
 
         /* Send a debug log regarding the method being ran */
-        Utils.debugLog(main, DebugCategory.STATUS_CHANGED, "Player '" + player.getName() + "' spy status changing to state '" + event.getState() + "' (modified by external plugin: " + event.getWasStateModified() + ") with cause '" + cause + "'.");
+        Utils.debugLog(main, DebugCategory.USER_HANDLER_STATUS_CHANGED, "Player '" + player.getName() + "' spy status changing to state '" + event.getState() + "' (modified by external plugin: " + event.getWasStateModified() + ") with cause '" + cause + "'.");
     }
 }

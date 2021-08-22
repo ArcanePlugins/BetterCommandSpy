@@ -5,7 +5,9 @@
 package me.lokka30.bettercommandspy;
 
 import me.lokka30.bettercommandspy.commands.bettercommandspy.BetterCommandSpyCommand;
+import me.lokka30.bettercommandspy.handlers.CompatibilityCheckerHandler;
 import me.lokka30.bettercommandspy.handlers.FileHandler;
+import me.lokka30.bettercommandspy.handlers.UpdateCheckerHandler;
 import me.lokka30.bettercommandspy.handlers.UserHandler;
 import me.lokka30.bettercommandspy.listeners.CommandListener;
 import me.lokka30.bettercommandspy.misc.Utils;
@@ -27,15 +29,11 @@ import java.io.File;
  */
 public class BetterCommandSpy extends JavaPlugin {
 
-    /*
-    TODO
-        Compatibility Checker method
-        Update Checker method
-     */
-
     /* Handler Classes */
     public final FileHandler fileHandler = new FileHandler(this);
     public final UserHandler userHandler = new UserHandler(this);
+    public final UpdateCheckerHandler updateCheckerHandler = new UpdateCheckerHandler(this);
+    public final CompatibilityCheckerHandler compatibilityCheckerHandler = new CompatibilityCheckerHandler(this);
 
     /* Config Files */
     public final YamlConfigFile settings = new YamlConfigFile(this, new File(getDataFolder(), "settings.yml"));
@@ -60,7 +58,7 @@ public class BetterCommandSpy extends JavaPlugin {
         Utils.LOGGER.info("&3Start-up: &7Running misc startup procedures...");
         startBStats();
         checkCompatibility(Bukkit.getConsoleSender());
-        checkForUpdates();
+        updateCheckerHandler.init(false);
 
         Utils.LOGGER.info("&3Start-up: &f~ &bStart-up complete&7, took &b" + quickTimer.getTimer() + "ms&f ~");
     }
@@ -87,7 +85,7 @@ public class BetterCommandSpy extends JavaPlugin {
      * @author lokka30
      * @since v2.0.0
      */
-    protected void loadFiles() {
+    public void loadFiles() {
         Utils.LOGGER.info("&3Files: &7Loading files...");
 
         fileHandler.init();
@@ -99,8 +97,11 @@ public class BetterCommandSpy extends JavaPlugin {
      * @author lokka30
      * @since v2.0.0
      */
-    private void checkCompatibility(@NotNull final CommandSender recipient) {
-        //TODO
+    public void checkCompatibility(@NotNull final CommandSender recipient) {
+        recipient.sendMessage("checking for compatibility...");
+        //TODO check compatibility from CompatibilityCheckerHandler.
+        //TODO remove these debugging messages of course
+        recipient.sendMessage("done compat check");
     }
 
     /**
@@ -135,17 +136,5 @@ public class BetterCommandSpy extends JavaPlugin {
      */
     private void startBStats() {
         new Metrics(this, 8907);
-    }
-
-    /**
-     * TODO
-     * <p>
-     * Run the async update checker from MicroLib.
-     *
-     * @author lokka30
-     * @since v2.0.0
-     */
-    protected void checkForUpdates() {
-        // ...
     }
 }

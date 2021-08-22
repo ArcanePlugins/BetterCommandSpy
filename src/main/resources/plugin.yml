@@ -1,14 +1,9 @@
-#  _____    _____   _____
-# |  __ \  /  __ \ /  ___\
-# | |_/ / | /  \_/ `--.
-# |  __ \ | |   __ `--. \
-# | |_/ / | \__/ / ,__/ /
-# \____/   \____/ \____/
-
-# <!> WARNING - NOT A CONFIG! <!>
-# This is not a configuration file!
+# BetterCommandSpy | ${project.description}
+#
+# ⚠ WARNING - THS IS NOT A CONFIGURATION FILE! ⚠
 # This file is used by your server
 # software when it loads the plugin.
+# Do not modify this file.
 
 # About the plugin
 name: 'BetterCommandSpy'
@@ -34,16 +29,41 @@ permissions:
     description: 'Receive all permissions from the BetterCommandSpy plugin.'
     children:
       bettercommandspy.canListen: true
+      bettercommandspy.receive-update-notifications: true
+      bettercommandspy.command.bettercommandspy.compatibility: true
+      bettercommandspy.command.bettercommandspy.debug: true
+      bettercommandspy.command.bettercommandspy.info: true
+      bettercommandspy.command.bettercommandspy.reload: true
       bettercommandspy.command.bettercommandspy.toggle: true
       bettercommandspy.command.bettercommandspy.toggle.others: true
-      bettercommandspy.command.bettercommandspy.reload: true
-      bettercommandspy.command.bettercommandspy.info: true
-      bettercommandspy.command.bettercommandspy.compatibility: true
-      bettercommandspy.bypass: true
+
+  bettercommandspy.bypass:
+    default: false
+    description: 'Commands sent from users with this permission will not be shown in command spy.'
 
   bettercommandspy.canListen:
     default: 'op'
     description: 'Ability for a player to view command spy alerts.'
+
+  bettercommandspy.receive-update-notifications:
+    default: 'op'
+    description: 'If configured, players with this permission will receive notifications from the update checker, if they are not running the latest version.'
+
+  bettercommandspy.command.bettercommandspy.compatibility:
+    default: 'op'
+    description: 'Ability to run the command `/bcs compatibility`.'
+
+  bettercommandspy.command.bettercommandspy.debug:
+    default: 'op'
+    description: 'Ability for a player to utilise debug methods (for developers).'
+
+  bettercommandspy.command.bettercommandspy.info:
+    default: true
+    description: 'Ability to run the command `/bcs info`.'
+
+  bettercommandspy.command.bettercommandspy.reload:
+    default: 'op'
+    description: 'Ability to run the command `/bcs reload`.'
 
   bettercommandspy.command.bettercommandspy.toggle:
     default: 'op'
@@ -57,19 +77,3 @@ permissions:
     children:
       bettercommandspy.toggle: true
       bettercommandspy.canListen: true
-
-  bettercommandspy.command.bettercommandspy.reload:
-    default: 'op'
-    description: 'Ability to run the command `/bcs reload`.'
-
-  bettercommandspy.command.bettercommandspy.info:
-    default: true
-    description: 'Ability to run the command `/bcs info`.'
-
-  bettercommandspy.command.bettercommandspy.compatibility:
-    default: 'op'
-    description: 'Ability to run the command `/bcs compatibility`.'
-
-  bettercommandspy.bypass:
-    default: false
-    description: 'Commands sent from users with this permission will not be shown in command spy.'

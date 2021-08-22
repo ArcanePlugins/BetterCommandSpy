@@ -6,6 +6,7 @@ package me.lokka30.bettercommandspy.commands.bettercommandspy.subcommands;
 
 import me.lokka30.bettercommandspy.BetterCommandSpy;
 import me.lokka30.bettercommandspy.commands.ISubcommand;
+import me.lokka30.microlib.messaging.MessageUtils;
 import me.lokka30.microlib.messaging.MultiMessage;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
@@ -29,8 +30,7 @@ public class InfoSubcommand implements ISubcommand {
 
     /*
     TODO
-        Command
-        Test
+        - Test the subcommand.
      */
 
     @Override
@@ -51,11 +51,23 @@ public class InfoSubcommand implements ISubcommand {
             return;
         }
 
-        sender.sendMessage("Work in progress."); //TODO
+        new MultiMessage(main.messages.getConfig().getStringList("commands.bettercommandspy.subcommands.info.print"), Arrays.asList(
+                new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix"), true),
+                new MultiMessage.Placeholder("version", main.getDescription().getVersion(), false),
+                new MultiMessage.Placeholder("authors", getFormattedAuthorsList(main), false),
+                new MultiMessage.Placeholder("version", main.getDescription().getVersion(), false)
+        )).send(sender);
     }
 
     @Override
     public List<String> parseTabSuggestions(@NotNull BetterCommandSpy main, @NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
         return new ArrayList<>();
+    }
+
+    String getFormattedAuthorsList(@NotNull BetterCommandSpy main) {
+        return String.join(
+                MessageUtils.colorizeAll(main.messages.getConfig().getString("commands.common.delimiter", ",")),
+                main.getDescription().getAuthors()
+        );
     }
 }

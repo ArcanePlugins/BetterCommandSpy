@@ -28,8 +28,7 @@ public class CompatibilitySubcommand implements ISubcommand {
 
     /*
     TODO
-        Command
-        Test
+        - Test this subcommand.
      */
 
     @Override
@@ -50,9 +49,7 @@ public class CompatibilitySubcommand implements ISubcommand {
             return;
         }
 
-        //TODO
-
-        sender.sendMessage("Work in progress.");
+        main.checkCompatibility(sender);
     }
 
     @Override

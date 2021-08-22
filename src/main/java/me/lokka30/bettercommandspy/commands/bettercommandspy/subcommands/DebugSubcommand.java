@@ -13,6 +13,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * @author lokka30
@@ -30,8 +31,7 @@ public class DebugSubcommand implements ISubcommand {
 
     /*
     TODO
-        Command
-        Test
+        - Test the command.
      */
 
     @Override
@@ -44,7 +44,7 @@ public class DebugSubcommand implements ISubcommand {
             return;
         }
 
-        if (args.length != 1) {
+        if (args.length != 2) {
             new MultiMessage(main.messages.getConfig().getStringList("commands.bettercommandspy.subcommands.debug.usage"), Arrays.asList(
                     new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix"), true),
                     new MultiMessage.Placeholder("label", label, false)
@@ -52,7 +52,21 @@ public class DebugSubcommand implements ISubcommand {
             return;
         }
 
-        sender.sendMessage("Work in progress."); //TODO
+        switch (args[1].toLowerCase(Locale.ROOT)) {
+            case "example1":
+                sender.sendMessage("Example 1"); // Placeholder for any future debug-methods.
+                break;
+            case "example2":
+                sender.sendMessage("Example 2"); // Placeholder for any future debug-methods.
+                break;
+            default:
+                new MultiMessage(main.messages.getConfig().getStringList("commands.bettercommandspy.subcommands.debug.invalid-method"), Arrays.asList(
+                        new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix"), true),
+                        new MultiMessage.Placeholder("method", args[1], false),
+                        new MultiMessage.Placeholder("label", label, false)
+                )).send(sender);
+                break;
+        }
     }
 
     @Override

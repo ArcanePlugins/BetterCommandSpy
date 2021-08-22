@@ -18,5 +18,10 @@ public enum DebugCategory {
     /**
      * Reports when the spy status of a player is modified.
      */
-    STATUS_CHANGED
+    USER_HANDLER_STATUS_CHANGED,
+
+    /**
+     * Reports what the update checker is doing
+     */
+    UPDATE_CHECKER_OPERATIONS
 }

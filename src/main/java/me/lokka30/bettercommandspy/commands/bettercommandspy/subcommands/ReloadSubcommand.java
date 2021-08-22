@@ -12,6 +12,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -28,8 +29,7 @@ public class ReloadSubcommand implements ISubcommand {
 
     /*
     TODO
-        Command
-        Test
+        - Test the subcommand.
      */
 
     @Override
@@ -50,7 +50,16 @@ public class ReloadSubcommand implements ISubcommand {
             return;
         }
 
-        sender.sendMessage("Work in progress."); //TODO
+        new MultiMessage(main.messages.getConfig().getStringList("commands.bettercommandspy.subcommands.reload.start"), Collections.singletonList(
+                new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix"), true)
+        )).send(sender);
+
+        main.loadFiles();
+        main.updateCheckerHandler.init(true);
+
+        new MultiMessage(main.messages.getConfig().getStringList("commands.bettercommandspy.subcommands.reload.finish"), Collections.singletonList(
+                new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix"), true)
+        )).send(sender);
     }
 
     @Override

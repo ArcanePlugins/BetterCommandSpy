@@ -1,12 +1,8 @@
-#  _____    _____   _____
-# |  __ \  /  __ \ /  ___\
-# | |_/ / | /  \_/ `--.
-# |  __ \ | |   __ `--. \
-# | |_/ / | \__/ / ,__/ /
-# \____/   \____/ \____/
+# BetterCommandSpy | ${project.description}
 
 # Should Command Spy be enabled for new players by default?
 default-commandspy-state: true
+
 
 # What commands shouldn't be shown in the commandspy alerts?
 ignored-commands:
@@ -25,6 +21,7 @@ ignored-commands:
     - '/spawn'
     - '/home'
 
+
 # Should BetterCommandSpy make sure players that have Command Spy toggled ON
 # have an extra permission as a layer of security to actually be able to spy?
 # This permission is 'bettercommandspy.canListen', it is given to operators
@@ -35,10 +32,57 @@ ignored-commands:
 # still spy. For security purposes this setting is TRUE by default.
 use-canlisten-permission: true
 
+
+# The following section allows you to configure and even disable
+# the asynchronous update checker built into BetterCommandSpy.
+#
+# Note: this *checks* for updates, it doesn't *download* them,
+# for security reasons of course :)
+#
+# It sends a web request to the SpigotMC page to check for what
+# the latest version released is, compares it against your current
+# version, and informs you if they're not the same.
+update-checker:
+
+  # Should the update checker be enabled?
+  enabled: true
+
+
+  # How many hours should the update checker wait
+  # until it runs itself again?
+  #
+  # This is useful if you leave your server on for
+  # long periods of time - maybe a new version has
+  # been released since it was last started up.
+  #
+  # By default, this is set to 24, as the
+  # plugin does not update very often.
+  #
+  # To disable the repeating update checks, set this to 0.
+  repeat-period: 24
+
+
+  # This section allows you to customise who
+  # receives notifications from the update
+  # checker.
+  notify:
+
+    # Should console be notified if the server
+    # is not running the latest version?
+    console: true
+
+    # Should players with the permission
+    # 'bettercommandspy.receive-update-notifications'
+    # receive notifications from the update checker
+    # if the server is not running the latest version?
+    players-with-perm: true
+
+
 # You shouldn't touch this unless developers/support ask you to.
 # Logs messages to console about what the plugin is doing in the
 # background, helps developers solve bugs in a lot of situations.
 debug: [ ]
+
 
 # Don't touch any of this.
 file:

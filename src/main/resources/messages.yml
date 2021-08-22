@@ -1,9 +1,4 @@
-#  _____    _____   _____
-# |  __ \  /  __ \ /  ___\
-# | |_/ / | /  \_/ `--.
-# |  __ \ | |   __ `--. \
-# | |_/ / | \__/ / ,__/ /
-# \____/   \____/ \____/
+# BetterCommandSpy | ${project.description}
 
 # General messages.
 prefix: '&b&lCommandSpy:&7'
@@ -50,6 +45,12 @@ commands:
     specified-player-never-joined:
       - '%prefix% Specified player ''&r%username%&7'' hasn''t joined this server before.'
 
+    # When a BetterCommandSpy prints a list of things in messages
+    # (e.g. 'numbers: 1, 2, 3'), what should separate each object
+    # in the list (i.e., '1', '2', and '3')?
+    # In other words ... how is a comma character formatted in the list?
+    delimiter: '&7, &b'
+
   # The following messages are sent by using the command
   # '/bettercommandspy', or its aliases ('/cspy', etc).
   bettercommandspy:
@@ -89,6 +90,11 @@ commands:
         # TODO Comment.
         usage:
           - '%prefix% Invalid usage, try ''&b/%label% debug <method>&7''.'
+          - '%prefix% &eWarning:&7 This command should only be used if a BetterCommandSpy developer advises you to.'
+
+        # TODO Comment.
+        invalid-method:
+          - '%prefix% Invalid debug-method ''&b%method%&7'', try ''&b/%label% debug <method>&7''.'
           - '%prefix% &eWarning:&7 This command should only be used if a BetterCommandSpy developer advises you to.'
 
       # TODO Comment.
