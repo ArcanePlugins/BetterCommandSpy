@@ -10,6 +10,7 @@ import me.lokka30.bettercommandspy.handlers.FileHandler;
 import me.lokka30.bettercommandspy.handlers.UpdateCheckerHandler;
 import me.lokka30.bettercommandspy.handlers.UserHandler;
 import me.lokka30.bettercommandspy.listeners.CommandListener;
+import me.lokka30.bettercommandspy.listeners.JoinListener;
 import me.lokka30.bettercommandspy.misc.Utils;
 import me.lokka30.microlib.files.YamlConfigFile;
 import me.lokka30.microlib.maths.QuickTimer;
@@ -113,6 +114,7 @@ public class BetterCommandSpy extends JavaPlugin {
     private void registerListeners() {
         Utils.LOGGER.info("&3Listeners: &7Registering listeners...");
 
+        Bukkit.getPluginManager().registerEvents(new JoinListener(this), this);
         Bukkit.getPluginManager().registerEvents(new CommandListener(this), this);
     }
 
