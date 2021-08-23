@@ -68,7 +68,7 @@ public class UserHandler {
      * @since v2.0.0
      */
     public enum ChangedStatusCause {
-        COMMAND, // The player's status was changed from the on/off command.
+        //COMMAND, // TODO (Implement this!!) The player's status was changed from the on/off command.
         NO_CAN_LISTEN_PERMISSION // The player's status was changed by lacking the 'canListen' permission.
     }
 
