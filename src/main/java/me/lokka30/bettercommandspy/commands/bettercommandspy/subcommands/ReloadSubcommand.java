@@ -34,6 +34,8 @@ public class ReloadSubcommand implements ISubcommand {
 
     @Override
     public void parseCmd(@NotNull BetterCommandSpy main, @NotNull CommandSender sender, @NotNull String label, @NotNull String @NotNull [] args) {
+
+        // ensure sender has required permission
         if (!sender.hasPermission("bettercommandspy.command.bettercommandspy.reload")) {
             new MultiMessage(main.messages.getConfig().getStringList("commands.common.no-permission"), Arrays.asList(
                     new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix"), true),
@@ -42,6 +44,7 @@ public class ReloadSubcommand implements ISubcommand {
             return;
         }
 
+        // ensure correct usage
         if (args.length != 1) {
             new MultiMessage(main.messages.getConfig().getStringList("commands.bettercommandspy.subcommands.reload.usage"), Arrays.asList(
                     new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix"), true),
@@ -50,25 +53,30 @@ public class ReloadSubcommand implements ISubcommand {
             return;
         }
 
+        // send 'starting' msg
         new MultiMessage(main.messages.getConfig().getStringList("commands.bettercommandspy.subcommands.reload.start"), Collections.singletonList(
                 new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix"), true)
         )).send(sender);
 
+        // reload files
         main.loadFiles();
 
+        // reload compat checker
         if (main.settings.getConfig().getBoolean("compatibility-checker.run-on-startup", true)) {
             main.compatibilityCheckerHandler.scan();
         }
 
+        // reload update checker
         main.updateCheckerHandler.init(true);
 
+        // send 'done' msg
         new MultiMessage(main.messages.getConfig().getStringList("commands.bettercommandspy.subcommands.reload.finish"), Collections.singletonList(
                 new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix"), true)
         )).send(sender);
     }
 
     @Override
-    public List<String> parseTabSuggestions(@NotNull BetterCommandSpy main, @NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
-        return new ArrayList<>();
+    public @NotNull List<String> parseTabSuggestions(@NotNull BetterCommandSpy main, @NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
+        return new ArrayList<>(); // no tab completions
     }
 }

@@ -60,7 +60,7 @@ public class InfoSubcommand implements ISubcommand {
     }
 
     @Override
-    public List<String> parseTabSuggestions(@NotNull BetterCommandSpy main, @NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
+    public @NotNull List<String> parseTabSuggestions(@NotNull BetterCommandSpy main, @NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
         return new ArrayList<>();
     }
 

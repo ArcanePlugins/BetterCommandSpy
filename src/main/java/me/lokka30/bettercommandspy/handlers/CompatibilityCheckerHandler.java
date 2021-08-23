@@ -133,9 +133,7 @@ public class CompatibilityCheckerHandler {
      * @param recipient who the findings should be presented to
      * @author lokka30
      * @since v2.0.0
-     * <p>
      * Reports any findings gathered from the latest scan.
-     * <p>
      */
     public void presentFindings(CommandSender recipient) {
         //TODO Customisable Messages
@@ -171,10 +169,8 @@ public class CompatibilityCheckerHandler {
      * @return if it is suppressed or not
      * @author lokka30
      * @since v2.0.0
-     * <p>
      * Checks if the administrator has configured BCS to suppress
      * the specified Compatibility Category.
-     * <p>
      */
     private boolean isCompatibilityCategorySuppressed(@SuppressWarnings("SameParameterValue") CompatibilityCategory category) {
         return main.settings.getConfig().getStringList("compatibility-checker.suppressed-categories").contains(category.toString());

@@ -40,5 +40,6 @@ public interface ISubcommand {
      * Get a list of tab suggestions.
      * Only 1.13+ servers are able to utilise this feature.
      */
+    @NotNull
     List<String> parseTabSuggestions(@NotNull BetterCommandSpy main, @NotNull CommandSender sender, @NotNull String label, @NotNull String[] args);
 }
