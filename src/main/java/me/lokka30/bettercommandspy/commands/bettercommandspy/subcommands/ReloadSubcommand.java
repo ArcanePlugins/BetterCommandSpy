@@ -55,6 +55,11 @@ public class ReloadSubcommand implements ISubcommand {
         )).send(sender);
 
         main.loadFiles();
+
+        if (main.settings.getConfig().getBoolean("compatibility-checker.run-on-startup", true)) {
+            main.compatibilityCheckerHandler.scan();
+        }
+
         main.updateCheckerHandler.init(true);
 
         new MultiMessage(main.messages.getConfig().getStringList("commands.bettercommandspy.subcommands.reload.finish"), Collections.singletonList(

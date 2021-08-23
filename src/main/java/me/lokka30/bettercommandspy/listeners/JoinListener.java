@@ -37,14 +37,48 @@ public class JoinListener implements Listener {
      * <p>
      * This method is called whenever
      * a player joins the server.
+     * <p>
      */
     @EventHandler
     public void onJoin(final PlayerJoinEvent event) {
+        sendCompatibilityCheckerNotification(event.getPlayer());
         sendUpdateCheckerNotification(event.getPlayer());
     }
 
     /**
-     * @param player player that joined the server
+     * @param player who joined
+     * @author lokka30
+     * @since v2.0.0
+     * <p>
+     * Check if the player that joined
+     * should receive a notification or not
+     * <p>
+     */
+    private void sendCompatibilityCheckerNotification(final Player player) {
+
+        // make sure the setting is enabled
+        // TODO debug log
+        if (!main.settings.getConfig().getBoolean("compatibility-checker.notify.players-with-perm-on-join", true))
+            return;
+
+        // check if it should be skipped due to incompatibilities possibly having a size of 0
+        // TODO Debug log
+        if (
+                main.compatibilityCheckerHandler.getIncompatibilities().size() == 0 &&
+                        main.settings.getConfig().getBoolean("compatibility-checker.notify.dont-notify-if-none-found", true)
+        ) return;
+
+        // Make sure the player has permission to receive the notification
+        //TODO Debug Log
+        if (!player.hasPermission("bettercommandspy.notifications.compatibility-checker")) return;
+
+        // Send the notice
+        //TODO Debug Log
+        main.compatibilityCheckerHandler.presentFindings(player);
+    }
+
+    /**
+     * @param player who joined
      * @author lokka30
      * @see PlayerJoinEvent
      * @since v2.0.0
@@ -52,6 +86,7 @@ public class JoinListener implements Listener {
      * This method checks and sends a
      * notification from the update checker
      * Intended to be fired from JoinListener#onJoin
+     * <p>
      */
     private void sendUpdateCheckerNotification(final Player player) {
         // make sure update checker is enabled
@@ -64,7 +99,7 @@ public class JoinListener implements Listener {
 
         // make sure the player has permission to receive the update notification
         Utils.debugLog(main, DebugCategory.UPDATE_CHECKER_ON_JOIN_NOTIFY, "[" + player.getName() + "] (3/4) Checking permission");
-        if (!player.hasPermission("bettercommandspy.receive-update-notifications")) return;
+        if (!player.hasPermission("bettercommandspy.notifications.update-checker")) return;
 
         // send the update checker notice
         Utils.debugLog(main, DebugCategory.UPDATE_CHECKER_ON_JOIN_NOTIFY, "[" + player.getName() + "] (4/4) Sending notice");

@@ -29,7 +29,8 @@ permissions:
     description: 'Receive all permissions from the BetterCommandSpy plugin.'
     children:
       bettercommandspy.canListen: true
-      bettercommandspy.receive-update-notifications: true
+      bettercommandspy.notifications.compatibility-checker: true
+      bettercommandspy.notifications.update-checker: true
       bettercommandspy.command.bettercommandspy.compatibility: true
       bettercommandspy.command.bettercommandspy.debug: true
       bettercommandspy.command.bettercommandspy.info: true
@@ -45,9 +46,13 @@ permissions:
     default: 'op'
     description: 'Ability for a player to view command spy alerts.'
 
-  bettercommandspy.receive-update-notifications:
+  bettercommandspy.notifications.compatibility-checker:
     default: 'op'
-    description: 'If configured, players with this permission will receive notifications from the update checker, if they are not running the latest version.'
+    description: 'If configured, players with this permission will receive notifications from the compatibility checker.'
+
+  bettercommandspy.notifications.update-checker:
+    default: 'op'
+    description: 'If configured, players with this permission will receive notifications from the update checker if they are not running the latest version.'
 
   bettercommandspy.command.bettercommandspy.compatibility:
     default: 'op'

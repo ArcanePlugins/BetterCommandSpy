@@ -16,9 +16,7 @@ import me.lokka30.microlib.files.YamlConfigFile;
 import me.lokka30.microlib.maths.QuickTimer;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
-import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 
@@ -58,7 +56,7 @@ public class BetterCommandSpy extends JavaPlugin {
 
         Utils.LOGGER.info("&3Start-up: &7Running misc startup procedures...");
         startBStats();
-        checkCompatibility(Bukkit.getConsoleSender());
+        checkCompatibility();
         updateCheckerHandler.init(false);
 
         Utils.LOGGER.info("&3Start-up: &f~ &bStart-up complete&7, took &b" + quickTimer.getTimer() + "ms&f ~");
@@ -98,11 +96,11 @@ public class BetterCommandSpy extends JavaPlugin {
      * @author lokka30
      * @since v2.0.0
      */
-    public void checkCompatibility(@NotNull final CommandSender recipient) {
-        recipient.sendMessage("checking for compatibility...");
-        //TODO check compatibility from CompatibilityCheckerHandler.
-        //TODO remove these debugging messages of course
-        recipient.sendMessage("done compat check");
+    public void checkCompatibility() {
+        if (settings.getConfig().getBoolean("compatibility-checker.run-on-startup", true)) {
+            compatibilityCheckerHandler.scan();
+            compatibilityCheckerHandler.presentFindings(Bukkit.getConsoleSender());
+        }
     }
 
     /**

@@ -49,7 +49,8 @@ public class CompatibilitySubcommand implements ISubcommand {
             return;
         }
 
-        main.checkCompatibility(sender);
+        main.compatibilityCheckerHandler.scan();
+        main.compatibilityCheckerHandler.presentFindings(sender);
     }
 
     @Override

@@ -203,6 +203,8 @@ public class UpdateCheckerHandler {
      * @since v2.0.0
      */
     public void notify(@NotNull CommandSender recipient) {
+        if (!recipient.hasPermission("bettercommandspy.notifications.update-checker")) return;
+
         Utils.debugLog(main, DebugCategory.UPDATE_CHECKER_OPERATIONS, "Notifying recipient '" + recipient.getName() + "', result is " + getResult().getResultType() + ".");
 
         switch (getResult().getResultType()) {

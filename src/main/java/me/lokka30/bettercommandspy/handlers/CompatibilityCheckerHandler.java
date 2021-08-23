@@ -5,15 +5,24 @@
 package me.lokka30.bettercommandspy.handlers;
 
 import me.lokka30.bettercommandspy.BetterCommandSpy;
+import me.lokka30.bettercommandspy.misc.Utils;
+import me.lokka30.microlib.other.VersionUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 
+import java.util.HashSet;
+
 /**
+ * @author lokka30
+ * @since v2.0.0
+ * <p>
  * This class hosts all the methods used to
  * try inform the user of any known incompatibilities
  * detected through their current server configuration.
- *
- * @author lokka30
- * @since v2.0.0
+ * <p>
+ * At the moment the class is future-proofed for any
+ * possible new incompatibility detections, as of v2.0.0
+ * it only contains one check: server's Minecraft version.
  */
 public class CompatibilityCheckerHandler {
 
@@ -23,7 +32,11 @@ public class CompatibilityCheckerHandler {
         this.main = main;
     }
 
-    //TODO
+    private final HashSet<Incompatibility> incompatibilities = new HashSet<>();
+
+    public HashSet<Incompatibility> getIncompatibilities() {
+        return incompatibilities;
+    }
 
     /**
      * @author lokka30
@@ -78,16 +91,92 @@ public class CompatibilityCheckerHandler {
         }
     }
 
+    /**
+     * @author lokka30
+     * @since v2.0.0
+     * <p>
+     * Scan for any incompatibilities known
+     */
     public void scan() {
-        //TODO
+        Utils.LOGGER.info("&3Compatibility Checker: &7Starting compatibility checker...");
+
+        scanServerMCVersion();
+
+        Utils.LOGGER.info("&3Compatibility Checker: &7Checks completed.");
     }
 
+    /**
+     * @author lokka30
+     * @since v2.0.0
+     * <p>
+     * Check if the server's MC version is compatible
+     */
+    private void scanServerMCVersion() {
+        // Make sure this compatibility is not suppressed
+        if (isCompatibilityCategorySuppressed(CompatibilityCategory.SERVER_MINECRAFT_VERSION)) return;
+
+        // Log what the compat checker is doing
+        Utils.LOGGER.info("&3Compatibility Checker: &7Checking category '&b" + CompatibilityCategory.SERVER_MINECRAFT_VERSION + "&7'...");
+
+        // Make sure the server is at least MC 1.7
+        if (VersionUtils.isOneSeven()) return;
+
+        // Add the incompatibility to the list
+        incompatibilities.add(new Incompatibility(
+                CompatibilityCategory.SERVER_MINECRAFT_VERSION,
+                "Versions older than MC 1.7 have not been tested, and are unsupported by the developers. Consider updating your server to a newer version of Minecraft.",
+                "Detected version: &b" + Bukkit.getVersion()
+        ));
+    }
+
+    /**
+     * @param recipient who the findings should be presented to
+     * @author lokka30
+     * @since v2.0.0
+     * <p>
+     * Reports any findings gathered from the latest scan.
+     * <p>
+     */
     public void presentFindings(CommandSender recipient) {
-        //TODO
+        //TODO Customisable Messages
+        //TODO Test
+
+        int amount = incompatibilities.size();
+        if (amount == 0) {
+            recipient.sendMessage("No known incompatibilities were found.");
+            return;
+        } else if (amount == 1) {
+            recipient.sendMessage("1 known incompatibility was found:");
+        } else {
+            recipient.sendMessage(incompatibilities.size() + " known incompatibilities were found:");
+        }
+
+        int index = 1;
+        for (Incompatibility incompatibility : incompatibilities) {
+            recipient.sendMessage("Incompatibility #" + index + ":");
+            recipient.sendMessage(" -> Category: " + incompatibility.getCategory());
+            recipient.sendMessage(" -> Reason: " + incompatibility.getReason());
+            recipient.sendMessage(" -> Other Info: " + incompatibility.getOtherInfo());
+
+            if (index != amount) {
+                recipient.sendMessage(" ");
+            }
+
+            index++;
+        }
     }
 
-    private boolean isCompatibilityCategoryEnabled(CompatibilityCategory category) {
-        //TODO
-        return true;
+    /**
+     * @param category what category should be checked
+     * @return if it is suppressed or not
+     * @author lokka30
+     * @since v2.0.0
+     * <p>
+     * Checks if the administrator has configured BCS to suppress
+     * the specified Compatibility Category.
+     * <p>
+     */
+    private boolean isCompatibilityCategorySuppressed(@SuppressWarnings("SameParameterValue") CompatibilityCategory category) {
+        return main.settings.getConfig().getStringList("compatibility-checker.suppressed-categories").contains(category.toString());
     }
 }
