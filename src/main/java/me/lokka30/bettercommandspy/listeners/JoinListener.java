@@ -57,23 +57,23 @@ public class JoinListener implements Listener {
     private void sendCompatibilityCheckerNotification(final Player player) {
 
         // make sure the setting is enabled
-        // TODO debug log
+        Utils.debugLog(main, DebugCategory.COMPATIBILITY_CHECKER_ON_JOIN_NOTIFY, "[" + player.getName() + "] (1/4) Checking if 'notify players with perms on join' is enabled.");
         if (!main.settings.getConfig().getBoolean("compatibility-checker.notify.players-with-perm-on-join", true))
             return;
 
         // check if it should be skipped due to incompatibilities possibly having a size of 0
-        // TODO Debug log
+        Utils.debugLog(main, DebugCategory.COMPATIBILITY_CHECKER_ON_JOIN_NOTIFY, "[" + player.getName() + "] (2/4) Checking size of incompatibilities list.");
         if (
                 main.compatibilityCheckerHandler.getIncompatibilities().size() == 0 &&
                         main.settings.getConfig().getBoolean("compatibility-checker.notify.dont-notify-if-none-found", true)
         ) return;
 
         // Make sure the player has permission to receive the notification
-        //TODO Debug Log
+        Utils.debugLog(main, DebugCategory.COMPATIBILITY_CHECKER_ON_JOIN_NOTIFY, "[" + player.getName() + "] (3/4) Checking if player has perms to receive notifications.");
         if (!player.hasPermission("bettercommandspy.notifications.compatibility-checker")) return;
 
         // Send the notice
-        //TODO Debug Log
+        Utils.debugLog(main, DebugCategory.COMPATIBILITY_CHECKER_ON_JOIN_NOTIFY, "[" + player.getName() + "] (4/4) Presenting findings.");
         main.compatibilityCheckerHandler.presentFindings(player);
     }
 
@@ -82,11 +82,9 @@ public class JoinListener implements Listener {
      * @author lokka30
      * @see PlayerJoinEvent
      * @since v2.0.0
-     * <p>
      * This method checks and sends a
      * notification from the update checker
      * Intended to be fired from JoinListener#onJoin
-     * <p>
      */
     private void sendUpdateCheckerNotification(final Player player) {
         // make sure update checker is enabled

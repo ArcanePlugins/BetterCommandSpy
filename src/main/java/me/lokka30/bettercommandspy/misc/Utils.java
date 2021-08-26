@@ -12,14 +12,13 @@ import org.jetbrains.annotations.NotNull;
 
 /**
  * Class containing a bunch of utility methods and vars
- *
  * @author lokka30
  * @since v2.0.0
  */
 public class Utils {
 
     private Utils() {
-        throw new UnsupportedOperationException("Contents are static, access as such");
+        throw new UnsupportedOperationException("Contents of the Utils class are static, access as such");
     }
 
     /**
