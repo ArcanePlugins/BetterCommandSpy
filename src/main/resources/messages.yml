@@ -1,16 +1,18 @@
 # BetterCommandSpy | ${project.description}
 
-# General messages.
+# The plugin's prefix for chat messages.
+# (This is the content of the '%prefix%' placeholder used
+# throughout the plugin's messages.)
 prefix: '&b&lCommandSpy:&7'
 
 # This is the alert message, sent to spying players when a
 # user runs a command.
 #
 # Placeholders:
-#  %prefix% ~ the plugin prefix
-#  %username% ~ the player's username.
-#  %displayname% ~ the player's displayname (e.g. including vault prefix, so on)
-#  %command% ~ the command the player ran
+#   %prefix% ~ the plugin prefix
+#   %username% ~ the player's username.
+#   %displayname% ~ the player's displayname (e.g. including vault prefix, so on)
+#   %command% ~ the command the player ran
 alert:
   - '%prefix% &r%displayname%&7 ran &8%command%'
 
@@ -26,8 +28,8 @@ commands:
     # but does not have the required permission(s) to do so.
     #
     # Placeholders:
-    #  %prefix% ~ the plugin prefix
-    #  %permission% ~ the required permission
+    #   %prefix% ~ the plugin prefix
+    #   %permission% ~ the required permission
     no-permission:
       - '%prefix% You don''t have access to that &8(&7requires permission &b%permission%&8)&7.'
 
@@ -40,8 +42,8 @@ commands:
     # the players that the server does.
     #
     # Placeholders:
-    #  %prefix% ~ the plugin prefix
-    #  %username% ~ the specified player name
+    #   %prefix% ~ the plugin prefix
+    #   %username% ~ the specified player name
     specified-player-never-joined:
       - '%prefix% Specified player ''&r%username%&7'' hasn''t joined this server before.'
 
@@ -59,8 +61,8 @@ commands:
     # subcommand or specifies an invalid subcommand.
     #
     # Placeholders:
-    #  %prefix% ~ the plugin prefix
-    #  %label% ~ the alias used to run the command
+    #   %prefix% ~ the plugin prefix
+    #   %label% ~ the alias used to run the command
     usage:
       - '%prefix% Unspecified or invalid subcommand, please see the list below:'
       - ' '
@@ -74,85 +76,194 @@ commands:
       - '&8 &m->&b /%label% debug <method> &8~ &7run debug methods (for developers)'
       - '&8 &m->&b /%label% info &8~ &7view info about installed plugin version'
 
-    # TODO Comment.
+    # The following messages are sent from the sub-commands of
+    # '/bettercommandspy', such as '/bcs on', '/bcs off', and so on.
     subcommands:
 
-      # TODO Comment.
+      # The following messages are sent from
+      # the '/bcs compatibility' subcommand.
       compatibility:
 
-        # TODO Comment.
+        # Sent when the user does not specify the valid amount of arguments
+        # for the subcommand's intended usage.
+        #
+        # Placeholders:
+        #   %prefix% ~ the plugin prefix
+        #   %label% ~ the alias used to run the command
         usage:
           - '%prefix% Invalid usage, try ''&b/%label% compatibility&7''.'
 
-      # TODO Comment.
+      # The following messares are sent from
+      # the '/bcs debug' subcommand.
       debug:
 
-        # TODO Comment.
+        # Sent when the user does not specify the valid amount of arguments
+        # for the subcommand's intended usage.
+        #
+        # Placeholders:
+        #   %prefix% ~ the plugin prefix
+        #   %label% ~ the alias used to run the command
         usage:
           - '%prefix% Invalid usage, try ''&b/%label% debug <method>&7''.'
           - '%prefix% &eWarning:&7 This command should only be used if a BetterCommandSpy developer advises you to.'
 
-        # TODO Comment.
+          # Sent when the user does not specify
+          # a valid debug-method for the subcommand.
+          #
+          # Placeholders:
+          #   %prefix% ~ the plugin prefix
+          #   %label% ~ the alias used to run the command
+          #   %method% ~ the invalid debug method specified
         invalid-method:
           - '%prefix% Invalid debug-method ''&b%method%&7'', try ''&b/%label% debug <method>&7''.'
           - '%prefix% &eWarning:&7 This command should only be used if a BetterCommandSpy developer advises you to.'
 
-      # TODO Comment.
+      # The following messares are sent from
+      # the '/bcs info' subcommand.
       info:
 
-        # TODO Comment.
+        # The information print sent to the user.
+        #
+        # Placeholders:
+        #  %prefix% ~ the plugin prefix
+        #  %version% ~ installed version of the plugin
+        #  %authors% ~ authors & maintainers of the resource
+        #  %contributors% ~ list of people who have contributed to BCS
         print:
           - '%prefix% Plugin information:'
           - '&8 &m->&7 Running &bBCS v%version%'
           - '&8 &m->&7 Authors: &b%authors%'
           - '&8 &m->&7 Contributors: &b%contributors%'
 
-        # TODO Comment.
+        # Sent when the user does not specify the valid amount of arguments
+        # for the subcommand's intended usage.
+        #
+        # Placeholders:
+        #   %prefix% ~ the plugin prefix
+        #   %label% ~ the alias used to run the command
         usage:
           - '%prefix% Invalid usage, try ''&b/%label% info&7''.'
 
-      # TODO Comment.
+      # The following messares are sent from
+      # the '/bcs off' subcommand.
       off:
 
-        # TODO more messages ...
+        # TODO Comment.
+        self-success:
+          - '%prefix% &cDisabled&7 your command spy.'
 
         # TODO Comment.
+        self-already-disabled:
+          - '%prefix% Your command spy is already &cdisabled&7.'
+
+        # TODO Comment.
+        target-success:
+          - '%prefix% &cDisabled&7 &r%username%&7''s command spy.'
+
+        # TODO Comment.
+        target-already-disabled:
+          - '%prefix% &r%username%&7''s command spy is already &cdisabled&7.'
+
+        # Sent when the user does not specify the valid amount of arguments
+        # for the subcommand's intended usage.
+        #
+        # Placeholders:
+        #   %prefix% ~ the plugin prefix
+        #   %label% ~ the alias used to run the command
         usage:
           - '%prefix% Invalid usage, try ''&b/%label% off [player]&7''.'
 
-      # TODO Comment.
+        # Sent if console does not specify a player in the command,
+        # as they can't disable their own command spy (since they
+        # aren't a player, of course!)
+        #
+        # Placeholders:
+        #   %prefix% ~ the plugin prefix
+        #   %label% ~ the alias used to run the command
+        usage-console:
+          - '%prefix% Invalid usage for console, try ''&b/%label% off <player>&7''.'
+
+      # The following messares are sent from
+      # the '/bcs on' subcommand.
       on:
 
-        # TODO more messages ...
+        # TODO Comment.
+        self-success:
+          - '%prefix% &aEnabled&7 your command spy.'
 
         # TODO Comment.
+        self-already-enabled:
+          - '%prefix% Your command spy is already &aenabled&7.'
+
+        # TODO Comment.
+        target-success:
+          - '%prefix% &aEnabled&7 &r%username%&7''s command spy.'
+
+        # TODO Comment.
+        target-already-enabled:
+          - '%prefix% &r%username%&7''s command spy is already &aenabled&7.'
+
+        # Sent when the user does not specify the valid amount of arguments
+        # for the subcommand's intended usage.
+        #
+        # Placeholders:
+        #   %prefix% ~ the plugin prefix
+        #   %label% ~ the alias used to run the command
         usage:
           - '%prefix% Invalid usage, try ''&b/%label% on [player]&7''.'
 
-      # TODO Comment.
+        # Sent if console does not specify a player in the command,
+        # as they can't disable their own command spy (since they
+        # aren't a player, of course!)
+        #
+        # Placeholders:
+        #   %prefix% ~ the plugin prefix
+        #   %label% ~ the alias used to run the command
+        usage-console:
+          - '%prefix% Invalid usage for console, try ''&b/%label% on <player>&7''.'
+
+      # The following messares are sent from
+      # the '/bcs reload' subcommand.
       reload:
 
-        # TODO Comment.
+        # The message sent when BetterCommandSpy's
+        # reloading process has begun.
+        #
+        # Placeholders:
+        #   %prefix% ~ the plugin's prefix
         start:
           - '%prefix% Reloading BetterCommandSpy...'
 
-        # TODO Comment.
+        # The message sent when BetterCommandSpy's
+        # reloading process has completed.
+        #
+        # Placeholders:
+        #   %prefix% ~ the plugin's prefix
+        #   %time% ~ the amount of time (milliseconds) the reload took to complete
         finish:
           - '%prefix% Reload complete, took &b%time%ms&7.'
 
-        # TODO Comment.
+        # Sent when the user does not specify the valid amount of arguments
+        # for the subcommand's intended usage.
+        #
+        # Placeholders:
+        #   %prefix% ~ the plugin prefix
+        #   %label% ~ the alias used to run the command
         usage:
           - '%prefix% Invalid usage, try ''&b/%label% reload&7''.'
 
-# TODO Comment.
+# The following messages pertain to the
+# compatibility checker in BetterCommandSpy.
 compatibility-checker:
 #TODO
 
-# TODO Comment.
+# The following messages pertain to the
+# update checker in BetterCommandSpy.
 update-checker:
 #TODO
 
-# Don't touch any of this.
+# Don't touch any of this, you could break the plugin by doing so.
+# The file loader uses this to check if files need to be updated.
 file:
   version: 2
   generated-with: '${project.version}'

@@ -5,13 +5,22 @@
 package me.lokka30.bettercommandspy.misc;
 
 import me.lokka30.bettercommandspy.BetterCommandSpy;
+import me.lokka30.microlib.messaging.MessageUtils;
 import me.lokka30.microlib.messaging.MicroLogger;
+import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
+import org.bukkit.command.CommandSender;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.command.TabExecutor;
+import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.HashSet;
+import java.util.List;
 
 /**
  * Class containing a bunch of utility methods and vars
+ *
  * @author lokka30
  * @since v2.0.0
  */
@@ -63,5 +72,54 @@ public class Utils {
     public static void debugLog(@NotNull final BetterCommandSpy main, @NotNull final DebugCategory debugCategory, @NotNull final String msg) {
         if (!main.settings.getConfig().getStringList("debug").contains(debugCategory.toString())) return;
         Utils.LOGGER.info("&8[&3Debug &8| &3" + debugCategory + "&8]: &7" + msg);
+    }
+
+    /**
+     * @param username username of the offlineplayer
+     * @return the offlineplayer
+     * @author lokka30
+     * @since v2.0.0
+     * Get the OfflinePlayer from a username.
+     * Same as Bukkit#getOfflinePlayer, just bypasses the deprecation.
+     */
+    @SuppressWarnings("deprecation")
+    public static @NotNull OfflinePlayer getOfflinePlayer(@NotNull final String username) {
+        return Bukkit.getOfflinePlayer(username);
+    }
+
+    /**
+     * @param sender the player being observed - if it's console, then all usernames are visible
+     * @return a list of usernames of online players that the player knows are online
+     * @author lokka30
+     * @since v2.0.0
+     * Get a list of usernames that the specified player can see (not vanished,
+     * or so what Bukkit thinks - doesn't work for packet-only vanish plugins).
+     * Used for tab-completion suggestions.
+     */
+    public static HashSet<String> getVisibleOnlinePlayerUsernamesList(@NotNull CommandSender sender) {
+        final HashSet<String> usernames = new HashSet<>();
+
+        for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
+            if (!(sender instanceof Player) || ((Player) sender).canSee(onlinePlayer)) {
+                usernames.add(onlinePlayer.getName());
+            }
+        }
+
+        return usernames;
+    }
+
+    /**
+     * @param main BetterCommandSpy's main class
+     * @param list the list that should be formatted
+     * @return the formatted list
+     * @author lokka30
+     * @since v2.0.0
+     */
+    public static String getFormattedList(@NotNull BetterCommandSpy main, @NotNull List<String> list) {
+        // yes - intentionally, only colorize the delimiter.
+        return String.join(
+                MessageUtils.colorizeAll(main.messages.getConfig().getString("commands.common.delimiter", ",")),
+                list
+        );
     }
 }

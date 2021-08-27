@@ -5,31 +5,31 @@
 package me.lokka30.bettercommandspy.events;
 
 import me.lokka30.bettercommandspy.handlers.UserHandler;
-import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.UUID;
+
 /**
  * This is an Event which fires when a player's command spy state is toggled.
- * <p>
  * It allows other plugins to check when this is done, and it also allows
  * plugins to override the result of the event.
  *
  * @author lokka30
  * @see Event
- * @see me.lokka30.bettercommandspy.handlers.UserHandler#setStatus(Player, boolean, UserHandler.ChangedStatusCause)
+ * @see UserHandler#setStatus(UUID, boolean, UserHandler.ChangedStatusCause)
  * @since v2.0.0
  */
 @SuppressWarnings("unused")
 public class CommandSpyToggleEvent extends Event {
 
-    private final Player player;
+    private final UUID uuid;
     private boolean state;
     private final UserHandler.ChangedStatusCause cause;
 
-    public CommandSpyToggleEvent(Player player, boolean state, UserHandler.ChangedStatusCause cause) {
-        this.player = player;
+    public CommandSpyToggleEvent(UUID uuid, boolean state, UserHandler.ChangedStatusCause cause) {
+        this.uuid = uuid;
         this.state = state;
         this.cause = cause;
     }
@@ -38,8 +38,8 @@ public class CommandSpyToggleEvent extends Event {
 
     /* Getters & setters */
 
-    public Player getPlayer() {
-        return player;
+    public UUID getPlayerUUID() {
+        return uuid;
     }
 
     public boolean getState() {

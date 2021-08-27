@@ -11,11 +11,11 @@ ignored-commands:
   enabled: false
 
   # What type should the ignored commands list be?
-  # WHITELIST = all commands that are listed will be blocked
-  # BLACKLIST = all commands that aren't listed will be blocked
+  #   WHITELIST = all commands that are listed will be blocked
+  #   BLACKLIST = all commands that aren't listed will be blocked
   type: WHITELIST
 
-  # The list of commands to block :)
+  # The list of commands to whitelist/blacklist (see above).
   list:
     - '/tpa'
     - '/spawn'
@@ -123,7 +123,8 @@ compatibility-checker:
 debug: [ ]
 
 
-# Don't touch any of this.
+# Don't touch any of this, you could break the plugin by doing so.
+# The file loader uses this to check if files need to be updated.
 file:
   version: 3
   generated-with: '${project.version}'

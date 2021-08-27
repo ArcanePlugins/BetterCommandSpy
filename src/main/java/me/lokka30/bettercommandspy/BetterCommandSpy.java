@@ -19,6 +19,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Main class of the plugin, loaded by Bukkit.
@@ -27,6 +29,10 @@ import java.io.File;
  * @since v2.0.0
  */
 public class BetterCommandSpy extends JavaPlugin {
+
+    /* If you've contributed code to BCS, add your name to the end of this list ;) */
+    @SuppressWarnings("ArraysAsListWithZeroOrOneArgument")
+    public final List<String> CONTRIBUTORS = Arrays.asList("None");
 
     /* Handler Classes */
     public final FileHandler fileHandler = new FileHandler(this);

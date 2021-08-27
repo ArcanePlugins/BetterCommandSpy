@@ -13,6 +13,7 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
+import java.util.UUID;
 
 /**
  * Contains methods to get & set the spy status of
@@ -32,27 +33,28 @@ public class UserHandler {
     /**
      * Get the spy status of a player.
      *
-     * @param player player to get command spy status of
+     * @param uuid player to get command spy status of
      * @return command spying status of player
      * @author lokka30
      * @since v2.0.0
      */
-    public boolean getStatus(@NotNull final Player player) {
+    public boolean getStatus(@NotNull final UUID uuid) {
 
         /* Check status */
         final boolean defaultCommandSpyStatus = main.settings.getConfig().getBoolean("default-commandspy-state", true);
-        final String dataPath = "players." + player.getUniqueId() + ".state";
+        final String dataPath = "players." + uuid + ".state";
 
         final boolean statusInData = main.data.getConfig().getBoolean(dataPath, defaultCommandSpyStatus);
 
+        final Player player = Bukkit.getPlayer(uuid);
+
         /* Check permission */
-        if (main.settings.getConfig().getBoolean("use-canlisten-permission", true)) {
+        if (player != null && main.settings.getConfig().getBoolean("use-canlisten-permission", true)) {
+
             if (player.hasPermission("bettercommandspy.canListen")) {
                 return statusInData;
             } else {
-                if (statusInData) {
-                    setStatus(player, false, ChangedStatusCause.NO_CAN_LISTEN_PERMISSION);
-                }
+                if (statusInData) setStatus(uuid, false, ChangedStatusCause.NO_CAN_LISTEN_PERMISSION);
                 return false;
             }
         } else {
@@ -68,26 +70,26 @@ public class UserHandler {
      * @since v2.0.0
      */
     public enum ChangedStatusCause {
-        //COMMAND, // TODO (Implement this!!) The player's status was changed from the on/off command.
+        COMMAND,
         NO_CAN_LISTEN_PERMISSION // The player's status was changed by lacking the 'canListen' permission.
     }
 
     /**
      * Change the spy status of a player.
      *
-     * @param player        player to set command spy status of
+     * @param playerUuid    player to set command spy status of
      * @param originalState state that should be set
      * @param cause         the cause of this method being ran
      * @author lokka30
      * @since v2.0.0
      */
-    public void setStatus(@NotNull final Player player, final boolean originalState, @NotNull final ChangedStatusCause cause) {
+    public void setStatus(@NotNull final UUID playerUuid, final boolean originalState, @NotNull final ChangedStatusCause cause) {
         /* Call the event */
-        CommandSpyToggleEvent event = new CommandSpyToggleEvent(player, originalState, cause);
+        CommandSpyToggleEvent event = new CommandSpyToggleEvent(playerUuid, originalState, cause);
         Bukkit.getPluginManager().callEvent(event);
 
         /* Set & save the new value into the data file. */
-        main.data.getConfig().set("players." + player.getUniqueId() + ".state", event.getState());
+        main.data.getConfig().set("players." + playerUuid + ".state", event.getState());
         try {
             main.data.save();
         } catch (IOException ex) {
@@ -95,6 +97,6 @@ public class UserHandler {
         }
 
         /* Send a debug log regarding the method being ran */
-        Utils.debugLog(main, DebugCategory.USER_HANDLER_STATUS_CHANGED, "Player '" + player.getName() + "' spy status changing to state '" + event.getState() + "' (modified by external plugin: " + event.getWasStateModified() + ") with cause '" + cause + "'.");
+        Utils.debugLog(main, DebugCategory.USER_HANDLER_STATUS_CHANGED, "Player '" + playerUuid + "' spy status changing to state '" + event.getState() + "' (modified by external plugin: " + event.getWasStateModified() + ") with cause '" + cause + "'.");
     }
 }

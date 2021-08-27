@@ -6,13 +6,15 @@ package me.lokka30.bettercommandspy.commands.bettercommandspy.subcommands;
 
 import me.lokka30.bettercommandspy.BetterCommandSpy;
 import me.lokka30.bettercommandspy.commands.ISubcommand;
+import me.lokka30.bettercommandspy.handlers.UserHandler;
+import me.lokka30.bettercommandspy.misc.Utils;
 import me.lokka30.microlib.messaging.MultiMessage;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author lokka30
@@ -29,9 +31,6 @@ public class OffSubcommand implements ISubcommand {
 
     /*
     TODO
-        Command
-        Test
-        Tab Completion
         Test
      */
 
@@ -45,19 +44,80 @@ public class OffSubcommand implements ISubcommand {
             return;
         }
 
-        if (args.length != 1) {
-            new MultiMessage(main.messages.getConfig().getStringList("commands.bettercommandspy.subcommands.compatibility.toggle"), Arrays.asList(
+        if (args.length == 1) {
+            if (!(sender instanceof Player)) {
+                new MultiMessage(main.messages.getConfig().getStringList("commands.bettercommandspy.subcommands.off.usage-console"), Arrays.asList(
+                        new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix"), true),
+                        new MultiMessage.Placeholder("label", label, false)
+                )).send(sender);
+                return;
+            }
+
+            final UUID uuid = ((Player) sender).getUniqueId();
+
+            if (main.userHandler.getStatus(uuid)) {
+                main.userHandler.setStatus(uuid, true, UserHandler.ChangedStatusCause.COMMAND);
+                new MultiMessage(main.messages.getConfig().getStringList("commands.bettercommandspy.subcommands.off.self-success"), Collections.singletonList(
+                        new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix"), true)
+                )).send(sender);
+            } else {
+                new MultiMessage(main.messages.getConfig().getStringList("commands.bettercommandspy.subcommands.off.self-already-disabled"), Collections.singletonList(
+                        new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix"), true)
+                )).send(sender);
+            }
+        } else if (args.length == 2) {
+            if (!sender.hasPermission("bettercommandspy.command.bettercommandspy.toggle.others")) {
+                // requires '.others' permission.
+                new MultiMessage(main.messages.getConfig().getStringList("commands.common.no-permission"), Arrays.asList(
+                        new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix"), true),
+                        new MultiMessage.Placeholder("permissions", main.messages.getConfig().getString("bettercommandspy.command.bettercommandspy.toggle.others"), false)
+                )).send(sender);
+                return;
+            }
+
+            final OfflinePlayer target = Utils.getOfflinePlayer(args[1]);
+
+            if (!target.hasPlayedBefore() || !target.isOnline()) {
+                new MultiMessage(main.messages.getConfig().getStringList("commands.common.specified-player-never-joined"), Arrays.asList(
+                        new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix"), true),
+                        new MultiMessage.Placeholder("username", args[1], false)
+                )).send(sender);
+                return;
+            }
+
+            final String username = target.getName();
+            final UUID uuid = target.getUniqueId();
+
+            if (!main.userHandler.getStatus(uuid)) {
+                new MultiMessage(main.messages.getConfig().getStringList("commands.bettercommandspy.subcommands.off.target-already-disabled"), Arrays.asList(
+                        new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix"), true),
+                        new MultiMessage.Placeholder("username", username, false)
+                )).send(sender);
+                return;
+            }
+
+            main.userHandler.setStatus(uuid, true, UserHandler.ChangedStatusCause.COMMAND);
+
+            new MultiMessage(main.messages.getConfig().getStringList("commands.bettercommandspy.subcommands.off.target-success"), Arrays.asList(
+                    new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix"), true),
+                    new MultiMessage.Placeholder("username", username, false)
+            )).send(sender);
+        } else {
+            // send incorrect usage message.
+
+            new MultiMessage(main.messages.getConfig().getStringList("commands.bettercommandspy.subcommands.off.usage"), Arrays.asList(
                     new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix"), true),
                     new MultiMessage.Placeholder("label", label, false)
             )).send(sender);
-            return;
         }
-
-        sender.sendMessage("Work in progress."); //TODO
     }
 
     @Override
     public @NotNull List<String> parseTabSuggestions(@NotNull BetterCommandSpy main, @NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
-        return Collections.singletonList("Work in progress."); //TODO
+        if (args.length == 2) {
+            return new ArrayList<>(Utils.getVisibleOnlinePlayerUsernamesList(sender));
+        } else {
+            return new ArrayList<>();
+        }
     }
 }
