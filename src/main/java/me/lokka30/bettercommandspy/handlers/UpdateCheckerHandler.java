@@ -143,7 +143,7 @@ public class UpdateCheckerHandler {
 
                     Utils.LOGGER.warning(
                             "Unable to check for updates - please inform a BetterCommandSpy developer, and send them this log." +
-                                    " &8[&7CVS &8= &b" + currentVersionSplit.length + "&7, LVS &8= &b" + currentVersionSplit.length + "&8]&7.");
+                                    " &8[&7CVS &8= &b" + currentVersionSplit.length + "&7, LVS &8= &b" + latestVersionSplit.length + "&8]&7.");
 
                     if (repeatingTask != null) repeatingTask.cancel();
 

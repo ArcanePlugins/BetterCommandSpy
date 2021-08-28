@@ -46,18 +46,18 @@ public class Utils {
      * @since v2.0.0
      */
     public static void registerCommand(@NotNull final BetterCommandSpy main, @NotNull final TabExecutor clazz, @NotNull final String command) {
-        Utils.LOGGER.info("&3CommandRegister: &8[&3/" + command + "&8] &7Attempting to register command...");
+        Utils.LOGGER.info("&8[&3/" + command + "&8] &7Attempting to register command...");
 
         final PluginCommand pluginCommand = main.getCommand(command);
 
         if (pluginCommand == null) {
-            Utils.LOGGER.error("&3CommandRegister: &8[&3/" + command + "&8] &7Unable to register command - PluginCommand is null. Was plugin.yml incorrectly modified?");
+            Utils.LOGGER.error("&8[&3/" + command + "&8] &7Unable to register command - PluginCommand is null. Was plugin.yml incorrectly modified?");
             return;
         }
 
         pluginCommand.setExecutor(clazz);
 
-        Utils.LOGGER.info("&3CommandRegister: &8[&3/" + command + "&8] &7Command registered successfully.");
+        Utils.LOGGER.info("&8[&3/" + command + "&8] &7Command registered successfully.");
     }
 
     /**

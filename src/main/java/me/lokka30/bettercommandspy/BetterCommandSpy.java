@@ -70,18 +70,18 @@ public class BetterCommandSpy extends JavaPlugin {
     @Override
     public void onEnable() {
         final QuickTimer quickTimer = new QuickTimer();
-        Utils.LOGGER.info("&3Start-up: &f~ &7Initiating start-up procedure &f~");
+        Utils.LOGGER.info("&f~ &7Initiating start-up procedure &f~");
 
         loadFiles();
         registerListeners();
         registerCommands();
 
-        Utils.LOGGER.info("&3Start-up: &7Running misc startup procedures...");
+        Utils.LOGGER.info("Running misc startup procedures...");
         startBStats();
         checkCompatibility();
         updateCheckerHandler.initStage1(UpdateCheckerHandler.UpdateCheckReason.FROM_STARTUP);
 
-        Utils.LOGGER.info("&3Start-up: &f~ &bStart-up complete&7, took &b" + quickTimer.getTimer() + "ms&f ~");
+        Utils.LOGGER.info("&f~ &bStart-up complete&7, took &b" + quickTimer.getTimer() + "ms&f ~");
     }
 
     /**
@@ -93,11 +93,11 @@ public class BetterCommandSpy extends JavaPlugin {
     @Override
     public void onDisable() {
         final QuickTimer quickTimer = new QuickTimer();
-        Utils.LOGGER.info("&3Shut-down: &f~ &7Initiating shut-down procedure &f~");
+        Utils.LOGGER.info("&f~ &7Initiating shut-down procedure &f~");
 
         /* Add any onDisable methods here. Nothing for now. */
 
-        Utils.LOGGER.info("&3Shut-down: &f~ &bShut-down complete&7, took &b" + quickTimer.getTimer() + "ms&f ~");
+        Utils.LOGGER.info("&f~ &bShut-down complete&7, took &b" + quickTimer.getTimer() + "ms&f ~");
     }
 
     /**
@@ -107,7 +107,7 @@ public class BetterCommandSpy extends JavaPlugin {
      * @since v2.0.0
      */
     public void loadFiles() {
-        Utils.LOGGER.info("&3FileHandler: &7Loading files...");
+        Utils.LOGGER.info("Loading files...");
 
         fileHandler.init();
     }
@@ -135,7 +135,7 @@ public class BetterCommandSpy extends JavaPlugin {
      * @since v2.0.0
      */
     private void registerListeners() {
-        Utils.LOGGER.info("&3Listeners: &7Registering listeners...");
+        Utils.LOGGER.info("Registering listeners...");
 
         Bukkit.getPluginManager().registerEvents(new JoinListener(this), this);
         Bukkit.getPluginManager().registerEvents(new CommandListener(this), this);
@@ -148,7 +148,7 @@ public class BetterCommandSpy extends JavaPlugin {
      * @since v2.0.0
      */
     private void registerCommands() {
-        Utils.LOGGER.info("&3CommandRegister: &7Registering commands...");
+        Utils.LOGGER.info("Registering commands...");
 
         Utils.registerCommand(this, new BetterCommandSpyCommand(this), "bettercommandspy");
     }
