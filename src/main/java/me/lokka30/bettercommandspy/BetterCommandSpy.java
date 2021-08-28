@@ -31,12 +31,6 @@ import java.util.List;
  */
 public class BetterCommandSpy extends JavaPlugin {
 
-    /*
-    TODO - Testing To-do List
-        - Off Subcommand + tab completion
-        - On Subcommand + tab completion
-     */
-
     /* If you've contributed code to BCS, add your name to the end of this list ;) */
     @SuppressWarnings("ArraysAsListWithZeroOrOneArgument")
     @NotNull public final List<String> CONTRIBUTORS = Arrays.asList("None");

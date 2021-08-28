@@ -41,7 +41,7 @@ public class OffSubcommand implements ISubcommand {
 
         if (args.length == 1) {
             if (!(sender instanceof Player)) {
-                new MultiMessage(main.messages.getConfig().getStringList("commands.bettercommandspy.subcommands.off.usage-console"), Arrays.asList(
+                new MultiMessage(main.messages.getConfig().getStringList("commands.bettercommandspy.subcommands.toggle-off.usage-console"), Arrays.asList(
                         new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix", "BCS:"), true),
                         new MultiMessage.Placeholder("label", label, false)
                 )).send(sender);
@@ -52,11 +52,11 @@ public class OffSubcommand implements ISubcommand {
 
             if (main.userHandler.getStatus(uuid)) {
                 main.userHandler.setStatus(uuid, false, UserHandler.ChangedStatusCause.COMMAND);
-                new MultiMessage(main.messages.getConfig().getStringList("commands.bettercommandspy.subcommands.off.self-success"), Collections.singletonList(
+                new MultiMessage(main.messages.getConfig().getStringList("commands.bettercommandspy.subcommands.toggle-off.self-success"), Collections.singletonList(
                         new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix", "BCS:"), true)
                 )).send(sender);
             } else {
-                new MultiMessage(main.messages.getConfig().getStringList("commands.bettercommandspy.subcommands.off.self-already-disabled"), Collections.singletonList(
+                new MultiMessage(main.messages.getConfig().getStringList("commands.bettercommandspy.subcommands.toggle-off.self-already-disabled"), Collections.singletonList(
                         new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix", "BCS:"), true)
                 )).send(sender);
             }
@@ -84,7 +84,7 @@ public class OffSubcommand implements ISubcommand {
             final UUID uuid = target.getUniqueId();
 
             if (!main.userHandler.getStatus(uuid)) {
-                new MultiMessage(main.messages.getConfig().getStringList("commands.bettercommandspy.subcommands.off.target-already-disabled"), Arrays.asList(
+                new MultiMessage(main.messages.getConfig().getStringList("commands.bettercommandspy.subcommands.toggle-off.target-already-disabled"), Arrays.asList(
                         new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix", "BCS:"), true),
                         new MultiMessage.Placeholder("username", username, false)
                 )).send(sender);
@@ -93,14 +93,14 @@ public class OffSubcommand implements ISubcommand {
 
             main.userHandler.setStatus(uuid, false, UserHandler.ChangedStatusCause.COMMAND);
 
-            new MultiMessage(main.messages.getConfig().getStringList("commands.bettercommandspy.subcommands.off.target-success"), Arrays.asList(
+            new MultiMessage(main.messages.getConfig().getStringList("commands.bettercommandspy.subcommands.toggle-off.target-success"), Arrays.asList(
                     new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix", "BCS:"), true),
                     new MultiMessage.Placeholder("username", username, false)
             )).send(sender);
         } else {
             // send incorrect usage message.
 
-            new MultiMessage(main.messages.getConfig().getStringList("commands.bettercommandspy.subcommands.off.usage"), Arrays.asList(
+            new MultiMessage(main.messages.getConfig().getStringList("commands.bettercommandspy.subcommands.toggle-off.usage"), Arrays.asList(
                     new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix", "BCS:"), true),
                     new MultiMessage.Placeholder("label", label, false)
             )).send(sender);

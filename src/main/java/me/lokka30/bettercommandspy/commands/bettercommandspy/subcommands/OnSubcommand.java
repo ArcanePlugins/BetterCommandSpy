@@ -41,7 +41,7 @@ public class OnSubcommand implements ISubcommand {
 
         if (args.length == 1) {
             if (!(sender instanceof Player)) {
-                new MultiMessage(main.messages.getConfig().getStringList("commands.bettercommandspy.subcommands.on.usage-console"), Arrays.asList(
+                new MultiMessage(main.messages.getConfig().getStringList("commands.bettercommandspy.subcommands.toggle-on.usage-console"), Arrays.asList(
                         new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix", "BCS:"), true),
                         new MultiMessage.Placeholder("label", label, false)
                 )).send(sender);
@@ -51,12 +51,12 @@ public class OnSubcommand implements ISubcommand {
             final UUID uuid = ((Player) sender).getUniqueId();
 
             if (main.userHandler.getStatus(uuid)) {
-                new MultiMessage(main.messages.getConfig().getStringList("commands.bettercommandspy.subcommands.on.self-already-enabled"), Collections.singletonList(
+                new MultiMessage(main.messages.getConfig().getStringList("commands.bettercommandspy.subcommands.toggle-on.self-already-enabled"), Collections.singletonList(
                         new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix", "BCS:"), true)
                 )).send(sender);
             } else {
                 main.userHandler.setStatus(uuid, true, UserHandler.ChangedStatusCause.COMMAND);
-                new MultiMessage(main.messages.getConfig().getStringList("commands.bettercommandspy.subcommands.on.self-success"), Collections.singletonList(
+                new MultiMessage(main.messages.getConfig().getStringList("commands.bettercommandspy.subcommands.toggle-on.self-success"), Collections.singletonList(
                         new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix", "BCS:"), true)
                 )).send(sender);
             }
@@ -84,7 +84,7 @@ public class OnSubcommand implements ISubcommand {
             final UUID uuid = target.getUniqueId();
 
             if (main.userHandler.getStatus(uuid)) {
-                new MultiMessage(main.messages.getConfig().getStringList("commands.bettercommandspy.subcommands.on.target-already-enabled"), Arrays.asList(
+                new MultiMessage(main.messages.getConfig().getStringList("commands.bettercommandspy.subcommands.toggle-on.target-already-enabled"), Arrays.asList(
                         new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix", "BCS:"), true),
                         new MultiMessage.Placeholder("username", username, false)
                 )).send(sender);
@@ -93,14 +93,14 @@ public class OnSubcommand implements ISubcommand {
 
             main.userHandler.setStatus(uuid, true, UserHandler.ChangedStatusCause.COMMAND);
 
-            new MultiMessage(main.messages.getConfig().getStringList("commands.bettercommandspy.subcommands.on.target-success"), Arrays.asList(
+            new MultiMessage(main.messages.getConfig().getStringList("commands.bettercommandspy.subcommands.toggle-on.target-success"), Arrays.asList(
                     new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix", "BCS:"), true),
                     new MultiMessage.Placeholder("username", username, false)
             )).send(sender);
         } else {
             // send incorrect usage message.
 
-            new MultiMessage(main.messages.getConfig().getStringList("commands.bettercommandspy.subcommands.on.usage"), Arrays.asList(
+            new MultiMessage(main.messages.getConfig().getStringList("commands.bettercommandspy.subcommands.toggle-on.usage"), Arrays.asList(
                     new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix", "BCS:"), true),
                     new MultiMessage.Placeholder("label", label, false)
             )).send(sender);

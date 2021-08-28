@@ -146,7 +146,7 @@ commands:
 
       # The following messares are sent from
       # the '/bcs off' subcommand.
-      off:
+      toggle-off:
 
         # Sent when a user successfully disables their
         # own command spy status.
@@ -204,7 +204,7 @@ commands:
 
       # The following messares are sent from
       # the '/bcs on' subcommand.
-      on:
+      toggle-on:
 
         # Sent when a user successfully enables their
         # own command spy status.
