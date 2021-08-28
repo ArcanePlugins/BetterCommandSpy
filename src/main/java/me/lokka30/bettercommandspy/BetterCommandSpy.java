@@ -79,7 +79,7 @@ public class BetterCommandSpy extends JavaPlugin {
         Utils.LOGGER.info("&3Start-up: &7Running misc startup procedures...");
         startBStats();
         checkCompatibility();
-        updateCheckerHandler.init(false);
+        updateCheckerHandler.initStage1(UpdateCheckerHandler.UpdateCheckReason.FROM_STARTUP);
 
         Utils.LOGGER.info("&3Start-up: &f~ &bStart-up complete&7, took &b" + quickTimer.getTimer() + "ms&f ~");
     }
@@ -148,7 +148,7 @@ public class BetterCommandSpy extends JavaPlugin {
      * @since v2.0.0
      */
     private void registerCommands() {
-        Utils.LOGGER.info("&3Commands: &7Registering commands...");
+        Utils.LOGGER.info("&3CommandRegister: &7Registering commands...");
 
         Utils.registerCommand(this, new BetterCommandSpyCommand(this), "bettercommandspy");
     }

@@ -111,7 +111,7 @@ public class UpdateCheckerHandler {
     @NotNull
     public final UpdateCheckerResult getResult() {
         if (cachedUpdateCheckerResult == null) {
-            updateResult();
+            updateResult(UpdateCheckReason.FROM_RELOAD);
         }
         return cachedUpdateCheckerResult;
     }
@@ -122,7 +122,7 @@ public class UpdateCheckerHandler {
      * @author lokka30
      * @since v2.0.0
      */
-    public void updateResult() {
+    public void updateResult(UpdateCheckReason reason) {
         final UpdateChecker updateChecker = new UpdateChecker(main, 84030);
 
         try {
@@ -174,8 +174,8 @@ public class UpdateCheckerHandler {
                         currentBuild
                 );
 
-                notify(Bukkit.getConsoleSender());
-                Bukkit.getOnlinePlayers().forEach(this::notify);
+                if(reason == UpdateCheckReason.FROM_STARTUP)
+                    initStage2();
             });
         } catch (OutdatedServerVersionException ignored) {
             Utils.LOGGER.warning(
@@ -237,11 +237,11 @@ public class UpdateCheckerHandler {
     /**
      * start the update checker systems
      *
-     * @param calledFromReloadSubcommand if this method was called due to the reload command being ran
+     * @param reason why the method is bieng ran
      * @author lokka30
      * @since v2.0.0
      */
-    public void init(boolean calledFromReloadSubcommand) {
+    public void initStage1(UpdateCheckReason reason) {
 
         // make sure the update checker is enabled
         if (!main.settings.getConfig().getBoolean("update-checker.enabled", true)) {
@@ -249,13 +249,17 @@ public class UpdateCheckerHandler {
             return;
         }
 
-        updateResult();
+        updateResult(reason);
+    }
 
-        // inform console if needed. if calledFromReloadSubcommand
-        // then don't notify again.
-        if (!calledFromReloadSubcommand) {
-            notify(Bukkit.getConsoleSender());
-        }
+    /**
+     * @author lokka30
+     * @since v2.0.0
+     * This method should only be called if the update
+     * checker has completed its first check (on startup).
+     */
+    public void initStage2() {
+        notify(Bukkit.getConsoleSender());
 
         // check if it should repeatedly use the update checker
         final int repeatPeriod = Math.max(main.settings.getConfig().getInt("update-checker.repeat-period", 0), 0) // don't allow numbers below zero
@@ -274,11 +278,17 @@ public class UpdateCheckerHandler {
 
                 @Override
                 public void run() {
-                    updateResult();
+                    updateResult(UpdateCheckReason.FROM_REPEATING_TASK);
                 }
 
             }.runTaskTimer(main, repeatPeriod, repeatPeriod);
         }
+    }
+
+    public enum UpdateCheckReason {
+        FROM_STARTUP,
+        FROM_RELOAD,
+        FROM_REPEATING_TASK
     }
 
 }

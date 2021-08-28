@@ -6,6 +6,7 @@ package me.lokka30.bettercommandspy.commands.bettercommandspy.subcommands;
 
 import me.lokka30.bettercommandspy.BetterCommandSpy;
 import me.lokka30.bettercommandspy.commands.ISubcommand;
+import me.lokka30.bettercommandspy.handlers.UpdateCheckerHandler;
 import me.lokka30.microlib.messaging.MultiMessage;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
@@ -62,7 +63,7 @@ public class ReloadSubcommand implements ISubcommand {
         }
 
         // reload update checker
-        main.updateCheckerHandler.init(true);
+        main.updateCheckerHandler.initStage1(UpdateCheckerHandler.UpdateCheckReason.FROM_RELOAD);
 
         // send 'done' msg
         new MultiMessage(main.messages.getConfig().getStringList("commands.bettercommandspy.subcommands.reload.finish"), Collections.singletonList(
