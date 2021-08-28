@@ -34,7 +34,7 @@ public class DebugSubcommand implements ISubcommand {
         if (!sender.hasPermission("bettercommandspy.command.bettercommandspy.debug")) {
             new MultiMessage(main.messages.getConfig().getStringList("commands.common.no-permission"), Arrays.asList(
                     new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix", "BCS:"), true),
-                    new MultiMessage.Placeholder("permissions", main.messages.getConfig().getString("bettercommandspy.command.bettercommandspy.debug"), false)
+                    new MultiMessage.Placeholder("permission", "bettercommandspy.command.bettercommandspy.debug", false)
             )).send(sender);
             return;
         }

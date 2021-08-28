@@ -82,7 +82,7 @@ public class BetterCommandSpyCommand implements TabExecutor {
     @NotNull
     @Override
     public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, @NotNull String @NotNull [] args) {
-        if (args.length == 0) {
+        if (args.length == 1) {
             // Keep in alphabetical order
             return Arrays.asList("compatibility", "debug", "info", "off", "on", "reload");
         }

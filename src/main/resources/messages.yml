@@ -66,15 +66,15 @@ commands:
     usage:
       - '%prefix% Unspecified or invalid subcommand, please see the list below:'
       - ' '
-      - '&f&nPrimary subcommands:'
-      - '&8 &m->&b /%label% off [player] &8~ &7disable commandspy for a player'
-      - '&8 &m->&b /%label% on [player] &8~ &7enable commandspy for a player'
-      - '&8 &m->&b /%label% reload &8~ &7reload config files'
+      - '&f&oPrimary subcommands ...'
+      - '&8 &m->&b /%label% off [player] &8- &7disable commandspy for a player'
+      - '&8 &m->&b /%label% on [player] &8- &7enable commandspy for a player'
+      - '&8 &m->&b /%label% reload &8- &7reload config files'
       - ' '
-      - '&f&nOther subcommands:'
-      - '&8 &m->&b /%label% compatibility &8~ &7run compatibility checker'
-      - '&8 &m->&b /%label% debug <method> &8~ &7run debug methods (for developers)'
-      - '&8 &m->&b /%label% info &8~ &7view info about installed plugin version'
+      - '&f&oOther subcommands ...'
+      - '&8 &m->&b /%label% compatibility &8- &7run compatibility checker'
+      - '&8 &m->&b /%label% debug <method> &8- &7run debug methods (for developers)'
+      - '&8 &m->&b /%label% info &8- &7view info about installed plugin version'
 
     # The following messages are sent from the sub-commands of
     # '/bettercommandspy', such as '/bcs on', '/bcs off', and so on.
@@ -323,7 +323,7 @@ compatibility-checker:
   #   %reason% ~ why the incompatibility occured
   #   %other-info% ~ more background context on the detection
   entry:
-    - '&b&nIncompatibility #%index%:'
+    - '&b&lIncompatibility #%index%:'
     - '&8 &m->&7 Category: &f%category%'
     - '&8 &m->&7 Reason: &f%reason%'
     - '&8 &m->&7 Other Info: &f%other-info%'

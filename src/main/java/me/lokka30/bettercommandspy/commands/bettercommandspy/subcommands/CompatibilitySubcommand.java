@@ -31,7 +31,7 @@ public class CompatibilitySubcommand implements ISubcommand {
         if (!sender.hasPermission("bettercommandspy.command.bettercommandspy.compatibility")) {
             new MultiMessage(main.messages.getConfig().getStringList("commands.common.no-permission"), Arrays.asList(
                     new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix", "BCS:"), true),
-                    new MultiMessage.Placeholder("permissions", main.messages.getConfig().getString("bettercommandspy.command.bettercommandspy.compatibility"), false)
+                    new MultiMessage.Placeholder("permission", "bettercommandspy.command.bettercommandspy.compatibility", false)
             )).send(sender);
             return;
         }
