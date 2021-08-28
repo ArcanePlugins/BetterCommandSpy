@@ -29,14 +29,14 @@ import java.util.Arrays;
  */
 public class UpdateCheckerHandler {
 
-    private final BetterCommandSpy main;
+    private final @NotNull BetterCommandSpy main;
 
     public UpdateCheckerHandler(@NotNull final BetterCommandSpy main) {
         this.main = main;
     }
 
-    private UpdateCheckerResult cachedUpdateCheckerResult = null;
-    public BukkitTask repeatingTask = null;
+    private @Nullable UpdateCheckerResult cachedUpdateCheckerResult = null;
+    public @Nullable BukkitTask repeatingTask = null;
 
     /**
      * What type of result did the
@@ -51,11 +51,11 @@ public class UpdateCheckerHandler {
 
     public static class UpdateCheckerResult {
 
-        private final ResultType resultType;
-        private final String latestVersion;
-        private final Integer latestBuild;
-        private final String currentVersion;
-        private final Integer currentBuild;
+        private final @NotNull ResultType resultType;
+        private final @Nullable String latestVersion;
+        private final @Nullable Integer latestBuild;
+        private final @Nullable String currentVersion;
+        private final @Nullable Integer currentBuild;
 
         public UpdateCheckerResult(
                 @NotNull ResultType resultType,

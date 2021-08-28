@@ -33,7 +33,7 @@ public class ReloadSubcommand implements ISubcommand {
         // ensure sender has required permission
         if (!sender.hasPermission("bettercommandspy.command.bettercommandspy.reload")) {
             new MultiMessage(main.messages.getConfig().getStringList("commands.common.no-permission"), Arrays.asList(
-                    new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix"), true),
+                    new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix", "BCS:"), true),
                     new MultiMessage.Placeholder("permissions", main.messages.getConfig().getString("bettercommandspy.command.bettercommandspy.reload"), false)
             )).send(sender);
             return;
@@ -42,7 +42,7 @@ public class ReloadSubcommand implements ISubcommand {
         // ensure correct usage
         if (args.length != 1) {
             new MultiMessage(main.messages.getConfig().getStringList("commands.bettercommandspy.subcommands.reload.usage"), Arrays.asList(
-                    new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix"), true),
+                    new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix", "BCS:"), true),
                     new MultiMessage.Placeholder("label", label, false)
             )).send(sender);
             return;
@@ -50,7 +50,7 @@ public class ReloadSubcommand implements ISubcommand {
 
         // send 'starting' msg
         new MultiMessage(main.messages.getConfig().getStringList("commands.bettercommandspy.subcommands.reload.start"), Collections.singletonList(
-                new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix"), true)
+                new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix", "BCS:"), true)
         )).send(sender);
 
         // reload files
@@ -66,7 +66,7 @@ public class ReloadSubcommand implements ISubcommand {
 
         // send 'done' msg
         new MultiMessage(main.messages.getConfig().getStringList("commands.bettercommandspy.subcommands.reload.finish"), Collections.singletonList(
-                new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix"), true)
+                new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix", "BCS:"), true)
         )).send(sender);
     }
 

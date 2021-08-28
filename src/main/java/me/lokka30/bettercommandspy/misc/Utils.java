@@ -34,7 +34,7 @@ public class Utils {
      * This is the MicroLogger for BetterCommandSpy.
      * Used to send console logs with colors and auto-prefixing :)
      */
-    public static final MicroLogger LOGGER = new MicroLogger("&b&lBetterCommandSpy: &7");
+    @NotNull public static final MicroLogger LOGGER = new MicroLogger("&b&lBetterCommandSpy: &7");
 
     /**
      * Attempt to register a command from plugin.yml.
@@ -96,7 +96,7 @@ public class Utils {
      * or so what Bukkit thinks - doesn't work for packet-only vanish plugins).
      * Used for tab-completion suggestions.
      */
-    public static HashSet<String> getVisibleOnlinePlayerUsernamesList(@NotNull CommandSender sender) {
+    public static @NotNull HashSet<String> getVisibleOnlinePlayerUsernamesList(@NotNull CommandSender sender) {
         final HashSet<String> usernames = new HashSet<>();
 
         for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
@@ -115,7 +115,7 @@ public class Utils {
      * @author lokka30
      * @since v2.0.0
      */
-    public static String getFormattedList(@NotNull BetterCommandSpy main, @NotNull List<String> list) {
+    public static @NotNull String getFormattedList(@NotNull BetterCommandSpy main, @NotNull List<String> list) {
         // yes - intentionally, only colorize the delimiter.
         return String.join(
                 MessageUtils.colorizeAll(main.messages.getConfig().getString("commands.common.delimiter", ",")),

@@ -17,6 +17,7 @@ import me.lokka30.microlib.maths.QuickTimer;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.util.Arrays;
@@ -47,18 +48,18 @@ public class BetterCommandSpy extends JavaPlugin {
 
     /* If you've contributed code to BCS, add your name to the end of this list ;) */
     @SuppressWarnings("ArraysAsListWithZeroOrOneArgument")
-    public final List<String> CONTRIBUTORS = Arrays.asList("None");
+    @NotNull public final List<String> CONTRIBUTORS = Arrays.asList("None");
 
     /* Handler Classes */
-    public final FileHandler fileHandler = new FileHandler(this);
-    public final UserHandler userHandler = new UserHandler(this);
-    public final UpdateCheckerHandler updateCheckerHandler = new UpdateCheckerHandler(this);
-    public final CompatibilityCheckerHandler compatibilityCheckerHandler = new CompatibilityCheckerHandler(this);
+    @NotNull public final FileHandler fileHandler = new FileHandler(this);
+    @NotNull public final UserHandler userHandler = new UserHandler(this);
+    @NotNull public final UpdateCheckerHandler updateCheckerHandler = new UpdateCheckerHandler(this);
+    @NotNull public final CompatibilityCheckerHandler compatibilityCheckerHandler = new CompatibilityCheckerHandler(this);
 
     /* Config Files */
-    public final YamlConfigFile settings = new YamlConfigFile(this, new File(getDataFolder(), "settings.yml"));
-    public final YamlConfigFile messages = new YamlConfigFile(this, new File(getDataFolder(), "messages.yml"));
-    public final YamlConfigFile data = new YamlConfigFile(this, new File(getDataFolder(), "data.yml"));
+    @NotNull public final YamlConfigFile settings = new YamlConfigFile(this, new File(getDataFolder(), "settings.yml"));
+    @NotNull public final YamlConfigFile messages = new YamlConfigFile(this, new File(getDataFolder(), "messages.yml"));
+    @NotNull public final YamlConfigFile data = new YamlConfigFile(this, new File(getDataFolder(), "data.yml"));
 
     /**
      * Start-up sequence of the plugin. Called by Bukkit

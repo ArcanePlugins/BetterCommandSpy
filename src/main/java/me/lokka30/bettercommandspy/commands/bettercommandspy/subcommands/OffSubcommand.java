@@ -33,7 +33,7 @@ public class OffSubcommand implements ISubcommand {
     public void parseCmd(@NotNull BetterCommandSpy main, @NotNull CommandSender sender, @NotNull String label, @NotNull String @NotNull [] args) {
         if (!sender.hasPermission("bettercommandspy.command.bettercommandspy.toggle")) {
             new MultiMessage(main.messages.getConfig().getStringList("commands.common.no-permission"), Arrays.asList(
-                    new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix"), true),
+                    new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix", "BCS:"), true),
                     new MultiMessage.Placeholder("permissions", main.messages.getConfig().getString("bettercommandspy.command.bettercommandspy.toggle"), false)
             )).send(sender);
             return;
@@ -42,7 +42,7 @@ public class OffSubcommand implements ISubcommand {
         if (args.length == 1) {
             if (!(sender instanceof Player)) {
                 new MultiMessage(main.messages.getConfig().getStringList("commands.bettercommandspy.subcommands.off.usage-console"), Arrays.asList(
-                        new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix"), true),
+                        new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix", "BCS:"), true),
                         new MultiMessage.Placeholder("label", label, false)
                 )).send(sender);
                 return;
@@ -53,18 +53,18 @@ public class OffSubcommand implements ISubcommand {
             if (main.userHandler.getStatus(uuid)) {
                 main.userHandler.setStatus(uuid, true, UserHandler.ChangedStatusCause.COMMAND);
                 new MultiMessage(main.messages.getConfig().getStringList("commands.bettercommandspy.subcommands.off.self-success"), Collections.singletonList(
-                        new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix"), true)
+                        new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix", "BCS:"), true)
                 )).send(sender);
             } else {
                 new MultiMessage(main.messages.getConfig().getStringList("commands.bettercommandspy.subcommands.off.self-already-disabled"), Collections.singletonList(
-                        new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix"), true)
+                        new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix", "BCS:"), true)
                 )).send(sender);
             }
         } else if (args.length == 2) {
             if (!sender.hasPermission("bettercommandspy.command.bettercommandspy.toggle.others")) {
                 // requires '.others' permission.
                 new MultiMessage(main.messages.getConfig().getStringList("commands.common.no-permission"), Arrays.asList(
-                        new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix"), true),
+                        new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix", "BCS:"), true),
                         new MultiMessage.Placeholder("permissions", main.messages.getConfig().getString("bettercommandspy.command.bettercommandspy.toggle.others"), false)
                 )).send(sender);
                 return;
@@ -74,7 +74,7 @@ public class OffSubcommand implements ISubcommand {
 
             if (!target.hasPlayedBefore() || !target.isOnline()) {
                 new MultiMessage(main.messages.getConfig().getStringList("commands.common.specified-player-never-joined"), Arrays.asList(
-                        new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix"), true),
+                        new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix", "BCS:"), true),
                         new MultiMessage.Placeholder("username", args[1], false)
                 )).send(sender);
                 return;
@@ -85,7 +85,7 @@ public class OffSubcommand implements ISubcommand {
 
             if (!main.userHandler.getStatus(uuid)) {
                 new MultiMessage(main.messages.getConfig().getStringList("commands.bettercommandspy.subcommands.off.target-already-disabled"), Arrays.asList(
-                        new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix"), true),
+                        new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix", "BCS:"), true),
                         new MultiMessage.Placeholder("username", username, false)
                 )).send(sender);
                 return;
@@ -94,21 +94,21 @@ public class OffSubcommand implements ISubcommand {
             main.userHandler.setStatus(uuid, true, UserHandler.ChangedStatusCause.COMMAND);
 
             new MultiMessage(main.messages.getConfig().getStringList("commands.bettercommandspy.subcommands.off.target-success"), Arrays.asList(
-                    new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix"), true),
+                    new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix", "BCS:"), true),
                     new MultiMessage.Placeholder("username", username, false)
             )).send(sender);
         } else {
             // send incorrect usage message.
 
             new MultiMessage(main.messages.getConfig().getStringList("commands.bettercommandspy.subcommands.off.usage"), Arrays.asList(
-                    new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix"), true),
+                    new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix", "BCS:"), true),
                     new MultiMessage.Placeholder("label", label, false)
             )).send(sender);
         }
     }
 
     @Override
-    public @NotNull List<String> parseTabSuggestions(@NotNull BetterCommandSpy main, @NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
+    public @NotNull List<String> parseTabSuggestions(@NotNull BetterCommandSpy main, @NotNull CommandSender sender, @NotNull String label, @NotNull String @NotNull [] args) {
         if (args.length == 2) {
             return new ArrayList<>(Utils.getVisibleOnlinePlayerUsernamesList(sender));
         } else {

@@ -11,6 +11,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * @author lokka30
@@ -40,7 +41,7 @@ public class JoinListener implements Listener {
      * <p>
      */
     @EventHandler
-    public void onJoin(final PlayerJoinEvent event) {
+    public void onJoin(final @NotNull PlayerJoinEvent event) {
         sendCompatibilityCheckerNotification(event.getPlayer());
         sendUpdateCheckerNotification(event.getPlayer());
     }
@@ -54,7 +55,7 @@ public class JoinListener implements Listener {
      * should receive a notification or not
      * <p>
      */
-    private void sendCompatibilityCheckerNotification(final Player player) {
+    private void sendCompatibilityCheckerNotification(final @NotNull Player player) {
 
         // make sure the setting is enabled
         Utils.debugLog(main, DebugCategory.COMPATIBILITY_CHECKER_ON_JOIN_NOTIFY, "[" + player.getName() + "] (1/4) Checking if 'notify players with perms on join' is enabled.");
@@ -86,7 +87,7 @@ public class JoinListener implements Listener {
      * notification from the update checker
      * Intended to be fired from JoinListener#onJoin
      */
-    private void sendUpdateCheckerNotification(final Player player) {
+    private void sendUpdateCheckerNotification(final @NotNull Player player) {
         // make sure update checker is enabled
         Utils.debugLog(main, DebugCategory.UPDATE_CHECKER_ON_JOIN_NOTIFY, "[" + player.getName() + "] (1/4) Checking update checker enabled");
         if (!main.settings.getConfig().getBoolean("update-checker.enabled", true)) return;

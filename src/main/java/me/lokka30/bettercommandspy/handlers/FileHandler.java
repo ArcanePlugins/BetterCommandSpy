@@ -21,7 +21,7 @@ import java.nio.file.Files;
  */
 public class FileHandler {
 
-    private final BetterCommandSpy main;
+    private final @NotNull BetterCommandSpy main;
 
     public FileHandler(@NotNull final BetterCommandSpy main) {
         this.main = main;
@@ -122,7 +122,7 @@ public class FileHandler {
         }
     }
 
-    private void backup(File source) {
+    private void backup(@NotNull File source) {
         Utils.LOGGER.info("&3File Handler: &7Starting backup of file '&b" + source.getName() + "&7'...");
 
         // Get the destination (backed up file) ready.

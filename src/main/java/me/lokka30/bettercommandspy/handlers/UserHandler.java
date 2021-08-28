@@ -24,7 +24,7 @@ import java.util.UUID;
  */
 public class UserHandler {
 
-    private final BetterCommandSpy main;
+    private final @NotNull BetterCommandSpy main;
 
     public UserHandler(@NotNull final BetterCommandSpy main) {
         this.main = main;

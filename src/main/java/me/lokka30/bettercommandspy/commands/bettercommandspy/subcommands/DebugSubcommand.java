@@ -33,7 +33,7 @@ public class DebugSubcommand implements ISubcommand {
     public void parseCmd(@NotNull BetterCommandSpy main, @NotNull CommandSender sender, @NotNull String label, @NotNull String @NotNull [] args) {
         if (!sender.hasPermission("bettercommandspy.command.bettercommandspy.debug")) {
             new MultiMessage(main.messages.getConfig().getStringList("commands.common.no-permission"), Arrays.asList(
-                    new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix"), true),
+                    new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix", "BCS:"), true),
                     new MultiMessage.Placeholder("permissions", main.messages.getConfig().getString("bettercommandspy.command.bettercommandspy.debug"), false)
             )).send(sender);
             return;
@@ -41,7 +41,7 @@ public class DebugSubcommand implements ISubcommand {
 
         if (args.length != 2) {
             new MultiMessage(main.messages.getConfig().getStringList("commands.bettercommandspy.subcommands.debug.usage"), Arrays.asList(
-                    new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix"), true),
+                    new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix", "BCS:"), true),
                     new MultiMessage.Placeholder("label", label, false)
             )).send(sender);
             return;
@@ -56,7 +56,7 @@ public class DebugSubcommand implements ISubcommand {
                 break;
             default:
                 new MultiMessage(main.messages.getConfig().getStringList("commands.bettercommandspy.subcommands.debug.invalid-method"), Arrays.asList(
-                        new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix"), true),
+                        new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix", "BCS:"), true),
                         new MultiMessage.Placeholder("method", args[1], false),
                         new MultiMessage.Placeholder("label", label, false)
                 )).send(sender);

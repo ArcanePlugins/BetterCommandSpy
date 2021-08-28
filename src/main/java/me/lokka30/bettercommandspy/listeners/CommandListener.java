@@ -26,7 +26,7 @@ import java.util.Arrays;
  */
 public class CommandListener implements Listener {
 
-    private final BetterCommandSpy main;
+    private final @NotNull BetterCommandSpy main;
 
     public CommandListener(@NotNull final BetterCommandSpy main) {
         this.main = main;

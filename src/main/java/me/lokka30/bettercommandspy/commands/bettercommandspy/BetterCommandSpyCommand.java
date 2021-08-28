@@ -25,21 +25,21 @@ import java.util.Locale;
  */
 public class BetterCommandSpyCommand implements TabExecutor {
 
-    private final BetterCommandSpy main;
+    private final @NotNull BetterCommandSpy main;
 
     public BetterCommandSpyCommand(@NotNull final BetterCommandSpy main) {
         this.main = main;
     }
 
-    final CompatibilitySubcommand compatibilitySubcommand = new CompatibilitySubcommand();
-    final DebugSubcommand debugSubcommand = new DebugSubcommand();
-    final InfoSubcommand infoSubcommand = new InfoSubcommand();
-    final OffSubcommand offSubcommand = new OffSubcommand();
-    final OnSubcommand onSubcommand = new OnSubcommand();
-    final ReloadSubcommand reloadSubcommand = new ReloadSubcommand();
+    @NotNull final CompatibilitySubcommand compatibilitySubcommand = new CompatibilitySubcommand();
+    @NotNull final DebugSubcommand debugSubcommand = new DebugSubcommand();
+    @NotNull final InfoSubcommand infoSubcommand = new InfoSubcommand();
+    @NotNull final OffSubcommand offSubcommand = new OffSubcommand();
+    @NotNull final OnSubcommand onSubcommand = new OnSubcommand();
+    @NotNull final ReloadSubcommand reloadSubcommand = new ReloadSubcommand();
 
     @Override
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, @NotNull String[] args) {
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, @NotNull String @NotNull [] args) {
 
         if (args.length == 0) {
             sendUsageBanner(sender, label);
@@ -74,14 +74,14 @@ public class BetterCommandSpyCommand implements TabExecutor {
 
     void sendUsageBanner(@NotNull CommandSender sender, @NotNull String label) {
         new MultiMessage(main.messages.getConfig().getStringList("commands.bettercommandspy.usage"), Arrays.asList(
-                new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix"), true),
+                new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix", "BCS:"), true),
                 new MultiMessage.Placeholder("label", label, false)
         )).send(sender);
     }
 
     @NotNull
     @Override
-    public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, @NotNull String[] args) {
+    public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, @NotNull String @NotNull [] args) {
         if (args.length == 0) {
             // Keep in alphabetical order
             return Arrays.asList("compatibility", "debug", "info", "off", "on", "reload");

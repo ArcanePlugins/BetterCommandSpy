@@ -32,7 +32,7 @@ public class InfoSubcommand implements ISubcommand {
     public void parseCmd(@NotNull BetterCommandSpy main, @NotNull CommandSender sender, @NotNull String label, @NotNull String @NotNull [] args) {
         if (!sender.hasPermission("bettercommandspy.command.bettercommandspy.info")) {
             new MultiMessage(main.messages.getConfig().getStringList("commands.common.no-permission"), Arrays.asList(
-                    new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix"), true),
+                    new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix", "BCS:"), true),
                     new MultiMessage.Placeholder("permissions", main.messages.getConfig().getString("bettercommandspy.command.bettercommandspy.info"), false)
             )).send(sender);
             return;
@@ -40,14 +40,14 @@ public class InfoSubcommand implements ISubcommand {
 
         if (args.length != 1) {
             new MultiMessage(main.messages.getConfig().getStringList("commands.bettercommandspy.subcommands.info.usage"), Arrays.asList(
-                    new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix"), true),
+                    new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix", "BCS:"), true),
                     new MultiMessage.Placeholder("label", label, false)
             )).send(sender);
             return;
         }
 
         new MultiMessage(main.messages.getConfig().getStringList("commands.bettercommandspy.subcommands.info.print"), Arrays.asList(
-                new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix"), true),
+                new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix", "BCS:"), true),
                 new MultiMessage.Placeholder("version", main.getDescription().getVersion(), false),
                 new MultiMessage.Placeholder("authors", Utils.getFormattedList(main, main.getDescription().getAuthors()), false),
                 new MultiMessage.Placeholder("contributors", Utils.getFormattedList(main, main.CONTRIBUTORS), false)

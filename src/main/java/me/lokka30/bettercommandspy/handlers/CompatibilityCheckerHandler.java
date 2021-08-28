@@ -10,6 +10,7 @@ import me.lokka30.microlib.messaging.MultiMessage;
 import me.lokka30.microlib.other.VersionUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -35,9 +36,9 @@ public class CompatibilityCheckerHandler {
         this.main = main;
     }
 
-    private final HashSet<Incompatibility> incompatibilities = new HashSet<>();
+    @NotNull private final HashSet<Incompatibility> incompatibilities = new HashSet<>();
 
-    public HashSet<Incompatibility> getIncompatibilities() {
+    @NotNull public HashSet<Incompatibility> getIncompatibilities() {
         return incompatibilities;
     }
 
@@ -184,7 +185,7 @@ public class CompatibilityCheckerHandler {
      * Checks if the administrator has configured BCS to suppress
      * the specified Compatibility Category.
      */
-    private boolean isCompatibilityCategorySuppressed(@SuppressWarnings("SameParameterValue") CompatibilityCategory category) {
+    private boolean isCompatibilityCategorySuppressed(@SuppressWarnings("SameParameterValue") @NotNull CompatibilityCategory category) {
         return main.settings.getConfig().getStringList("compatibility-checker.suppressed-categories").contains(category.toString());
     }
 }

@@ -30,7 +30,7 @@ public class CompatibilitySubcommand implements ISubcommand {
     public void parseCmd(@NotNull BetterCommandSpy main, @NotNull CommandSender sender, @NotNull String label, @NotNull String @NotNull [] args) {
         if (!sender.hasPermission("bettercommandspy.command.bettercommandspy.compatibility")) {
             new MultiMessage(main.messages.getConfig().getStringList("commands.common.no-permission"), Arrays.asList(
-                    new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix"), true),
+                    new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix", "BCS:"), true),
                     new MultiMessage.Placeholder("permissions", main.messages.getConfig().getString("bettercommandspy.command.bettercommandspy.compatibility"), false)
             )).send(sender);
             return;
@@ -38,7 +38,7 @@ public class CompatibilitySubcommand implements ISubcommand {
 
         if (args.length != 1) {
             new MultiMessage(main.messages.getConfig().getStringList("commands.bettercommandspy.subcommands.compatibility.usage"), Arrays.asList(
-                    new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix"), true),
+                    new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix", "BCS:"), true),
                     new MultiMessage.Placeholder("label", label, false)
             )).send(sender);
             return;
