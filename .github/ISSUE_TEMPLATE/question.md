@@ -1,10 +1,10 @@
 ---
 name: Question
 about: Feel free to ask questions regarding the plugin here.
-title: "[Question]"
+title: Untitled Question
 labels: question
-assignees: ''
+assignees: lokka30
 
 ---
 
-...
+(replace this text with your question...)

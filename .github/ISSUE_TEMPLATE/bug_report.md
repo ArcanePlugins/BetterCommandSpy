@@ -1,9 +1,9 @@
 ---
 name: Bug report
 about: Create a report to help us improve the resource
-title: "[Bug]"
+title: Untitled Bug Report
 labels: bug, unconfirmed
-assignees: ''
+assignees: lokka30
 
 ---
 

@@ -1,9 +1,9 @@
 ---
 name: Feature request / enhancement
 about: Suggest an idea for this project
-title: "[Request]"
-labels: enhancement
-assignees: ''
+title: Untitled Request
+labels: enhancement, unconfirmed
+assignees: lokka30
 
 ---
 
