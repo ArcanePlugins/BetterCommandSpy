@@ -1,5 +1,15 @@
-# Do not touch this file unless you know what you are doing!
-advanced:
-  file-version: 1
+# BetterCommandSpy | ${project.description}
+#
+# This is the data file, which stores information that the plugin
+# uses, persisting over restarts.
+#
+# <!> WARNING <!>
+# This file is not meant to be user-configured.
+# Do not touch this file unless you know exactly
+# what you are doing! :)
+
+file:
+  version: 2
   generated-with: '${project.version}'
+
 players:

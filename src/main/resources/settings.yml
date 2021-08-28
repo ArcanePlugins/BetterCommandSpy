@@ -1,31 +1,132 @@
-# General settings.
-general:
+# BetterCommandSpy | ${project.description}
 
-  # Should Command Spy be enabled for new players by default?
-  default-commandspy-state: true
+# Should Command Spy be enabled for new players by default?
+default-commandspy-state: true
 
-  # What commands shouldn't be shown in the commandspy alerts?
-  ignored-commands:
 
-    # Should this function be enabled?
-    enabled: false
+# What commands shouldn't be shown in the commandspy alerts?
+ignored-commands:
 
-    # What type should the ignored commands list be?
-    # WHITELIST = all commands that are listed will be blocked
-    # BLACKLIST = all commands that aren't listed will be blocked
-    type: WHITELIST
+  # Should this function be enabled?
+  enabled: false
 
-    # The list of commands to block :)
-    list:
-      - '/tpa'
-      - '/spawn'
-      - '/home'
+  # What type should the ignored commands list be?
+  #   WHITELIST = commands in the list will be ignored
+  #   BLACKLIST = commands NOT in the list will be ignored
+  type: 'WHITELIST'
 
-# Do not touch anything in here unless you know what you are doing!
-advanced:
+  # The list of commands to whitelist/blacklist (see above).
+  # Requires starting slash.
+  # Only base commands are supported ('/tpa', not '/tpa Notch' for example).
+  list:
+    - '/tpa'
+    - '/spawn'
+    - '/home'
 
-  # The version of this file.
-  file-version: 2
 
-  # The version of BetterCommandSpy that this configuration was originally generated with.
+# Should BetterCommandSpy make sure players that have Command Spy toggled ON
+# have an extra permission as a layer of security to actually be able to spy?
+# This permission is 'bettercommandspy.canListen', it is given to operators
+# by default. If this setting is TRUE and a player does not have this permission
+# but has Command Spy on (e.g. if they enabled it before getting their staff
+# rank removed), the player's command spy will be automatically disabled.
+# If this setting is FALSE then any player with command spy enabled can
+# still spy. For security purposes this setting is TRUE by default.
+use-canlisten-permission: true
+
+
+# The following section allows you to configure and even disable
+# the asynchronous update checker built into BetterCommandSpy.
+#
+# Note: this *checks* for updates, it doesn't *download* them,
+# for security reasons of course :)
+#
+# It sends a web request to the SpigotMC page to check for what
+# the latest version released is, compares it against your current
+# version, and informs you if they're not the same.
+update-checker:
+
+  # Should the update checker be enabled?
+  enabled: true
+
+
+  # How many hours should the update checker wait
+  # until it runs itself again?
+  #
+  # This is useful if you leave your server on for
+  # long periods of time - maybe a new version has
+  # been released since it was last started up.
+  #
+  # By default, this is set to 24, as the
+  # plugin does not update very often.
+  #
+  # To disable the repeating update checks, set this to 0.
+  repeat-period: 24
+
+
+  # This section allows you to customise who
+  # receives notifications from the update
+  # checker.
+  notify:
+
+    # Should console be notified if the server
+    # is not running the latest version?
+    console: true
+
+    # Should players with the permission
+    # 'bettercommandspy.receive-update-notifications'
+    # receive notifications from the update checker
+    # if the server is not running the latest version?
+    players-with-perm: true
+
+
+# This section allows you to configure
+# how the compatibility checker operates.
+compatibility-checker:
+
+  # Should the compatibility checker scan on
+  # startups and reloads?
+  # If disabled, it can only be used by
+  # running the command '/bcs compatibility'.
+  # It is not recommended to disable the
+  # this setting. If there is any
+  # incompatibility being detected that you
+  # wish to ignore, please instead configure
+  # the 'suppressed-categories' setting below.
+  run-on-startup: true
+
+  # Who should be notified of any findings from the compatibility checker?
+  notify:
+
+    # Should no notification be sent
+    # if there were no incompatibilities
+    # detected by BetterCommandSpy?
+    dont-notify-if-none-found: true
+
+    # Should console be notified when
+    # the server is started up?
+    console-on-startup: true
+
+    # Should players with permission be
+    # notified when they join the server?
+    players-with-perm-on-join: true
+
+  # This is a list of suppressed incompatibility
+  # categories. By default, this is empty as
+  # incompatibilities should be addressed, not
+  # ignored. To suppress a category, add it into
+  # this list (ensure it is fully uppercase!!).
+  suppressed-categories: [ ]
+
+
+# You shouldn't touch this unless developers/support ask you to.
+# Logs messages to console about what the plugin is doing in the
+# background, helps developers solve bugs in a lot of situations.
+debug: [ ]
+
+
+# Don't touch any of this, you could break the plugin by doing so.
+# The file loader uses this to check if files need to be updated.
+file:
+  version: 3
   generated-with: '${project.version}'
