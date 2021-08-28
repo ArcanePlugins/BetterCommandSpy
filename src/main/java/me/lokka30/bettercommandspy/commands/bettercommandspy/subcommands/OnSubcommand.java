@@ -72,7 +72,7 @@ public class OnSubcommand implements ISubcommand {
 
             final OfflinePlayer target = Utils.getOfflinePlayer(args[1]);
 
-            if (!target.hasPlayedBefore() || !target.isOnline()) {
+            if (!target.hasPlayedBefore() && !target.isOnline()) {
                 new MultiMessage(main.messages.getConfig().getStringList("commands.common.specified-player-never-joined"), Arrays.asList(
                         new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix", "BCS:"), true),
                         new MultiMessage.Placeholder("username", args[1], false)
