@@ -249,6 +249,8 @@ public class UpdateCheckerHandler {
             return;
         }
 
+        updateResult();
+
         // inform console if needed. if calledFromReloadSubcommand
         // then don't notify again.
         if (!calledFromReloadSubcommand) {

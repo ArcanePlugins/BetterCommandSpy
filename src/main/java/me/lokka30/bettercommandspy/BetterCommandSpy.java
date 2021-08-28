@@ -107,7 +107,7 @@ public class BetterCommandSpy extends JavaPlugin {
      * @since v2.0.0
      */
     public void loadFiles() {
-        Utils.LOGGER.info("&3Files: &7Loading files...");
+        Utils.LOGGER.info("&3FileHandler: &7Loading files...");
 
         fileHandler.init();
     }

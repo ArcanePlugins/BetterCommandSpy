@@ -102,11 +102,11 @@ public class CompatibilityCheckerHandler {
      * Scan for any incompatibilities known
      */
     public void scan() {
-        Utils.LOGGER.info("&3Compatibility Checker: &7Starting compatibility checker...");
+        Utils.LOGGER.info("&3CompatibilityChecker: &7Starting compatibility checker...");
 
         scanServerMCVersion();
 
-        Utils.LOGGER.info("&3Compatibility Checker: &7Checks completed.");
+        Utils.LOGGER.info("&3CompatibilityChecker: &7Checks completed.");
     }
 
     /**
@@ -120,7 +120,7 @@ public class CompatibilityCheckerHandler {
         if (isCompatibilityCategorySuppressed(CompatibilityCategory.SERVER_MINECRAFT_VERSION)) return;
 
         // Log what the compat checker is doing
-        Utils.LOGGER.info("&3Compatibility Checker: &7Checking category '&b" + CompatibilityCategory.SERVER_MINECRAFT_VERSION + "&7'...");
+        Utils.LOGGER.info("&3CompatibilityChecker: &7Checking category '&b" + CompatibilityCategory.SERVER_MINECRAFT_VERSION + "&7'...");
 
         // Make sure the server is at least MC 1.7
         if (VersionUtils.isOneSeven()) return;

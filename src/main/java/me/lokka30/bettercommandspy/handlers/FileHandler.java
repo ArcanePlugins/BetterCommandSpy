@@ -63,7 +63,7 @@ public class FileHandler {
     }
 
     private void loadFile(@NotNull BCSFile bcsFile) {
-        Utils.LOGGER.info("&3File Loader: &7Loading file '&b" + bcsFile.fileName + "&7'...");
+        Utils.LOGGER.info("&3FileHandler: &7Loading file '&b" + bcsFile.fileName + "&7'...");
 
         try {
             switch (bcsFile) {
@@ -86,7 +86,7 @@ public class FileHandler {
             ex.printStackTrace();
         }
 
-        Utils.LOGGER.info("&3File Loader: &7File '&b" + bcsFile.fileName + "&7' has been loaded.");
+        Utils.LOGGER.info("&3FileHandler: &7File '&b" + bcsFile.fileName + "&7' has been loaded.");
     }
 
     /**
@@ -116,14 +116,15 @@ public class FileHandler {
         }
 
         if (configFile.getConfig().getInt("file.version", 0) != bcsFile.latestFileVersion) {
-            Utils.LOGGER.error("&3File Handler: &7File '&b" + bcsFile.fileName + "&7' is incompatible with this version of of the plugin. It has been backed up in the &b/plugins/BetterCommandSpy/backups/&7 folder, and your server will now run the latest default version of this file. You may want to consider configuring the newly generated file.");
+            Utils.LOGGER.error("&3FileHandler: &7File '&b" + bcsFile.fileName + "&7' is incompatible with this version of of the plugin. It has been backed up in the &b/plugins/BetterCommandSpy/backups/&7 folder, and your server will now run the latest default version of this file. You may want to consider configuring the newly generated file.");
             backup(configFile.getConfigFile());
             main.saveResource(bcsFile.fileName, true);
+            loadFile(bcsFile);
         }
     }
 
     private void backup(@NotNull File source) {
-        Utils.LOGGER.info("&3File Handler: &7Starting backup of file '&b" + source.getName() + "&7'...");
+        Utils.LOGGER.info("&3FileHandler: &7Starting backup of file '&b" + source.getName() + "&7'...");
 
         // Get the destination (backed up file) ready.
         File destination;
@@ -142,11 +143,15 @@ public class FileHandler {
 
         // Start transferring.
         try {
+            if(!new File(main.getDataFolder() + File.separator + "backups").mkdir()) {
+                Utils.LOGGER.error("&3FileHandler: &7Unable to create backup file for '&b" + source.getName() + "&7'.");
+                return;
+            }
             Files.copy(source.toPath(), destination.toPath());
         } catch (IOException ex) {
             ex.printStackTrace();
         }
 
-        Utils.LOGGER.info("&3File Handler: &7Backup complete for file '&b" + source.getName() + "&7'.");
+        Utils.LOGGER.info("&3FileHandler: &7Backup complete for file '&b" + source.getName() + "&7'.");
     }
 }

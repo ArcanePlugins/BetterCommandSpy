@@ -3,7 +3,7 @@
 # The plugin's prefix for chat messages.
 # (This is the content of the '%prefix%' placeholder used
 # throughout the plugin's messages.)
-prefix: '&b&lCommandSpy:&7'
+prefix: '&b&lBetterCommandSpy:&7'
 
 # This is the alert message, sent to spying players when a
 # user runs a command.
@@ -367,5 +367,5 @@ update-checker:
 # Don't touch any of this, you could break the plugin by doing so.
 # The file loader uses this to check if files need to be updated.
 file:
-  version: 2
+  version: 3
   generated-with: '${project.version}'
