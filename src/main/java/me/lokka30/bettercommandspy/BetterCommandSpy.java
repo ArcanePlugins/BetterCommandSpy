@@ -70,7 +70,6 @@ public class BetterCommandSpy extends JavaPlugin {
     @Override
     public void onEnable() {
         final QuickTimer quickTimer = new QuickTimer();
-        Utils.LOGGER.info("&f~ &7Initiating start-up procedure &f~");
 
         loadFiles();
         registerListeners();
@@ -93,7 +92,6 @@ public class BetterCommandSpy extends JavaPlugin {
     @Override
     public void onDisable() {
         final QuickTimer quickTimer = new QuickTimer();
-        Utils.LOGGER.info("&f~ &7Initiating shut-down procedure &f~");
 
         /* Add any onDisable methods here. Nothing for now. */
 
