@@ -11,11 +11,13 @@ ignored-commands:
   enabled: false
 
   # What type should the ignored commands list be?
-  #   WHITELIST = all commands that are listed will be blocked
-  #   BLACKLIST = all commands that aren't listed will be blocked
-  type: WHITELIST
+  #   WHITELIST = commands in the list will be ignored
+  #   BLACKLIST = commands NOT in the list will be ignored
+  type: 'WHITELIST'
 
   # The list of commands to whitelist/blacklist (see above).
+  # Requires starting slash.
+  # Only base commands are supported ('/tpa', not '/tpa Notch' for example).
   list:
     - '/tpa'
     - '/spawn'

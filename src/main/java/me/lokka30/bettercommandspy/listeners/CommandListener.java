@@ -42,7 +42,20 @@ public class CommandListener implements Listener {
      */
     @EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
     public void onExecuteCommand(@NotNull final PlayerCommandPreprocessEvent event) {
+        // check if sender has bypass permission
         if (event.getPlayer().hasPermission("bettercommandspy.bypass")) return;
+
+        // check if command is ignored
+        if(main.settings.getConfig().getBoolean("ignored-commands.enabled", false)) {
+            final boolean isListed = main.settings.getConfig().getStringList("ignored-commands.list").contains(event.getMessage().split(" ")[0]);
+            final boolean isListTypeWhitelist = main.settings.getConfig().getString("ignored-commands.type", "WHITELIST").equalsIgnoreCase("WHITELIST");
+
+            if(isListTypeWhitelist) {
+                if(isListed) return;
+            } else {
+                if(!isListed) return;
+            }
+        }
 
         // cache the alert message
         ArrayList<String> alertMessage = new MultiMessage(
