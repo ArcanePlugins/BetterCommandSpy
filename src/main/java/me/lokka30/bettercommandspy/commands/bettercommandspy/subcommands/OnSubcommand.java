@@ -29,11 +29,6 @@ import java.util.*;
  */
 public class OnSubcommand implements ISubcommand {
 
-    /*
-    TODO
-        Test
-     */
-
     @Override
     public void parseCmd(@NotNull BetterCommandSpy main, @NotNull CommandSender sender, @NotNull String label, @NotNull String @NotNull [] args) {
         if (!sender.hasPermission("bettercommandspy.command.bettercommandspy.toggle")) {

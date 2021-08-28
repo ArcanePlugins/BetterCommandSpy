@@ -25,11 +25,6 @@ import java.util.Locale;
  */
 public class BetterCommandSpyCommand implements TabExecutor {
 
-    /*
-    TODO
-        - Test command and tab completion.
-     */
-
     private final BetterCommandSpy main;
 
     public BetterCommandSpyCommand(@NotNull final BetterCommandSpy main) {

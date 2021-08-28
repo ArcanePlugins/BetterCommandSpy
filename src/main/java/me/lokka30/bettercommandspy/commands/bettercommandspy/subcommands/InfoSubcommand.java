@@ -28,11 +28,6 @@ import java.util.List;
  */
 public class InfoSubcommand implements ISubcommand {
 
-    /*
-    TODO
-        - Test the subcommand.
-     */
-
     @Override
     public void parseCmd(@NotNull BetterCommandSpy main, @NotNull CommandSender sender, @NotNull String label, @NotNull String @NotNull [] args) {
         if (!sender.hasPermission("bettercommandspy.command.bettercommandspy.info")) {

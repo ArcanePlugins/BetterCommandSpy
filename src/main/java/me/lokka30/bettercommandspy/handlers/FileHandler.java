@@ -21,11 +21,6 @@ import java.nio.file.Files;
  */
 public class FileHandler {
 
-    /*
-    TODO
-        - Test.
-     */
-
     private final BetterCommandSpy main;
 
     public FileHandler(@NotNull final BetterCommandSpy main) {

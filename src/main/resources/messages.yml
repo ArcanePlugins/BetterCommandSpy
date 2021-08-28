@@ -148,19 +148,38 @@ commands:
       # the '/bcs off' subcommand.
       off:
 
-        # TODO Comment.
+        # Sent when a user successfully disables their
+        # own command spy status.
+        #
+        # Placeholders:
+        #   %prefix% ~ the plugin prefix
         self-success:
           - '%prefix% &cDisabled&7 your command spy.'
 
-        # TODO Comment.
+        # Sent when a user tries to disable their commandspy
+        # but it is already disabled.
+        #
+        # Placeholders:
+        #   %prefix% ~ the plugin prefix
         self-already-disabled:
           - '%prefix% Your command spy is already &cdisabled&7.'
 
-        # TODO Comment.
+        # Sent when a user disables another user's command
+        # spy successfully.
+        #
+        # Placeholders:
+        #   %prefix% ~ the plugin prefix
+        #   %username% ~ the username of the target player
         target-success:
           - '%prefix% &cDisabled&7 &r%username%&7''s command spy.'
 
-        # TODO Comment.
+        # Sent when a user unsuccessfully disables a target player's
+        # command spy, as the target player already has their
+        # command-spy disabled.
+        #
+        # Placeholders:
+        #   %prefix% ~ the plugin prefix
+        #   %username% ~ the username of the target player
         target-already-disabled:
           - '%prefix% &r%username%&7''s command spy is already &cdisabled&7.'
 
@@ -187,19 +206,38 @@ commands:
       # the '/bcs on' subcommand.
       on:
 
-        # TODO Comment.
+        # Sent when a user successfully enables their
+        # own command spy status.
+        #
+        # Placeholders:
+        #   %prefix% ~ the plugin prefix
         self-success:
           - '%prefix% &aEnabled&7 your command spy.'
 
-        # TODO Comment.
+        # Sent when a user tries to enable their commandspy
+        # but it is already enabled.
+        #
+        # Placeholders:
+        #   %prefix% ~ the plugin prefix
         self-already-enabled:
           - '%prefix% Your command spy is already &aenabled&7.'
 
-        # TODO Comment.
+        # Sent when a user enables another user's command
+        # spy successfully.
+        #
+        # Placeholders:
+        #   %prefix% ~ the plugin prefix
+        #   %username% ~ the username of the target player
         target-success:
           - '%prefix% &aEnabled&7 &r%username%&7''s command spy.'
 
-        # TODO Comment.
+        # Sent when a user unsuccessfully enables a target player's
+        # command spy, as the target player already has their
+        # command-spy enabled.
+        #
+        # Placeholders:
+        #   %prefix% ~ the plugin prefix
+        #   %username% ~ the username of the target player
         target-already-enabled:
           - '%prefix% &r%username%&7''s command spy is already &aenabled&7.'
 
@@ -255,12 +293,76 @@ commands:
 # The following messages pertain to the
 # compatibility checker in BetterCommandSpy.
 compatibility-checker:
-#TODO
+
+  # Sent when 0 known incompatibilities were detected
+  #
+  # Placeholders:
+  #   %prefix% ~ the plugin prefix
+  no-incompatibilities-found:
+    - '%prefix% No known incompatibilities were found.'
+
+  # Sent when 1 known incompatibility was detected
+  #
+  # Placeholders:
+  #   %prefix% ~ the plugin prefix
+  one-incompatibility-found:
+    - '%prefix% &b1&7 known incompatibility was found:'
+
+  # Sent when multiple known incompatibilities were detected
+  #
+  # Placeholders:
+  #   %prefix% ~ the plugin prefix
+  #   %amount% ~ the amount of incompatibilities detected
+  multiple-incompatibilities-found:
+    - '%prefix% &b%amount%&7 known incompatibilities were found:'
+
+  # Each 'entry' contains all the information about each incompatibility
+  #
+  # Placeholders:
+  #   %prefix% ~ the plugin prefix
+  #   %reason% ~ why the incompatibility occured
+  #   %other-info% ~ more background context on the detection
+  entry:
+    - '&b&nIncompatibility #%index%:'
+    - '&8 &m->&7 Category: &f%category%'
+    - '&8 &m->&7 Reason: &f%reason%'
+    - '&8 &m->&7 Other Info: &f%other-info%'
+
+  # If multiple entries are sent, this message will divide each entry message,
+  # used to make it easier to read.
+  #
+  # Placeholders:
+  #   %prefix% ~ the plugin prefix
+  entry-spacer:
+    - ' '
 
 # The following messages pertain to the
 # update checker in BetterCommandSpy.
 update-checker:
-#TODO
+
+  # Sent when the update checker detects that you are using a pre-release/development
+  # version of BetterCommandSpy - these are unstable, so use with caution. They're
+  # provided on the ArcanePlugins Discord Server: <https://www.discord.io/arcaneplugins>
+  #
+  # Placeholders:
+  #   %prefix% ~ the plugin prefix
+  #   %installed-version% ~ what version is installed on the server
+  #   %release-version% ~ the latest version released to Spigot (not the latest dev-build!)
+  using-development-version:
+    - '%prefix% You are using a &bdevelopment version&7 of BetterCommandSpy. &fThis is not a release version, it may be unstable.'
+    - '%prefix% Installed version: &b%installed-version%&8 &m->&7 Latest release version: &b%release-version%&7.'
+
+  # Sent when the update checker detects that you are using an outdated
+  # version of BetterCommandSpy - you are missing out on bug fixes, improvements and
+  # maybe even new features! Get updated as soon as you can :)
+  #
+  # Placeholders:
+  #   %prefix% ~ the plugin prefix
+  #   %installed-version% ~ what version is installed on the server
+  #   %release-version% ~ the latest version released to Spigot (not the latest dev-build!)
+  using-outdated-version:
+    - '%prefix% You are using an &boutdated version&7 of BetterCommandSpy. Please update to the latest release version.'
+    - '%prefix% Installed version: &b%installed-version%&8 &m->&7 Latest release version: &b%release-version%&7.'
 
 # Don't touch any of this, you could break the plugin by doing so.
 # The file loader uses this to check if files need to be updated.

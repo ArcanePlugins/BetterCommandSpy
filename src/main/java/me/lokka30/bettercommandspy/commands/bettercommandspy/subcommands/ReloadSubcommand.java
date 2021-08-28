@@ -27,11 +27,6 @@ import java.util.List;
  */
 public class ReloadSubcommand implements ISubcommand {
 
-    /*
-    TODO
-        - Test the subcommand.
-     */
-
     @Override
     public void parseCmd(@NotNull BetterCommandSpy main, @NotNull CommandSender sender, @NotNull String label, @NotNull String @NotNull [] args) {
 

@@ -26,11 +26,6 @@ import java.util.List;
  */
 public class CompatibilitySubcommand implements ISubcommand {
 
-    /*
-    TODO
-        - Test this subcommand.
-     */
-
     @Override
     public void parseCmd(@NotNull BetterCommandSpy main, @NotNull CommandSender sender, @NotNull String label, @NotNull String @NotNull [] args) {
         if (!sender.hasPermission("bettercommandspy.command.bettercommandspy.compatibility")) {

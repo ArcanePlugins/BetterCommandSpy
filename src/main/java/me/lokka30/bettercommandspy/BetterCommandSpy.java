@@ -30,6 +30,21 @@ import java.util.List;
  */
 public class BetterCommandSpy extends JavaPlugin {
 
+    /*
+    TODO - Testing To-do List
+        - Command Spying (listener)
+        - Compatibility Checker
+        - Compatibility Subcommand + tab completion
+        - Debug Subcommand + tab completion
+        - Info Subcommand + tab completion
+        - Off Subcommand + tab completion
+        - On Subcommand + tab completion
+        - Reload Subcommand + tab completion
+        - Update Checker
+        - Various config settings
+        - Test file backups etc.
+     */
+
     /* If you've contributed code to BCS, add your name to the end of this list ;) */
     @SuppressWarnings("ArraysAsListWithZeroOrOneArgument")
     public final List<String> CONTRIBUTORS = Arrays.asList("None");
@@ -105,7 +120,10 @@ public class BetterCommandSpy extends JavaPlugin {
     public void checkCompatibility() {
         if (settings.getConfig().getBoolean("compatibility-checker.run-on-startup", true)) {
             compatibilityCheckerHandler.scan();
-            compatibilityCheckerHandler.presentFindings(Bukkit.getConsoleSender());
+
+            if (settings.getConfig().getBoolean("compatibility-checker.notify.console-on-startup", true)) {
+                compatibilityCheckerHandler.presentFindings(Bukkit.getConsoleSender());
+            }
         }
     }
 

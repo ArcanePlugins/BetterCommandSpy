@@ -26,11 +26,6 @@ import java.util.Arrays;
  */
 public class CommandListener implements Listener {
 
-    /*
-    TODO
-        test this
-     */
-
     private final BetterCommandSpy main;
 
     public CommandListener(@NotNull final BetterCommandSpy main) {
@@ -64,7 +59,7 @@ public class CommandListener implements Listener {
         for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
 
             // make sure the online player has the required status
-            if (!main.userHandler.getStatus(onlinePlayer)) continue;
+            if (!main.userHandler.getStatus(onlinePlayer.getUniqueId())) continue;
 
             // send alert msg to these players
             alertMessage.forEach(onlinePlayer::sendMessage);

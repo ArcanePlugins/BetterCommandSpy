@@ -6,10 +6,13 @@ package me.lokka30.bettercommandspy.handlers;
 
 import me.lokka30.bettercommandspy.BetterCommandSpy;
 import me.lokka30.bettercommandspy.misc.Utils;
+import me.lokka30.microlib.messaging.MultiMessage;
 import me.lokka30.microlib.other.VersionUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 
 /**
@@ -136,28 +139,37 @@ public class CompatibilityCheckerHandler {
      * Reports any findings gathered from the latest scan.
      */
     public void presentFindings(CommandSender recipient) {
-        //TODO Customisable Messages
-        //TODO Test
-
         int amount = incompatibilities.size();
         if (amount == 0) {
-            recipient.sendMessage("No known incompatibilities were found.");
+            new MultiMessage(main.messages.getConfig().getStringList("compatibility-checker.no-incompatibilities-found"), Collections.singletonList(
+                    new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix"), true)
+            )).send(recipient);
             return;
         } else if (amount == 1) {
-            recipient.sendMessage("1 known incompatibility was found:");
+            new MultiMessage(main.messages.getConfig().getStringList("compatibility-checker.one-incompatibility-found"), Collections.singletonList(
+                    new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix"), true)
+            )).send(recipient);
         } else {
-            recipient.sendMessage(incompatibilities.size() + " known incompatibilities were found:");
+            new MultiMessage(main.messages.getConfig().getStringList("compatibility-checker.one-incompatibility-found"), Arrays.asList(
+                    new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix"), true),
+                    new MultiMessage.Placeholder("amount", incompatibilities.size() + "", false)
+            )).send(recipient);
         }
 
         int index = 1;
         for (Incompatibility incompatibility : incompatibilities) {
-            recipient.sendMessage("Incompatibility #" + index + ":");
-            recipient.sendMessage(" -> Category: " + incompatibility.getCategory());
-            recipient.sendMessage(" -> Reason: " + incompatibility.getReason());
-            recipient.sendMessage(" -> Other Info: " + incompatibility.getOtherInfo());
+            new MultiMessage(main.messages.getConfig().getStringList("compatibility-checker.entry"), Arrays.asList(
+                    new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix"), true),
+                    new MultiMessage.Placeholder("index", index + "", false),
+                    new MultiMessage.Placeholder("category", incompatibility.getCategory().toString(), false),
+                    new MultiMessage.Placeholder("reason", incompatibility.getReason(), true),
+                    new MultiMessage.Placeholder("other-info", incompatibility.getOtherInfo(), true)
+            )).send(recipient);
 
             if (index != amount) {
-                recipient.sendMessage(" ");
+                new MultiMessage(main.messages.getConfig().getStringList("compatibility-checker.entry-spacer"), Collections.singletonList(
+                        new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix"), true)
+                )).send(recipient);
             }
 
             index++;

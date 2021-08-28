@@ -29,11 +29,6 @@ import java.util.Locale;
  */
 public class DebugSubcommand implements ISubcommand {
 
-    /*
-    TODO
-        - Test the command.
-     */
-
     @Override
     public void parseCmd(@NotNull BetterCommandSpy main, @NotNull CommandSender sender, @NotNull String label, @NotNull String @NotNull [] args) {
         if (!sender.hasPermission("bettercommandspy.command.bettercommandspy.debug")) {

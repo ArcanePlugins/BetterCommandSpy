@@ -91,7 +91,7 @@ compatibility-checker:
   # incompatibility being detected that you
   # wish to ignore, please instead configure
   # the 'suppressed-categories' setting below.
-  run-on-startup: true #TODO not sure if this is used yet
+  run-on-startup: true
 
   # Who should be notified of any findings from the compatibility checker?
   notify:
@@ -103,7 +103,7 @@ compatibility-checker:
 
     # Should console be notified when
     # the server is started up?
-    console-on-startup: true #TODO not sure if this is used yet
+    console-on-startup: true
 
     # Should players with permission be
     # notified when they join the server?

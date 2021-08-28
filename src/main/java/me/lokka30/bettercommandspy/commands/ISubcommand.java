@@ -29,6 +29,7 @@ public interface ISubcommand {
      * <p>
      * Run the subcommand.
      */
+    @SuppressWarnings("unused")
     void parseCmd(@NotNull BetterCommandSpy main, @NotNull CommandSender sender, @NotNull String label, @NotNull String[] args);
 
     /**
@@ -40,6 +41,7 @@ public interface ISubcommand {
      * Get a list of tab suggestions.
      * Only 1.13+ servers are able to utilise this feature.
      */
+    @SuppressWarnings("unused")
     @NotNull
     List<String> parseTabSuggestions(@NotNull BetterCommandSpy main, @NotNull CommandSender sender, @NotNull String label, @NotNull String[] args);
 }

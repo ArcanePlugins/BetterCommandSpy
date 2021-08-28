@@ -8,6 +8,7 @@ import me.lokka30.bettercommandspy.BetterCommandSpy;
 import me.lokka30.bettercommandspy.misc.DebugCategory;
 import me.lokka30.bettercommandspy.misc.Utils;
 import me.lokka30.microlib.exceptions.OutdatedServerVersionException;
+import me.lokka30.microlib.messaging.MultiMessage;
 import me.lokka30.microlib.other.UpdateChecker;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
@@ -17,6 +18,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 /**
  * This class contains a bunch of methods
@@ -214,12 +216,18 @@ public class UpdateCheckerHandler {
                 // also don't notify if they're using the latest version
                 return;
             case USING_DEVELOPMENT_VERSION:
-                //TODO
-                recipient.sendMessage("using development version");
+                new MultiMessage(main.messages.getConfig().getStringList("update-checker.using-development-version"), Arrays.asList(
+                        new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix"), true),
+                        new MultiMessage.Placeholder("installed-version", getResult().getCurrentVersion(), false),
+                        new MultiMessage.Placeholder("release-version", getResult().getLatestVersion(), false)
+                )).send(recipient);
                 break;
             case USING_OUTDATED_VERSION:
-                //TODO
-                recipient.sendMessage("using outdated version");
+                new MultiMessage(main.messages.getConfig().getStringList("update-checker.using-outdated-version"), Arrays.asList(
+                        new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix"), true),
+                        new MultiMessage.Placeholder("installed-version", getResult().getCurrentVersion(), false),
+                        new MultiMessage.Placeholder("release-version", getResult().getLatestVersion(), false)
+                )).send(recipient);
                 break;
             default:
                 throw new IllegalStateException("Unexpected state '" + getResult().getResultType() + "'!");
