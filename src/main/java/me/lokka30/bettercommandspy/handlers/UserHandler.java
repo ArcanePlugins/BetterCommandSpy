@@ -78,14 +78,14 @@ public class UserHandler {
      * Change the spy status of a player.
      *
      * @param playerUuid    player to set command spy status of
-     * @param originalState state that should be set
+     * @param newState state that should be set
      * @param cause         the cause of this method being ran
      * @author lokka30
      * @since v2.0.0
      */
-    public void setStatus(@NotNull final UUID playerUuid, final boolean originalState, @NotNull final ChangedStatusCause cause) {
+    public void setStatus(@NotNull final UUID playerUuid, final boolean newState, @NotNull final ChangedStatusCause cause) {
         /* Call the event */
-        CommandSpyToggleEvent event = new CommandSpyToggleEvent(playerUuid, originalState, cause);
+        CommandSpyToggleEvent event = new CommandSpyToggleEvent(playerUuid, newState, cause);
         Bukkit.getPluginManager().callEvent(event);
 
         /* Set & save the new value into the data file. */

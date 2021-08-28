@@ -51,7 +51,7 @@ public class OffSubcommand implements ISubcommand {
             final UUID uuid = ((Player) sender).getUniqueId();
 
             if (main.userHandler.getStatus(uuid)) {
-                main.userHandler.setStatus(uuid, true, UserHandler.ChangedStatusCause.COMMAND);
+                main.userHandler.setStatus(uuid, false, UserHandler.ChangedStatusCause.COMMAND);
                 new MultiMessage(main.messages.getConfig().getStringList("commands.bettercommandspy.subcommands.off.self-success"), Collections.singletonList(
                         new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix", "BCS:"), true)
                 )).send(sender);
@@ -91,7 +91,7 @@ public class OffSubcommand implements ISubcommand {
                 return;
             }
 
-            main.userHandler.setStatus(uuid, true, UserHandler.ChangedStatusCause.COMMAND);
+            main.userHandler.setStatus(uuid, false, UserHandler.ChangedStatusCause.COMMAND);
 
             new MultiMessage(main.messages.getConfig().getStringList("commands.bettercommandspy.subcommands.off.target-success"), Arrays.asList(
                     new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix", "BCS:"), true),

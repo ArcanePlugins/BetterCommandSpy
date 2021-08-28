@@ -55,7 +55,7 @@ public class OnSubcommand implements ISubcommand {
                         new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix", "BCS:"), true)
                 )).send(sender);
             } else {
-                main.userHandler.setStatus(uuid, false, UserHandler.ChangedStatusCause.COMMAND);
+                main.userHandler.setStatus(uuid, true, UserHandler.ChangedStatusCause.COMMAND);
                 new MultiMessage(main.messages.getConfig().getStringList("commands.bettercommandspy.subcommands.on.self-success"), Collections.singletonList(
                         new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix", "BCS:"), true)
                 )).send(sender);
@@ -91,7 +91,7 @@ public class OnSubcommand implements ISubcommand {
                 return;
             }
 
-            main.userHandler.setStatus(uuid, false, UserHandler.ChangedStatusCause.COMMAND);
+            main.userHandler.setStatus(uuid, true, UserHandler.ChangedStatusCause.COMMAND);
 
             new MultiMessage(main.messages.getConfig().getStringList("commands.bettercommandspy.subcommands.on.target-success"), Arrays.asList(
                     new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix", "BCS:"), true),
