@@ -71,6 +71,9 @@ public class CommandListener implements Listener {
         // check what online players should be alerted
         for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
 
+            // don't allow players to alert themselves
+            if(onlinePlayer.getUniqueId() == event.getPlayer().getUniqueId()) continue;
+
             // make sure the online player has the required status
             if (!main.userHandler.getStatus(onlinePlayer.getUniqueId())) continue;
 

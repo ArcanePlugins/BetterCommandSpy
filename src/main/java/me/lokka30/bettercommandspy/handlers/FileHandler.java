@@ -143,10 +143,14 @@ public class FileHandler {
 
         // Start transferring.
         try {
-            if(!new File(main.getDataFolder() + File.separator + "backups").mkdir()) {
-                Utils.LOGGER.error("Unable to create backup file for '&b" + source.getName() + "&7'.");
+
+            // Create the backup folder if it doesn't exist.
+            final File backupsFolder = new File(main.getDataFolder() + File.separator + "backups");
+            if(!backupsFolder.exists() && !backupsFolder.mkdir()) {
+                Utils.LOGGER.error("Unable to create backups folder. Backup for file '&b" + destination.getName() + "&7' cancelled.");
                 return;
             }
+
             Files.copy(source.toPath(), destination.toPath());
         } catch (IOException ex) {
             ex.printStackTrace();
