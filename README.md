@@ -1,5 +1,7 @@
 <img src="https://i.ibb.co/LPQnFBL/logo2000.png" alt="BetterCommandSpy Logo" width="25%" height="25%" />
 
+[![CodeQL](https://github.com/lokka30/BetterCommandSpy/actions/workflows/codeql-analysis.yml/badge.svg?branch=master)](https://github.com/lokka30/BetterCommandSpy/actions/workflows/codeql-analysis.yml)
+
 # BetterCommandSpy
 
 The Ultimate CommandSpy Plugin for SpigotMC Servers
