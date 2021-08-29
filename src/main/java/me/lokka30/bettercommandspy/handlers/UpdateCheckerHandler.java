@@ -151,10 +151,10 @@ public class UpdateCheckerHandler {
                 }
 
                 final String latestVersion = latestVersionSplit[0];
-                final int latestBuild = Integer.parseInt(latestVersionSplit[1]);
+                final int latestBuild = Integer.parseInt(latestVersionSplit[1].substring(1));
 
                 final String currentVersion = currentVersionSplit[0];
-                final int currentBuild = Integer.parseInt(currentVersionSplit[1]);
+                final int currentBuild = Integer.parseInt(currentVersionSplit[1].substring(1));
 
                 ResultType resultType;
 

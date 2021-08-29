@@ -7,5 +7,8 @@ tab on BetterCommandSpy's SpigotMC resource page.
 
 ***
 
+## v2.0.1 b26
+* @lokka30 fixed the update checker trying to parse an invalid number. No more startup error :)
+
 ## v2.0.0 b25
 The plugin has changed so drastically under the hood that I have not been able to record any changes.
