@@ -1,3 +1,5 @@
+<img src="https://i.ibb.co/LPQnFBL/logo2000.png" alt="BetterCommandSpy Logo" width="25%" height="25%" />
+
 # BetterCommandSpy
 
 The Ultimate CommandSpy Plugin for SpigotMC Servers
