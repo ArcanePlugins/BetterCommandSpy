@@ -7,7 +7,6 @@ package me.lokka30.bettercommandspy.handlers;
 import me.lokka30.bettercommandspy.BetterCommandSpy;
 import me.lokka30.bettercommandspy.misc.DebugCategory;
 import me.lokka30.bettercommandspy.misc.Utils;
-import me.lokka30.microlib.exceptions.OutdatedServerVersionException;
 import me.lokka30.microlib.messaging.MultiMessage;
 import me.lokka30.microlib.other.UpdateChecker;
 import org.bukkit.Bukkit;
@@ -17,7 +16,6 @@ import org.bukkit.scheduler.BukkitTask;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.io.IOException;
 import java.util.Arrays;
 
 /**
@@ -177,21 +175,8 @@ public class UpdateCheckerHandler {
                 if(reason == UpdateCheckReason.FROM_STARTUP)
                     initStage2();
             });
-        } catch (OutdatedServerVersionException ignored) {
-            Utils.LOGGER.warning(
-                    "The update checker was unable to run as your server is not MC 1.11 or newer." +
-                            " BetterCommandSpy will now disable the update checker."
-            );
-
-            main.settings.getConfig().set("update-checker.enabled", false);
-
-            try {
-                main.settings.save();
-            } catch (IOException ex) {
-                Utils.LOGGER.error("Unable to disable update checker in settings.yml. Stack trace:");
-                ex.printStackTrace();
-            }
-
+        } catch (Exception ex) {
+            Utils.LOGGER.error("An error occured whilst attempting to check for updates: &r" + ex.getMessage());
             if (repeatingTask != null) repeatingTask.cancel();
         }
     }
