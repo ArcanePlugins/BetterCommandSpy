@@ -58,7 +58,7 @@ public class CommandListener implements Listener {
         }
 
         // cache the alert message
-        ArrayList<String> alertMessage = new MultiMessage(
+        ArrayList<String> alertMessage = (ArrayList<String>) new MultiMessage(
                 main.messages.getConfig().getStringList("alert"),
                 Arrays.asList(
                         new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix"), true),
@@ -77,7 +77,10 @@ public class CommandListener implements Listener {
             // make sure the online player has the required status
             if (!main.userHandler.getStatus(onlinePlayer.getUniqueId())) continue;
 
-            // send alert msg to these players
+            // vanished player support
+            if(!onlinePlayer.canSee(event.getPlayer())) continue;
+
+            // send alert msg to the online player
             alertMessage.forEach(onlinePlayer::sendMessage);
         }
     }

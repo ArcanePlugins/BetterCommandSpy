@@ -112,7 +112,7 @@ public class OnSubcommand implements ISubcommand {
         if (args.length == 2) {
             return new ArrayList<>(Utils.getVisibleOnlinePlayerUsernamesList(sender));
         } else {
-            return new ArrayList<>();
+            return Collections.emptyList();
         }
     }
 }

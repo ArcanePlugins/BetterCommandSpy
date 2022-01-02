@@ -11,8 +11,8 @@ import me.lokka30.microlib.messaging.MultiMessage;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -56,6 +56,6 @@ public class InfoSubcommand implements ISubcommand {
 
     @Override
     public @NotNull List<String> parseTabSuggestions(@NotNull BetterCommandSpy main, @NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
-        return new ArrayList<>();
+        return Collections.emptyList();
     }
 }

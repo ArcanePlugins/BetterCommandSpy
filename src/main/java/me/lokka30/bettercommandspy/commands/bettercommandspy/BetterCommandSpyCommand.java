@@ -12,8 +12,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
@@ -79,12 +79,13 @@ public class BetterCommandSpyCommand implements TabExecutor {
         )).send(sender);
     }
 
+    private static final List<String> SUBCOMMANDS_LIST = Arrays.asList("compatibility", "debug", "info", "off", "on", "reload");
     @NotNull
     @Override
     public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, @NotNull String @NotNull [] args) {
         if (args.length == 1) {
             // Keep in alphabetical order
-            return Arrays.asList("compatibility", "debug", "info", "off", "on", "reload");
+            return SUBCOMMANDS_LIST;
         }
 
         switch (args[0].toLowerCase(Locale.ROOT)) {
@@ -102,7 +103,7 @@ public class BetterCommandSpyCommand implements TabExecutor {
             case "reload":
                 return reloadSubcommand.parseTabSuggestions(main, sender, label, args);
             default:
-                return new ArrayList<>();
+                return Collections.emptyList();
         }
     }
 }

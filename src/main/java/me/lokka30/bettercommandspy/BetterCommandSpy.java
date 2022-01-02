@@ -20,7 +20,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -32,8 +32,7 @@ import java.util.List;
 public class BetterCommandSpy extends JavaPlugin {
 
     /* If you've contributed code to BCS, add your name to the end of this list ;) */
-    @SuppressWarnings("ArraysAsListWithZeroOrOneArgument")
-    @NotNull public final List<String> CONTRIBUTORS = Arrays.asList("None");
+    @NotNull public final List<String> CONTRIBUTORS = Collections.singletonList("None");
 
     /* Handler Classes */
     @NotNull public final FileHandler fileHandler = new FileHandler(this);

@@ -118,7 +118,7 @@ public class Utils {
     public static @NotNull String getFormattedList(@NotNull BetterCommandSpy main, @NotNull List<String> list) {
         // yes - intentionally, only colorize the delimiter.
         return String.join(
-                MessageUtils.colorizeAll(main.messages.getConfig().getString("commands.common.delimiter", ",")),
+                MessageUtils.colorizeAll(main.messages.getConfig().getString("commands.common.delimiter", "&7, &b")),
                 list
         );
     }
