@@ -1,5 +1,8 @@
 /*
- * Copyright (c) 2020-2021 lokka30, All Rights Reserved. Use of this source code is governed by the GNU AGPL v3.0 license that can be found in BetterCommandSpy's LICENSE.md file.
+ * Copyright (c) 2020-2022  lokka30.
+ * This file is/was present in BetterCommandSpy's source code.
+ * Learn more about BetterCommandSpy and its licensing at:
+ * <https://github.com/lokka30/BetterCommandSpy>
  */
 
 package me.lokka30.bettercommandspy.commands;

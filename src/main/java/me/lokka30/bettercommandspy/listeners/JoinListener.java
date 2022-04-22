@@ -1,5 +1,8 @@
 /*
- * Copyright (c) 2020-2021 lokka30, All Rights Reserved. Use of this source code is governed by the GNU AGPL v3.0 license that can be found in BetterCommandSpy's LICENSE.md file.
+ * Copyright (c) 2020-2022  lokka30.
+ * This file is/was present in BetterCommandSpy's source code.
+ * Learn more about BetterCommandSpy and its licensing at:
+ * <https://github.com/lokka30/BetterCommandSpy>
  */
 
 package me.lokka30.bettercommandspy.listeners;
@@ -42,40 +45,7 @@ public class JoinListener implements Listener {
      */
     @EventHandler
     public void onJoin(final @NotNull PlayerJoinEvent event) {
-        sendCompatibilityCheckerNotification(event.getPlayer());
         sendUpdateCheckerNotification(event.getPlayer());
-    }
-
-    /**
-     * @param player who joined
-     * @author lokka30
-     * @since v2.0.0
-     * <p>
-     * Check if the player that joined
-     * should receive a notification or not
-     * <p>
-     */
-    private void sendCompatibilityCheckerNotification(final @NotNull Player player) {
-
-        // make sure the setting is enabled
-        Utils.debugLog(main, DebugCategory.COMPATIBILITY_CHECKER_ON_JOIN_NOTIFY, "[" + player.getName() + "] (1/4) Checking if 'notify players with perms on join' is enabled.");
-        if (!main.settings.getConfig().getBoolean("compatibility-checker.notify.players-with-perm-on-join", true))
-            return;
-
-        // check if it should be skipped due to incompatibilities possibly having a size of 0
-        Utils.debugLog(main, DebugCategory.COMPATIBILITY_CHECKER_ON_JOIN_NOTIFY, "[" + player.getName() + "] (2/4) Checking size of incompatibilities list.");
-        if (
-                main.compatibilityCheckerHandler.getIncompatibilities().size() == 0 &&
-                        main.settings.getConfig().getBoolean("compatibility-checker.notify.dont-notify-if-none-found", true)
-        ) return;
-
-        // Make sure the player has permission to receive the notification
-        Utils.debugLog(main, DebugCategory.COMPATIBILITY_CHECKER_ON_JOIN_NOTIFY, "[" + player.getName() + "] (3/4) Checking if player has perms to receive notifications.");
-        if (!player.hasPermission("bettercommandspy.notifications.compatibility-checker")) return;
-
-        // Send the notice
-        Utils.debugLog(main, DebugCategory.COMPATIBILITY_CHECKER_ON_JOIN_NOTIFY, "[" + player.getName() + "] (4/4) Presenting findings.");
-        main.compatibilityCheckerHandler.presentFindings(player);
     }
 
     /**
