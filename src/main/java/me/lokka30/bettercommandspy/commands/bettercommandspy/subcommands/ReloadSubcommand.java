@@ -4,6 +4,8 @@
 
 package me.lokka30.bettercommandspy.commands.bettercommandspy.subcommands;
 
+import java.util.Arrays;
+import java.util.Collections;
 import me.lokka30.bettercommandspy.BetterCommandSpy;
 import me.lokka30.bettercommandspy.commands.Subcommand;
 import me.lokka30.bettercommandspy.handlers.UpdateCheckerHandler;
@@ -11,10 +13,6 @@ import me.lokka30.microlib.maths.QuickTimer;
 import me.lokka30.microlib.messaging.MultiMessage;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 
 /**
  * @author lokka30
@@ -60,11 +58,6 @@ public class ReloadSubcommand implements Subcommand {
         // reload files
         main.loadFiles();
 
-        // reload compat checker
-        if (main.settings.getConfig().getBoolean("compatibility-checker.run-on-startup", true)) {
-            main.compatibilityCheckerHandler.scan();
-        }
-
         // reload update checker
         main.updateCheckerHandler.initStage1(UpdateCheckerHandler.UpdateCheckReason.FROM_RELOAD);
 
@@ -75,8 +68,4 @@ public class ReloadSubcommand implements Subcommand {
         )).send(sender);
     }
 
-    @Override
-    public @NotNull List<String> getSuggestions(@NotNull BetterCommandSpy main, @NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
-        return Collections.emptyList(); // no tab completions
-    }
 }

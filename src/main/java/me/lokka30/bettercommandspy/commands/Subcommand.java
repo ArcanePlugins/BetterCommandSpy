@@ -4,6 +4,7 @@
 
 package me.lokka30.bettercommandspy.commands;
 
+import java.util.Collections;
 import me.lokka30.bettercommandspy.BetterCommandSpy;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
@@ -47,10 +48,12 @@ public interface Subcommand {
      * @since v2.0.0
      */
     @NotNull
-    List<String> getSuggestions(
+    default List<String> getSuggestions(
         @NotNull BetterCommandSpy main,
         @NotNull CommandSender sender,
         @NotNull String label,
         @NotNull String[] args
-    );
+    ) {
+        return Collections.emptyList();
+    }
 }

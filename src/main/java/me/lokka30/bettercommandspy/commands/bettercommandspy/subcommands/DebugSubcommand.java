@@ -4,16 +4,13 @@
 
 package me.lokka30.bettercommandspy.commands.bettercommandspy.subcommands;
 
+import java.util.Arrays;
+import java.util.Locale;
 import me.lokka30.bettercommandspy.BetterCommandSpy;
 import me.lokka30.bettercommandspy.commands.Subcommand;
 import me.lokka30.microlib.messaging.MultiMessage;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Locale;
 
 /**
  * @author lokka30
@@ -64,8 +61,4 @@ public class DebugSubcommand implements Subcommand {
         }
     }
 
-    @Override
-    public @NotNull List<String> getSuggestions(@NotNull BetterCommandSpy main, @NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
-        return Collections.emptyList();
-    }
 }
