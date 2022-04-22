@@ -1,8 +1,8 @@
-# IntelliJ files.
-#   Why? -> Different developers use different IDE settings.
-/target/
-/.idea/
+# IntelliJ IDEA
+target/
+.idea/
 BetterCommandSpy.iml
 
-# Mac OS X Files
+# macOS
 ._.git
+.DS_Store
