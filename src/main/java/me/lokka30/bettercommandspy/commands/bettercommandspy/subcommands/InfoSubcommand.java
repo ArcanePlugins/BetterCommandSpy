@@ -5,7 +5,7 @@
 package me.lokka30.bettercommandspy.commands.bettercommandspy.subcommands;
 
 import me.lokka30.bettercommandspy.BetterCommandSpy;
-import me.lokka30.bettercommandspy.commands.ISubcommand;
+import me.lokka30.bettercommandspy.commands.Subcommand;
 import me.lokka30.bettercommandspy.misc.Utils;
 import me.lokka30.microlib.messaging.MultiMessage;
 import org.bukkit.command.CommandSender;
@@ -26,10 +26,10 @@ import java.util.List;
  * arg: -    0
  * len: 0    1
  */
-public class InfoSubcommand implements ISubcommand {
+public class InfoSubcommand implements Subcommand {
 
     @Override
-    public void parseCmd(@NotNull BetterCommandSpy main, @NotNull CommandSender sender, @NotNull String label, @NotNull String @NotNull [] args) {
+    public void run(@NotNull BetterCommandSpy main, @NotNull CommandSender sender, @NotNull String label, @NotNull String @NotNull [] args) {
         if (!sender.hasPermission("bettercommandspy.command.bettercommandspy.info")) {
             new MultiMessage(main.messages.getConfig().getStringList("commands.common.no-permission"), Arrays.asList(
                     new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix", "BCS:"), true),
@@ -50,12 +50,12 @@ public class InfoSubcommand implements ISubcommand {
                 new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix", "BCS:"), true),
                 new MultiMessage.Placeholder("version", main.getDescription().getVersion(), false),
                 new MultiMessage.Placeholder("authors", Utils.getFormattedList(main, main.getDescription().getAuthors()), false),
-                new MultiMessage.Placeholder("contributors", Utils.getFormattedList(main, main.CONTRIBUTORS), false)
+                new MultiMessage.Placeholder("contributors", Utils.getFormattedArray(main, BetterCommandSpy.CONTRIBUTORS), false)
         )).send(sender);
     }
 
     @Override
-    public @NotNull List<String> parseTabSuggestions(@NotNull BetterCommandSpy main, @NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
+    public @NotNull List<String> getSuggestions(@NotNull BetterCommandSpy main, @NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
         return Collections.emptyList();
     }
 }

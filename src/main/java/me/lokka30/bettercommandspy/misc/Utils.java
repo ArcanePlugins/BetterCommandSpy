@@ -4,9 +4,10 @@
 
 package me.lokka30.bettercommandspy.misc;
 
+import java.util.HashSet;
+import java.util.List;
 import me.lokka30.bettercommandspy.BetterCommandSpy;
 import me.lokka30.microlib.messaging.MessageUtils;
-import me.lokka30.microlib.messaging.MicroLogger;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
@@ -14,9 +15,6 @@ import org.bukkit.command.PluginCommand;
 import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.HashSet;
-import java.util.List;
 
 /**
  * Class containing a bunch of utility methods and vars
@@ -27,14 +25,8 @@ import java.util.List;
 public class Utils {
 
     private Utils() {
-        throw new UnsupportedOperationException("Contents of the Utils class are static, access as such");
+        throw new UnsupportedOperationException("Instantiation of utility-type class");
     }
-
-    /**
-     * This is the MicroLogger for BetterCommandSpy.
-     * Used to send console logs with colors and auto-prefixing :)
-     */
-    @NotNull public static final MicroLogger LOGGER = new MicroLogger("&b&lBetterCommandSpy: &7");
 
     /**
      * Attempt to register a command from plugin.yml.
@@ -46,18 +38,15 @@ public class Utils {
      * @since v2.0.0
      */
     public static void registerCommand(@NotNull final BetterCommandSpy main, @NotNull final TabExecutor clazz, @NotNull final String command) {
-        Utils.LOGGER.info("&8[&3/" + command + "&8] &7Attempting to register command...");
-
         final PluginCommand pluginCommand = main.getCommand(command);
 
         if (pluginCommand == null) {
-            Utils.LOGGER.error("&8[&3/" + command + "&8] &7Unable to register command - PluginCommand is null. Was plugin.yml incorrectly modified?");
+            main.getLogger().severe("Unable to register command '/" + command + "', \""
+                + "PluginCommand is null\". Was embedded plugin.yml tampered with?");
             return;
         }
-
         pluginCommand.setExecutor(clazz);
-
-        Utils.LOGGER.info("&8[&3/" + command + "&8] &7Command registered successfully.");
+        main.getLogger().info("Registered command '/" + command + "' successfully.");
     }
 
     /**
@@ -71,7 +60,7 @@ public class Utils {
      */
     public static void debugLog(@NotNull final BetterCommandSpy main, @NotNull final DebugCategory debugCategory, @NotNull final String msg) {
         if (!main.settings.getConfig().getStringList("debug").contains(debugCategory.toString())) return;
-        Utils.LOGGER.info("&8[&3Debug &8| &3" + debugCategory + "&8]: &7" + msg);
+        main.getLogger().fine("[Debug | " + debugCategory + "]: " + msg);
     }
 
     /**
@@ -118,8 +107,25 @@ public class Utils {
     public static @NotNull String getFormattedList(@NotNull BetterCommandSpy main, @NotNull List<String> list) {
         // yes - intentionally, only colorize the delimiter.
         return String.join(
-                MessageUtils.colorizeAll(main.messages.getConfig().getString("commands.common.delimiter", "&7, &b")),
+                MessageUtils.colorizeAll(
+                    main.messages.getConfig().getString("commands.common.delimiter", "&7, &b")),
                 list
+        );
+    }
+
+    /**
+     * @param main BetterCommandSpy's main class
+     * @param array the array that should be formatted
+     * @return the formatted list
+     * @author lokka30
+     * @since v2.0.0
+     */
+    public static @NotNull String getFormattedArray(@NotNull BetterCommandSpy main, @NotNull String[] array) {
+        // yes - intentionally, only colorize the delimiter.
+        return String.join(
+            MessageUtils.colorizeAll(
+                main.messages.getConfig().getString("commands.common.delimiter", "&7, &b")),
+            array
         );
     }
 }

@@ -4,8 +4,8 @@
 
 package me.lokka30.bettercommandspy;
 
+import java.io.File;
 import me.lokka30.bettercommandspy.commands.bettercommandspy.BetterCommandSpyCommand;
-import me.lokka30.bettercommandspy.handlers.CompatibilityCheckerHandler;
 import me.lokka30.bettercommandspy.handlers.FileHandler;
 import me.lokka30.bettercommandspy.handlers.UpdateCheckerHandler;
 import me.lokka30.bettercommandspy.handlers.UserHandler;
@@ -19,10 +19,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.File;
-import java.util.Collections;
-import java.util.List;
-
 /**
  * Main class of the plugin, loaded by Bukkit.
  *
@@ -32,25 +28,18 @@ import java.util.List;
 public class BetterCommandSpy extends JavaPlugin {
 
     /* If you've contributed code to BCS, add your name to the end of this list ;) */
-    @NotNull public final List<String> CONTRIBUTORS = Collections.singletonList("None");
+    @NotNull public static final String[] CONTRIBUTORS = new String[]{"N/A"};
 
     /* Handler Classes */
     @NotNull public final FileHandler fileHandler = new FileHandler(this);
     @NotNull public final UserHandler userHandler = new UserHandler(this);
     @NotNull public final UpdateCheckerHandler updateCheckerHandler = new UpdateCheckerHandler(this);
-    @NotNull public final CompatibilityCheckerHandler compatibilityCheckerHandler = new CompatibilityCheckerHandler(this);
 
     /* Config Files */
     @NotNull public final YamlConfigFile settings = new YamlConfigFile(this, new File(getDataFolder(), "settings.yml"));
     @NotNull public final YamlConfigFile messages = new YamlConfigFile(this, new File(getDataFolder(), "messages.yml"));
     @NotNull public final YamlConfigFile data = new YamlConfigFile(this, new File(getDataFolder(), "data.yml"));
 
-    /**
-     * Start-up sequence of the plugin. Called by Bukkit
-     *
-     * @author lokka30
-     * @since v2.0.0
-     */
     @Override
     public void onEnable() {
         final QuickTimer quickTimer = new QuickTimer();
@@ -59,27 +48,11 @@ public class BetterCommandSpy extends JavaPlugin {
         registerListeners();
         registerCommands();
 
-        Utils.LOGGER.info("Running misc startup procedures...");
-        startBStats();
-        checkCompatibility();
+        getLogger().info("Running misc startup procedures...");
+        startMetrics();
         updateCheckerHandler.initStage1(UpdateCheckerHandler.UpdateCheckReason.FROM_STARTUP);
 
-        Utils.LOGGER.info("&f~ &bStart-up complete&7, took &b" + quickTimer.getTimer() + "ms&f ~");
-    }
-
-    /**
-     * Shut-down sequence of the plugin. CAlled by Bukkit
-     *
-     * @author lokka30
-     * @since v2.0.0
-     */
-    @Override
-    public void onDisable() {
-        final QuickTimer quickTimer = new QuickTimer();
-
-        /* Add any onDisable methods here. Nothing for now. */
-
-        Utils.LOGGER.info("&f~ &bShut-down complete&7, took &b" + quickTimer.getTimer() + "ms&f ~");
+        getLogger().info("Start-up complete (took" + quickTimer.getTimer() + "ms).");
     }
 
     /**
@@ -89,25 +62,9 @@ public class BetterCommandSpy extends JavaPlugin {
      * @since v2.0.0
      */
     public void loadFiles() {
-        Utils.LOGGER.info("Loading files...");
+        getLogger().info("Loading files...");
 
         fileHandler.init();
-    }
-
-    /**
-     * Run checks to see if the server is compatible or not with this version of the plugin
-     *
-     * @author lokka30
-     * @since v2.0.0
-     */
-    public void checkCompatibility() {
-        if (settings.getConfig().getBoolean("compatibility-checker.run-on-startup", true)) {
-            compatibilityCheckerHandler.scan();
-
-            if (settings.getConfig().getBoolean("compatibility-checker.notify.console-on-startup", true)) {
-                compatibilityCheckerHandler.presentFindings(Bukkit.getConsoleSender());
-            }
-        }
     }
 
     /**
@@ -117,8 +74,7 @@ public class BetterCommandSpy extends JavaPlugin {
      * @since v2.0.0
      */
     private void registerListeners() {
-        Utils.LOGGER.info("Registering listeners...");
-
+        getLogger().info("Registering listeners...");
         Bukkit.getPluginManager().registerEvents(new JoinListener(this), this);
         Bukkit.getPluginManager().registerEvents(new CommandListener(this), this);
     }
@@ -130,8 +86,7 @@ public class BetterCommandSpy extends JavaPlugin {
      * @since v2.0.0
      */
     private void registerCommands() {
-        Utils.LOGGER.info("Registering commands...");
-
+        getLogger().info("Registering commands...");
         Utils.registerCommand(this, new BetterCommandSpyCommand(this), "bettercommandspy");
     }
 
@@ -141,7 +96,7 @@ public class BetterCommandSpy extends JavaPlugin {
      * @author lokka30
      * @since v2.0.0
      */
-    private void startBStats() {
+    private void startMetrics() {
         new Metrics(this, 8907);
     }
 }

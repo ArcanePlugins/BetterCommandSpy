@@ -19,29 +19,38 @@ import java.util.List;
  * to calculate a list of tab suggestions.
  * This interface must only contain methods used by *all* subcommand classes.
  */
-public interface ISubcommand {
+public interface Subcommand {
 
     /**
-     * @param label label of the command (alias used). e.g., 'bcs' or 'commandspy' and so on.
-     * @param args  all arguments supplied even with the base command, so this array also includes the subcommand itself.
-     * @author lokka30
-     * @since v2.0.0
-     * <p>
      * Run the subcommand.
-     */
-    @SuppressWarnings("unused")
-    void parseCmd(@NotNull BetterCommandSpy main, @NotNull CommandSender sender, @NotNull String label, @NotNull String[] args);
-
-    /**
+     *
      * @param label label of the command (alias used). e.g., 'bcs' or 'commandspy' and so on.
      * @param args  all arguments supplied even with the base command, so this array also includes the subcommand itself.
      * @author lokka30
      * @since v2.0.0
-     * <p>
-     * Get a list of tab suggestions.
-     * Only 1.13+ servers are able to utilise this feature.
      */
-    @SuppressWarnings("unused")
+    void run(
+        @NotNull BetterCommandSpy main,
+        @NotNull CommandSender sender,
+        @NotNull String label,
+        @NotNull String[] args
+    );
+
+    /**
+     * Get a list of tab suggestions.
+     *
+     * Only 1.13+ servers are able to utilise this feature.
+     *
+     * @param label label of the command (alias used). e.g., 'bcs' or 'commandspy' and so on.
+     * @param args  all arguments supplied even with the base command, so this array also includes the subcommand itself.
+     * @author lokka30
+     * @since v2.0.0
+     */
     @NotNull
-    List<String> parseTabSuggestions(@NotNull BetterCommandSpy main, @NotNull CommandSender sender, @NotNull String label, @NotNull String[] args);
+    List<String> getSuggestions(
+        @NotNull BetterCommandSpy main,
+        @NotNull CommandSender sender,
+        @NotNull String label,
+        @NotNull String[] args
+    );
 }

@@ -31,7 +31,6 @@ public class BetterCommandSpyCommand implements TabExecutor {
         this.main = main;
     }
 
-    @NotNull final CompatibilitySubcommand compatibilitySubcommand = new CompatibilitySubcommand();
     @NotNull final DebugSubcommand debugSubcommand = new DebugSubcommand();
     @NotNull final InfoSubcommand infoSubcommand = new InfoSubcommand();
     @NotNull final OffSubcommand offSubcommand = new OffSubcommand();
@@ -46,22 +45,19 @@ public class BetterCommandSpyCommand implements TabExecutor {
         } else {
             switch (args[0].toLowerCase(Locale.ROOT)) {
                 case "on":
-                    onSubcommand.parseCmd(main, sender, label, args);
+                    onSubcommand.run(main, sender, label, args);
                     break;
                 case "off":
-                    offSubcommand.parseCmd(main, sender, label, args);
+                    offSubcommand.run(main, sender, label, args);
                     break;
                 case "reload":
-                    reloadSubcommand.parseCmd(main, sender, label, args);
+                    reloadSubcommand.run(main, sender, label, args);
                     break;
                 case "info":
-                    infoSubcommand.parseCmd(main, sender, label, args);
-                    break;
-                case "compatibility":
-                    compatibilitySubcommand.parseCmd(main, sender, label, args);
+                    infoSubcommand.run(main, sender, label, args);
                     break;
                 case "debug":
-                    debugSubcommand.parseCmd(main, sender, label, args);
+                    debugSubcommand.run(main, sender, label, args);
                     break;
                 default:
                     sendUsageBanner(sender, label);
@@ -90,18 +86,16 @@ public class BetterCommandSpyCommand implements TabExecutor {
 
         switch (args[0].toLowerCase(Locale.ROOT)) {
             // Keep in alphabetical order
-            case "compatibility":
-                return compatibilitySubcommand.parseTabSuggestions(main, sender, label, args);
             case "debug":
-                return debugSubcommand.parseTabSuggestions(main, sender, label, args);
+                return debugSubcommand.getSuggestions(main, sender, label, args);
             case "info":
-                return infoSubcommand.parseTabSuggestions(main, sender, label, args);
+                return infoSubcommand.getSuggestions(main, sender, label, args);
             case "off":
-                return offSubcommand.parseTabSuggestions(main, sender, label, args);
+                return offSubcommand.getSuggestions(main, sender, label, args);
             case "on":
-                return onSubcommand.parseTabSuggestions(main, sender, label, args);
+                return onSubcommand.getSuggestions(main, sender, label, args);
             case "reload":
-                return reloadSubcommand.parseTabSuggestions(main, sender, label, args);
+                return reloadSubcommand.getSuggestions(main, sender, label, args);
             default:
                 return Collections.emptyList();
         }

@@ -4,14 +4,12 @@
 
 package me.lokka30.bettercommandspy.handlers;
 
-import me.lokka30.bettercommandspy.BetterCommandSpy;
-import me.lokka30.bettercommandspy.misc.Utils;
-import me.lokka30.microlib.files.YamlConfigFile;
-import org.jetbrains.annotations.NotNull;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import me.lokka30.bettercommandspy.BetterCommandSpy;
+import me.lokka30.microlib.files.YamlConfigFile;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Handles file management (i.e. configs)
@@ -37,8 +35,7 @@ public class FileHandler {
     public enum BCSFile {
         SETTINGS("settings.yml", 3), // Last modified v2.0.0
         MESSAGES("messages.yml", 3), // Last modified v2.0.0
-        DATA("data.yml", 2), // Last modified v2.0.0
-        LICENSE("license.txt", -1); // Last modified v1.0.0
+        DATA("data.yml", 2); // Last modified v2.0.0
 
         public final String fileName;
         public final int latestFileVersion; // -1 means that the file is not versioned.
@@ -63,7 +60,7 @@ public class FileHandler {
     }
 
     private void loadFile(@NotNull BCSFile bcsFile) {
-        Utils.LOGGER.info("Loading file '&b" + bcsFile.fileName + "&7'...");
+        main.getLogger().info("Loading file '" + bcsFile.fileName + "'...");
 
         try {
             switch (bcsFile) {
@@ -76,9 +73,6 @@ public class FileHandler {
                 case DATA:
                     main.data.load();
                     break;
-                case LICENSE:
-                    main.saveResource("license.txt", true);
-                    break;
                 default:
                     throw new IllegalStateException("Unexpected state " + bcsFile);
             }
@@ -86,7 +80,7 @@ public class FileHandler {
             ex.printStackTrace();
         }
 
-        Utils.LOGGER.info("File '&b" + bcsFile.fileName + "&7' has been loaded.");
+        main.getLogger().info("File '" + bcsFile.fileName + "' has been loaded.");
     }
 
     /**
@@ -109,14 +103,15 @@ public class FileHandler {
             case DATA:
                 configFile = main.data;
                 break;
-            case LICENSE:
-                return;
             default:
                 throw new IllegalStateException("Unexpected state " + bcsFile);
         }
 
         if (configFile.getConfig().getInt("file.version", 0) != bcsFile.latestFileVersion) {
-            Utils.LOGGER.error("File '&b" + bcsFile.fileName + "&7' is incompatible with this version of of the plugin. It has been backed up in the &b/plugins/BetterCommandSpy/backups/&7 folder, and your server will now run the latest default version of this file. You may want to consider configuring the newly generated file.");
+            main.getLogger().severe("File '" + bcsFile.fileName + "' is incompatible with this "
+                + "version of of the plugin. It has been backed up in the 'plugins/BetterCommandSpy"
+                + "/backups/' folder, and your server will now run the latest default version of this "
+                + "file. You may want to consider configuring the newly generated file.");
             backup(configFile.getConfigFile());
             main.saveResource(bcsFile.fileName, true);
             loadFile(bcsFile);
@@ -124,7 +119,7 @@ public class FileHandler {
     }
 
     private void backup(@NotNull File source) {
-        Utils.LOGGER.info("Starting backup of file '&b" + source.getName() + "&7'...");
+        main.getLogger().info("Starting backup of file '" + source.getName() + "'...");
 
         // Get the destination (backed up file) ready.
         File destination;
@@ -147,7 +142,8 @@ public class FileHandler {
             // Create the backup folder if it doesn't exist.
             final File backupsFolder = new File(main.getDataFolder() + File.separator + "backups");
             if(!backupsFolder.exists() && !backupsFolder.mkdir()) {
-                Utils.LOGGER.error("Unable to create backups folder. Backup for file '&b" + destination.getName() + "&7' cancelled.");
+                main.getLogger().severe("Unable to create backups folder. Backup for file '"
+                    + "" + destination.getName() + "' cancelled.");
                 return;
             }
 
@@ -156,6 +152,6 @@ public class FileHandler {
             ex.printStackTrace();
         }
 
-        Utils.LOGGER.info("Backup complete for file '&b" + source.getName() + "&7'.");
+        main.getLogger().info("Backup complete for file '" + source.getName() + "'.");
     }
 }

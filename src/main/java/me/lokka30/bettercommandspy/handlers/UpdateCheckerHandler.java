@@ -139,9 +139,11 @@ public class UpdateCheckerHandler {
                             null
                     );
 
-                    Utils.LOGGER.warning(
-                            "Unable to check for updates - please inform a BetterCommandSpy developer, and send them this log." +
-                                    " &8[&7CVS &8= &b" + currentVersionSplit.length + "&7, LVS &8= &b" + latestVersionSplit.length + "&8]&7.");
+                    main.getLogger().warning(
+                            "Unable to check for updates - please inform a BetterCommandSpy "
+                                + "developer, and send them this log:" +
+                                    " [CVS=" + currentVersionSplit.length + ", LVS=" +
+                                latestVersionSplit.length + "]; done");
 
                     if (repeatingTask != null) repeatingTask.cancel();
 
@@ -176,7 +178,8 @@ public class UpdateCheckerHandler {
                     initStage2();
             });
         } catch (Exception ex) {
-            Utils.LOGGER.error("An error occured whilst attempting to check for updates: &r" + ex.getMessage());
+            main.getLogger().warning("An error occured whilst attempting to "
+                + "check for updates (check internet connection?): " + ex.getMessage());
             if (repeatingTask != null) repeatingTask.cancel();
         }
     }

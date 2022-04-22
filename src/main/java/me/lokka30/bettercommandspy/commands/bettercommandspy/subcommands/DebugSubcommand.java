@@ -5,7 +5,7 @@
 package me.lokka30.bettercommandspy.commands.bettercommandspy.subcommands;
 
 import me.lokka30.bettercommandspy.BetterCommandSpy;
-import me.lokka30.bettercommandspy.commands.ISubcommand;
+import me.lokka30.bettercommandspy.commands.Subcommand;
 import me.lokka30.microlib.messaging.MultiMessage;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
@@ -27,10 +27,10 @@ import java.util.Locale;
  * arg: -    0     1+
  * len: 0    1     2+
  */
-public class DebugSubcommand implements ISubcommand {
+public class DebugSubcommand implements Subcommand {
 
     @Override
-    public void parseCmd(@NotNull BetterCommandSpy main, @NotNull CommandSender sender, @NotNull String label, @NotNull String @NotNull [] args) {
+    public void run(@NotNull BetterCommandSpy main, @NotNull CommandSender sender, @NotNull String label, @NotNull String @NotNull [] args) {
         if (!sender.hasPermission("bettercommandspy.command.bettercommandspy.debug")) {
             new MultiMessage(main.messages.getConfig().getStringList("commands.common.no-permission"), Arrays.asList(
                     new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix", "BCS:"), true),
@@ -65,7 +65,7 @@ public class DebugSubcommand implements ISubcommand {
     }
 
     @Override
-    public @NotNull List<String> parseTabSuggestions(@NotNull BetterCommandSpy main, @NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
+    public @NotNull List<String> getSuggestions(@NotNull BetterCommandSpy main, @NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
         return Collections.emptyList();
     }
 }
