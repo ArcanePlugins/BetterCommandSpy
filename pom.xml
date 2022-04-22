@@ -82,6 +82,20 @@
                             <shadedPattern>me.lokka30.bettercommandspy.libs.microlib</shadedPattern>
                         </relocation>
                     </relocations>
+                    <filters>
+                        <filter>
+                            <artifact>*:MicroLib</artifact>
+                            <excludes>
+                                <exclude>plugin.yml</exclude>
+                            </excludes>
+                        </filter>
+                        <filter>
+                            <artifact>*:*</artifact>
+                            <excludes>
+                                <exclude>META-INF/MANIFEST.MF</exclude>
+                            </excludes>
+                        </filter>
+                    </filters>
                 </configuration>
                 <executions>
                     <execution>
