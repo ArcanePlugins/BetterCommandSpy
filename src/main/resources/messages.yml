@@ -1,5 +1,3 @@
-# BetterCommandSpy | ${project.description}
-
 # The plugin's prefix for chat messages.
 # (This is the content of the '%prefix%' placeholder used
 # throughout the plugin's messages.)
@@ -368,4 +366,4 @@ update-checker:
 # The file loader uses this to check if files need to be updated.
 file:
   version: 3
-  generated-with: '${project.version}'
+  original-version: 3

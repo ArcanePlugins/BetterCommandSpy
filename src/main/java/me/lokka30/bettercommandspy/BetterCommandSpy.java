@@ -15,6 +15,7 @@ import me.lokka30.bettercommandspy.misc.Utils;
 import me.lokka30.microlib.files.YamlConfigFile;
 import me.lokka30.microlib.maths.QuickTimer;
 import org.bstats.bukkit.Metrics;
+import org.bstats.charts.SimplePie;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
@@ -97,6 +98,31 @@ public class BetterCommandSpy extends JavaPlugin {
      * @since v2.0.0
      */
     private void startMetrics() {
-        new Metrics(this, 8907);
+        final Metrics metrics = new Metrics(this, 8907);
+        metrics.addCustomChart(new SimplePie("default_commandspy_state", () ->
+            Boolean.toString(
+                settings.getConfig().getBoolean("default-commandspy-state", true)
+            )
+        ));
+        metrics.addCustomChart(new SimplePie("uses_ignored_commands", () ->
+            Boolean.toString(
+                settings.getConfig().getBoolean("ignored-commands.enabled", true)
+            )
+        ));
+        metrics.addCustomChart(new SimplePie("uses_canlisten_permission", () ->
+            Boolean.toString(
+                settings.getConfig().getBoolean("use-canlisten-permission", true)
+            )
+        ));
+        metrics.addCustomChart(new SimplePie("uses_update_checker", () ->
+            Boolean.toString(
+                settings.getConfig().getBoolean("update-checker.enabled", true)
+            )
+        ));
+        metrics.addCustomChart(new SimplePie("debug_categories_enabled", () ->
+            Integer.toString(
+                settings.getConfig().getStringList("debug").size()
+            )
+        ));
     }
 }
