@@ -7,8 +7,6 @@
 
 package me.lokka30.bettercommandspy.commands.bettercommandspy.subcommands;
 
-import java.util.Arrays;
-import java.util.Collections;
 import me.lokka30.bettercommandspy.BetterCommandSpy;
 import me.lokka30.bettercommandspy.commands.Subcommand;
 import me.lokka30.bettercommandspy.handlers.UpdateCheckerHandler;
@@ -16,6 +14,10 @@ import me.lokka30.microlib.maths.QuickTimer;
 import me.lokka30.microlib.messaging.MultiMessage;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author lokka30
@@ -51,7 +53,7 @@ public class ReloadSubcommand implements Subcommand {
         }
 
         // start timer
-        final QuickTimer timer = new QuickTimer();
+        final QuickTimer timer = new QuickTimer(TimeUnit.MILLISECONDS);
 
         // send 'starting' msg
         new MultiMessage(main.messages.getConfig().getStringList("commands.bettercommandspy.subcommands.reload.start"), Collections.singletonList(
@@ -67,7 +69,7 @@ public class ReloadSubcommand implements Subcommand {
         // send 'done' msg
         new MultiMessage(main.messages.getConfig().getStringList("commands.bettercommandspy.subcommands.reload.finish"), Arrays.asList(
                 new MultiMessage.Placeholder("prefix", main.messages.getConfig().getString("prefix", "BCS:"), true),
-                new MultiMessage.Placeholder("time", timer.getTimer() + "", false)
+                new MultiMessage.Placeholder("time", timer.getDuration() + "", false)
         )).send(sender);
     }
 

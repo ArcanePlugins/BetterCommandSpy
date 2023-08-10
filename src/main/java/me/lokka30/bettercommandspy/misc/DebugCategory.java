@@ -52,4 +52,5 @@ public enum DebugCategory {
      * @since v2.0.0
      */
     COMPATIBILITY_CHECKER_ON_JOIN_NOTIFY,
+
 }

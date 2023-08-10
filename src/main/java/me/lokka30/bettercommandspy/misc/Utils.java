@@ -7,8 +7,6 @@
 
 package me.lokka30.bettercommandspy.misc;
 
-import java.util.HashSet;
-import java.util.List;
 import me.lokka30.bettercommandspy.BetterCommandSpy;
 import me.lokka30.microlib.messaging.MessageUtils;
 import org.bukkit.Bukkit;
@@ -18,6 +16,9 @@ import org.bukkit.command.PluginCommand;
 import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.HashSet;
+import java.util.List;
 
 /**
  * Class containing a bunch of utility methods and vars
@@ -35,12 +36,16 @@ public class Utils {
      * Attempt to register a command from plugin.yml.
      *
      * @param main    BetterCommandSpy's main class.
-     * @param clazz   TabExecutor class that handles execution of the command.
+     * @param bukkitExecutor   TabExecutor class that handles execution of the command.
      * @param command Main label of the command (not any aliases).
      * @author lokka30
      * @since v2.0.0
      */
-    public static void registerCommand(@NotNull final BetterCommandSpy main, @NotNull final TabExecutor clazz, @NotNull final String command) {
+    public static void registerCommand(
+            @NotNull final BetterCommandSpy main,
+            @NotNull final TabExecutor bukkitExecutor,
+            @NotNull final String command
+    ) {
         final PluginCommand pluginCommand = main.getCommand(command);
 
         if (pluginCommand == null) {
@@ -48,7 +53,7 @@ public class Utils {
                 + "PluginCommand is null\". Was embedded plugin.yml tampered with?");
             return;
         }
-        pluginCommand.setExecutor(clazz);
+        pluginCommand.setExecutor(bukkitExecutor);
         main.getLogger().info("Registered command '/" + command + "' successfully.");
     }
 
@@ -61,9 +66,17 @@ public class Utils {
      * @author lokka30
      * @since v2.0.0
      */
-    public static void debugLog(@NotNull final BetterCommandSpy main, @NotNull final DebugCategory debugCategory, @NotNull final String msg) {
-        if (!main.settings.getConfig().getStringList("debug").contains(debugCategory.toString())) return;
-        main.getLogger().fine("[Debug | " + debugCategory + "]: " + msg);
+    public static void debugLog(
+            @NotNull final BetterCommandSpy main,
+            @NotNull final DebugCategory debugCategory,
+            @NotNull final String msg
+    ) {
+        if (!main.settings.getConfig()
+                .getStringList("debug")
+                .contains(debugCategory.toString())
+        ) return;
+
+        main.getLogger().fine("[DEBUG: " + debugCategory + "]: " + msg);
     }
 
     /**
@@ -75,20 +88,24 @@ public class Utils {
      * Same as Bukkit#getOfflinePlayer, just bypasses the deprecation.
      */
     @SuppressWarnings("deprecation")
-    public static @NotNull OfflinePlayer getOfflinePlayer(@NotNull final String username) {
+    public static @NotNull OfflinePlayer getOfflinePlayer(
+            @NotNull final String username
+    ) {
         return Bukkit.getOfflinePlayer(username);
     }
 
     /**
      * @param sender the player being observed - if it's console, then all usernames are visible
-     * @return a list of usernames of online players that the player knows are online
+     * @return a set of usernames of online players that the player knows are online
      * @author lokka30
      * @since v2.0.0
      * Get a list of usernames that the specified player can see (not vanished,
      * or so what Bukkit thinks - doesn't work for packet-only vanish plugins).
      * Used for tab-completion suggestions.
      */
-    public static @NotNull HashSet<String> getVisibleOnlinePlayerUsernamesList(@NotNull CommandSender sender) {
+    public static @NotNull HashSet<String> getVisibleOnlinePlayerUsernamesList(
+            final @NotNull CommandSender sender
+    ) {
         final HashSet<String> usernames = new HashSet<>();
 
         for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
@@ -107,7 +124,10 @@ public class Utils {
      * @author lokka30
      * @since v2.0.0
      */
-    public static @NotNull String getFormattedList(@NotNull BetterCommandSpy main, @NotNull List<String> list) {
+    public static @NotNull String getFormattedList(
+            @NotNull BetterCommandSpy main,
+            @NotNull List<String> list
+    ) {
         // yes - intentionally, only colorize the delimiter.
         return String.join(
                 MessageUtils.colorizeAll(
@@ -123,7 +143,10 @@ public class Utils {
      * @author lokka30
      * @since v2.0.0
      */
-    public static @NotNull String getFormattedArray(@NotNull BetterCommandSpy main, @NotNull String[] array) {
+    public static @NotNull String getFormattedArray(
+            @NotNull BetterCommandSpy main,
+            @NotNull String[] array
+    ) {
         // yes - intentionally, only colorize the delimiter.
         return String.join(
             MessageUtils.colorizeAll(

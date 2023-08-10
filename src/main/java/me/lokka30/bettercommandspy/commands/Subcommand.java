@@ -7,11 +7,11 @@
 
 package me.lokka30.bettercommandspy.commands;
 
-import java.util.Collections;
 import me.lokka30.bettercommandspy.BetterCommandSpy;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -42,7 +42,6 @@ public interface Subcommand {
 
     /**
      * Get a list of tab suggestions.
-     *
      * Only 1.13+ servers are able to utilise this feature.
      *
      * @param label label of the command (alias used). e.g., 'bcs' or 'commandspy' and so on.

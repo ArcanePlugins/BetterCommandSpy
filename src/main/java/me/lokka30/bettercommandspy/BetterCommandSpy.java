@@ -7,7 +7,6 @@
 
 package me.lokka30.bettercommandspy;
 
-import java.io.File;
 import me.lokka30.bettercommandspy.commands.bettercommandspy.BetterCommandSpyCommand;
 import me.lokka30.bettercommandspy.handlers.FileHandler;
 import me.lokka30.bettercommandspy.handlers.UpdateCheckerHandler;
@@ -22,6 +21,9 @@ import org.bstats.charts.SimplePie;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
+
+import java.io.File;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Main class of the plugin, loaded by Bukkit.
@@ -40,13 +42,21 @@ public class BetterCommandSpy extends JavaPlugin {
     @NotNull public final UpdateCheckerHandler updateCheckerHandler = new UpdateCheckerHandler(this);
 
     /* Config Files */
-    @NotNull public final YamlConfigFile settings = new YamlConfigFile(this, new File(getDataFolder(), "settings.yml"));
-    @NotNull public final YamlConfigFile messages = new YamlConfigFile(this, new File(getDataFolder(), "messages.yml"));
-    @NotNull public final YamlConfigFile data = new YamlConfigFile(this, new File(getDataFolder(), "data.yml"));
+    @NotNull
+    public final YamlConfigFile settings =
+            new YamlConfigFile(this, new File(getDataFolder(), "settings.yml"));
+
+    @NotNull
+    public final YamlConfigFile messages =
+            new YamlConfigFile(this, new File(getDataFolder(), "messages.yml"));
+
+    @NotNull
+    public final YamlConfigFile data =
+            new YamlConfigFile(this, new File(getDataFolder(), "data.yml"));
 
     @Override
     public void onEnable() {
-        final QuickTimer quickTimer = new QuickTimer();
+        final QuickTimer quickTimer = new QuickTimer(TimeUnit.MILLISECONDS);
 
         loadFiles();
         registerListeners();
@@ -56,7 +66,7 @@ public class BetterCommandSpy extends JavaPlugin {
         startMetrics();
         updateCheckerHandler.initStage1(UpdateCheckerHandler.UpdateCheckReason.FROM_STARTUP);
 
-        getLogger().info("Start-up complete (took" + quickTimer.getTimer() + "ms).");
+        getLogger().info("Start-up complete (took" + quickTimer.getDuration() + "ms).");
     }
 
     /**
@@ -79,6 +89,7 @@ public class BetterCommandSpy extends JavaPlugin {
      */
     private void registerListeners() {
         getLogger().info("Registering listeners...");
+
         Bukkit.getPluginManager().registerEvents(new JoinListener(this), this);
         Bukkit.getPluginManager().registerEvents(new CommandListener(this), this);
     }
@@ -91,6 +102,7 @@ public class BetterCommandSpy extends JavaPlugin {
      */
     private void registerCommands() {
         getLogger().info("Registering commands...");
+
         Utils.registerCommand(this, new BetterCommandSpyCommand(this), "bettercommandspy");
     }
 

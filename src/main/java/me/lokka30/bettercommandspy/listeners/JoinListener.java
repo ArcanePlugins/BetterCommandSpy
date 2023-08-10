@@ -29,7 +29,9 @@ public class JoinListener implements Listener {
 
     private final BetterCommandSpy main;
 
-    public JoinListener(BetterCommandSpy main) {
+    public JoinListener(
+        final @NotNull BetterCommandSpy main
+    ) {
         this.main = main;
     }
 
@@ -44,7 +46,9 @@ public class JoinListener implements Listener {
      * <p>
      */
     @EventHandler
-    public void onJoin(final @NotNull PlayerJoinEvent event) {
+    public void onJoin(
+        final @NotNull PlayerJoinEvent event
+    ) {
         sendUpdateCheckerNotification(event.getPlayer());
     }
 
@@ -57,7 +61,9 @@ public class JoinListener implements Listener {
      * notification from the update checker
      * Intended to be fired from JoinListener#onJoin
      */
-    private void sendUpdateCheckerNotification(final @NotNull Player player) {
+    private void sendUpdateCheckerNotification(
+        final @NotNull Player player
+    ) {
         // make sure update checker is enabled
         Utils.debugLog(main, DebugCategory.UPDATE_CHECKER_ON_JOIN_NOTIFY, "[" + player.getName() + "] (1/4) Checking update checker enabled");
         if (!main.settings.getConfig().getBoolean("update-checker.enabled", true)) return;

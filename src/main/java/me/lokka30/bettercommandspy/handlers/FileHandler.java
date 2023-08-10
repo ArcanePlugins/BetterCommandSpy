@@ -7,12 +7,13 @@
 
 package me.lokka30.bettercommandspy.handlers;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
 import me.lokka30.bettercommandspy.BetterCommandSpy;
 import me.lokka30.microlib.files.YamlConfigFile;
 import org.jetbrains.annotations.NotNull;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 
 /**
  * Handles file management (i.e. configs)
@@ -24,7 +25,9 @@ public class FileHandler {
 
     private final @NotNull BetterCommandSpy main;
 
-    public FileHandler(@NotNull final BetterCommandSpy main) {
+    public FileHandler(
+        @NotNull final BetterCommandSpy main
+    ) {
         this.main = main;
     }
 
@@ -62,7 +65,9 @@ public class FileHandler {
         }
     }
 
-    private void loadFile(@NotNull BCSFile bcsFile) {
+    private void loadFile(
+        final @NotNull BCSFile bcsFile
+    ) {
         main.getLogger().info("Loading file '" + bcsFile.fileName + "'...");
 
         try {
@@ -80,7 +85,9 @@ public class FileHandler {
                     throw new IllegalStateException("Unexpected state " + bcsFile);
             }
         } catch (IOException ex) {
+            main.getLogger().severe("Unable to load file '" + bcsFile.fileName + "'. Stack trace for debugging:");
             ex.printStackTrace();
+            return;
         }
 
         main.getLogger().info("File '" + bcsFile.fileName + "' has been loaded.");
@@ -152,7 +159,9 @@ public class FileHandler {
 
             Files.copy(source.toPath(), destination.toPath());
         } catch (IOException ex) {
+            main.getLogger().info("Backup failed for file '" + source.getName() + "', stack trace for debugging:");
             ex.printStackTrace();
+            return;
         }
 
         main.getLogger().info("Backup complete for file '" + source.getName() + "'.");

@@ -31,7 +31,9 @@ public class CommandListener implements Listener {
 
     private final @NotNull BetterCommandSpy main;
 
-    public CommandListener(@NotNull final BetterCommandSpy main) {
+    public CommandListener(
+        @NotNull final BetterCommandSpy main
+    ) {
         this.main = main;
     }
 
@@ -44,7 +46,9 @@ public class CommandListener implements Listener {
      * @since v2.0.0
      */
     @EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
-    public void onExecuteCommand(@NotNull final PlayerCommandPreprocessEvent event) {
+    public void onExecuteCommand(
+        @NotNull final PlayerCommandPreprocessEvent event
+    ) {
         // check if sender has bypass permission
         if (event.getPlayer().hasPermission("bettercommandspy.bypass")) return;
 
