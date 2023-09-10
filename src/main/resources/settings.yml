@@ -21,6 +21,14 @@ ignored-commands:
     - '/spawn'
     - '/home'
 
+  # Commands to be executed on the server when the player executes
+  # a command outside the WhiteList or a command in the BlackList.
+  # Placeholders:
+  #   %username% ~ the player's username.
+  #   %displayname% ~ the player's displayname (e.g. including vault prefix, so on)
+  #   %command% ~ the command the player ran
+  execute-commands:
+    - 'kick %username% You have executed an unauthorized command.: %command%'
 
 # Should BetterCommandSpy make sure players that have Command Spy toggled ON
 # have an extra permission as a layer of security to actually be able to spy?

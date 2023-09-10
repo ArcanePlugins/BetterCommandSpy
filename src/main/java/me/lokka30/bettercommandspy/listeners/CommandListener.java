@@ -62,6 +62,22 @@ public class CommandListener implements Listener {
             } else {
                 if(!isListed) return;
             }
+
+            // execute commands
+            for (String command : main.settings.getConfig().getStringList("ignored-commands.execute-commands")) {
+                String replacedCommand = command;
+
+                if (replacedCommand.startsWith("/")) {
+                    replacedCommand = replacedCommand.substring(1);
+                }
+
+                replacedCommand = replacedCommand
+                        .replace("%username%", event.getPlayer().getName())
+                        .replace("%displayname%", event.getPlayer().getDisplayName())
+                        .replace("%command%", event.getMessage());
+
+                Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), replacedCommand);
+            }
         }
 
         // cache the alert message
