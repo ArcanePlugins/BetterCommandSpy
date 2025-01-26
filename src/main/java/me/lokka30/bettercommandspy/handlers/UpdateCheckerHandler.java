@@ -45,7 +45,7 @@ public class UpdateCheckerHandler {
      */
     public enum ResultType {
         USING_LATEST_VERSION, // The user has the correct & latest version installed
-        USING_DEVELOPMENT_VERSION, // The user is using an unreleased (future) version
+        USING_DEVELOPMENT_VERSION, // The user is using an unreleased (future) version. Unused as of 2.0.5
         USING_OUTDATED_VERSION, // The user is using an outdated version of the plugin
         FAILED // Wasn't able to compare versions
     }
@@ -54,22 +54,16 @@ public class UpdateCheckerHandler {
 
         private final @NotNull ResultType resultType;
         private final @Nullable String latestVersion;
-        private final @Nullable Integer latestBuild;
         private final @Nullable String currentVersion;
-        private final @Nullable Integer currentBuild;
 
         public UpdateCheckerResult(
                 @NotNull ResultType resultType,
                 @Nullable String latestVersion,
-                @Nullable Integer latestBuild,
-                @Nullable String currentVersion,
-                @Nullable Integer currentBuild
+                @Nullable String currentVersion
         ) {
             this.resultType = resultType;
             this.latestVersion = latestVersion;
-            this.latestBuild = latestBuild;
             this.currentVersion = currentVersion;
-            this.currentBuild = currentBuild;
         }
 
         @SuppressWarnings("unused")
@@ -86,20 +80,8 @@ public class UpdateCheckerHandler {
 
         @SuppressWarnings("unused")
         @Nullable
-        public Integer getLatestBuild() {
-            return latestBuild;
-        }
-
-        @SuppressWarnings("unused")
-        @Nullable
         public String getCurrentVersion() {
             return currentVersion;
-        }
-
-        @SuppressWarnings("unused")
-        @Nullable
-        public Integer getCurrentBuild() {
-            return currentBuild;
         }
     }
 
@@ -127,44 +109,12 @@ public class UpdateCheckerHandler {
         final UpdateChecker updateChecker = new UpdateChecker(main, 84030);
 
         try {
-            updateChecker.getLatestVersion(detectedVersionUnsplit -> {
-                final String currentVersionUnsplit = updateChecker.getCurrentVersion();
-
-                String[] currentVersionSplit = currentVersionUnsplit.split("-");
-                String[] latestVersionSplit = detectedVersionUnsplit.split("-");
-
-                if (latestVersionSplit.length != 2 || currentVersionSplit.length != 2) {
-                    cachedUpdateCheckerResult = new UpdateCheckerResult(
-                            ResultType.FAILED,
-                            null,
-                            null,
-                            null,
-                            null
-                    );
-
-                    main.getLogger().warning(
-                            "Unable to check for updates - please inform a BetterCommandSpy "
-                                + "developer, and send them this log:" +
-                                    " [CVS=" + currentVersionSplit.length + ", LVS=" +
-                                latestVersionSplit.length + "]; done");
-
-                    if (repeatingTask != null) repeatingTask.cancel();
-
-                    return;
-                }
-
-                final String latestVersion = latestVersionSplit[0];
-                final int latestBuild = Integer.parseInt(latestVersionSplit[1].substring(1));
-
-                final String currentVersion = currentVersionSplit[0];
-                final int currentBuild = Integer.parseInt(currentVersionSplit[1].substring(1));
+            updateChecker.getLatestVersion(latestVersion -> {
+                final String currentVersion = updateChecker.getCurrentVersion();
 
                 ResultType resultType;
-
-                if (currentBuild == latestBuild) {
+                if (currentVersion.equals(latestVersion)) {
                     resultType = ResultType.USING_LATEST_VERSION;
-                } else if (currentBuild > latestBuild) {
-                    resultType = ResultType.USING_DEVELOPMENT_VERSION;
                 } else {
                     resultType = ResultType.USING_OUTDATED_VERSION;
                 }
@@ -172,17 +122,15 @@ public class UpdateCheckerHandler {
                 cachedUpdateCheckerResult = new UpdateCheckerResult(
                         resultType,
                         latestVersion,
-                        latestBuild,
-                        currentVersion,
-                        currentBuild
+                        currentVersion
                 );
 
-                if(reason == UpdateCheckReason.FROM_STARTUP)
+                if(reason == UpdateCheckReason.FROM_STARTUP) {
                     initStage2();
+                }
             });
         } catch (Exception ex) {
-            main.getLogger().warning("An error occured whilst attempting to "
-                + "check for updates (check internet connection?): " + ex.getMessage());
+            main.getLogger().warning("Unable to check for updates - (>>> was your internet or SpigotMC.org down? <<<): " + ex.getMessage());
             if (repeatingTask != null) repeatingTask.cancel();
         }
     }
