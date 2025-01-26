@@ -15,7 +15,6 @@ import me.lokka30.bettercommandspy.listeners.CommandListener;
 import me.lokka30.bettercommandspy.listeners.JoinListener;
 import me.lokka30.bettercommandspy.misc.Utils;
 import me.lokka30.microlib.files.YamlConfigFile;
-import me.lokka30.microlib.maths.QuickTimer;
 import org.bstats.bukkit.Metrics;
 import org.bstats.charts.SimplePie;
 import org.bukkit.Bukkit;
@@ -23,7 +22,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Main class of the plugin, loaded by Bukkit.
@@ -56,17 +54,11 @@ public class BetterCommandSpy extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        final QuickTimer quickTimer = new QuickTimer(TimeUnit.MILLISECONDS);
-
         loadFiles();
         registerListeners();
         registerCommands();
-
-        getLogger().info("Running misc startup procedures...");
         startMetrics();
         updateCheckerHandler.initStage1(UpdateCheckerHandler.UpdateCheckReason.FROM_STARTUP);
-
-        getLogger().info("Start-up complete (took" + quickTimer.getDuration() + "ms).");
     }
 
     /**
@@ -76,8 +68,6 @@ public class BetterCommandSpy extends JavaPlugin {
      * @since v2.0.0
      */
     public void loadFiles() {
-        getLogger().info("Loading files...");
-
         fileHandler.init();
     }
 
@@ -88,8 +78,6 @@ public class BetterCommandSpy extends JavaPlugin {
      * @since v2.0.0
      */
     private void registerListeners() {
-        getLogger().info("Registering listeners...");
-
         Bukkit.getPluginManager().registerEvents(new JoinListener(this), this);
         Bukkit.getPluginManager().registerEvents(new CommandListener(this), this);
     }
@@ -101,8 +89,6 @@ public class BetterCommandSpy extends JavaPlugin {
      * @since v2.0.0
      */
     private void registerCommands() {
-        getLogger().info("Registering commands...");
-
         Utils.registerCommand(this, new BetterCommandSpyCommand(this), "bettercommandspy");
     }
 
