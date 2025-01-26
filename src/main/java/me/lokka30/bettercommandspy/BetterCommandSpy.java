@@ -34,7 +34,7 @@ import java.util.concurrent.TimeUnit;
 public class BetterCommandSpy extends JavaPlugin {
 
     /* If you've contributed code to BCS, add your name to the end of this list ;) */
-    @NotNull public static final String[] CONTRIBUTORS = new String[]{"N/A"};
+    @NotNull public static final String[] CONTRIBUTORS = new String[]{"ArcanePlugins"};
 
     /* Handler Classes */
     @NotNull public final FileHandler fileHandler = new FileHandler(this);
