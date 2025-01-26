@@ -55,7 +55,6 @@ public class Utils {
             return;
         }
         pluginCommand.setExecutor(bukkitExecutor);
-        main.getLogger().info("Registered command '/" + command + "' successfully.");
     }
 
     /**

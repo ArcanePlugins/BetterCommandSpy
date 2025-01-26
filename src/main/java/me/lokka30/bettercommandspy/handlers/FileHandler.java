@@ -68,8 +68,6 @@ public class FileHandler {
     private void loadFile(
         final @NotNull BCSFile bcsFile
     ) {
-        main.getLogger().info("Loading file '" + bcsFile.fileName + "'...");
-
         try {
             switch (bcsFile) {
                 case SETTINGS:
@@ -87,10 +85,7 @@ public class FileHandler {
         } catch (IOException ex) {
             main.getLogger().severe("Unable to load file '" + bcsFile.fileName + "'. Stack trace for debugging:");
             ex.printStackTrace();
-            return;
         }
-
-        main.getLogger().info("File '" + bcsFile.fileName + "' has been loaded.");
     }
 
     /**
