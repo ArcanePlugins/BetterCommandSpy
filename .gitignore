@@ -1,8 +1,9 @@
 # IntelliJ IDEA
 target/
 .idea/
-BetterCommandSpy.iml
+*.iml
 
 # macOS
 ._.git
 .DS_Store
+Thumbs.db
