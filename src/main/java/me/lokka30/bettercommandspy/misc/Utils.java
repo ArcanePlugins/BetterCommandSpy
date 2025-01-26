@@ -17,8 +17,9 @@ import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Class containing a bunch of utility methods and vars
@@ -103,18 +104,15 @@ public class Utils {
      * or so what Bukkit thinks - doesn't work for packet-only vanish plugins).
      * Used for tab-completion suggestions.
      */
-    public static @NotNull HashSet<String> getVisibleOnlinePlayerUsernamesList(
+    public static @NotNull Set<String> getVisibleOnlinePlayerUsernamesList(
             final @NotNull CommandSender sender
     ) {
-        final HashSet<String> usernames = new HashSet<>();
-
-        for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
-            if (!(sender instanceof Player) || ((Player) sender).canSee(onlinePlayer)) {
-                usernames.add(onlinePlayer.getName());
-            }
-        }
-
-        return usernames;
+        return Bukkit.getOnlinePlayers().stream()
+                .filter( pl ->
+                        !(sender instanceof Player) || (sender != pl && ((Player) sender).canSee(pl))
+                )
+                .map(Player::getName)
+                .collect(Collectors.toSet());
     }
 
     /**
