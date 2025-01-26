@@ -1,20 +1,22 @@
-<img src="https://i.ibb.co/LPQnFBL/logo2000.png" alt="BetterCommandSpy Logo" width="25%" height="25%" />
+<div align="center">
+
+<img src="https://i.ibb.co/LPQnFBL/logo2000.png" alt="BetterCommandSpy Logo" width="10%" height="10%" />
 
 # BetterCommandSpy
 
 The Ultimate CommandSpy Plugin for SpigotMC Servers
 
-## About & Download
+</div>
 
-Please visit its [SpigotMC resource page](https://www.spigotmc.org/resources/bettercommandspy-1-7-1-16.84030/).
+## Learn More
 
-# Documentation
+**Want to see a description of how BetterCommandSpy works?** Check the [SpigotMC resource page](https://www.spigotmc.org/resources/bettercommandspy.84030/).
 
-Please visit the [Wiki](https://github.com/lokka30/BetterCommandSpy/wiki).
+**Need some documentation?** Please visit the [Wiki](https://github.com/ArcanePlugins/BetterCommandSpy/wiki).
 
 ## Contact / Technical Support
 
-If you wish to contact the developer, please join the [ArcanePlugins Discord Server](https://discord.io/arcaneplugins).
+If you wish to contact the developer, please join the [ArcanePlugins Discord Server](https://discord.gg/HqZwdcJ).
 Alternatively, [PM lokka30](https://www.spigotmc.org/conversations/add?to=lokka30) on SpigotMC.
 
 ## Branches
@@ -28,9 +30,11 @@ BetterCommandSpy has the following branches:
   * The `?.?` placeholder indicates the version being developed in that branch.
 There may be multiple different versions being developed in parallel.
 
-## License
+## Copyright Notice
 
-    Copyright (C) 2020-2022  lokka30
+    Copyright (C) 2020-2025  lokka30
+
+    Licensed under GNU AGPL v3.
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License as
