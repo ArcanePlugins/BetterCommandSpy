@@ -96,7 +96,7 @@ public class UserHandler {
         try {
             main.data.save();
         } catch (IOException ex) {
-            ex.printStackTrace();
+            main.getLogger().severe("Unable to save commandspy data for player with UUID=" + playerUuid + "; their command spy status will not persist over restarts! Exception message: " + ex.getMessage());
         }
 
         /* Send a debug log regarding the method being ran */
