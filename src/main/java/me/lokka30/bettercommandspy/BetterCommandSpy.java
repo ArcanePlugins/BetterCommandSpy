@@ -39,6 +39,12 @@ public class BetterCommandSpy extends JavaPlugin {
     @NotNull public final UserHandler userHandler = new UserHandler(this);
     @NotNull public final UpdateCheckerHandler updateCheckerHandler = new UpdateCheckerHandler(this);
 
+    public static boolean usingFolia = false;
+    private static @NotNull BetterCommandSpy main;
+    public static BetterCommandSpy getInstance() {
+        return main;
+    }
+
     /* Config Files */
     @NotNull
     public final YamlConfigFile settings =
@@ -53,7 +59,18 @@ public class BetterCommandSpy extends JavaPlugin {
             new YamlConfigFile(this, new File(getDataFolder(), "data.yml"));
 
     @Override
+    public void onLoad() {
+        try {
+            Class.forName("io.papermc.paper.threadedregions.scheduler.RegionScheduler");
+            usingFolia = true;
+        } catch (ClassNotFoundException e) {
+            usingFolia = false;
+        }
+    }
+
+    @Override
     public void onEnable() {
+        main = this;
         loadFiles();
         registerListeners();
         registerCommands();

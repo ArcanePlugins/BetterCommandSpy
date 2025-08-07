@@ -8,6 +8,7 @@ name: 'BetterCommandSpy'
 version: '${project.version}'
 description: '${project.description}'
 authors: [ 'lokka30' ]
+folia-supported: true
 
 # Information for Bukkit
 main: 'me.lokka30.bettercommandspy.BetterCommandSpy' # Path to the main class
