@@ -8,14 +8,14 @@
 package me.lokka30.bettercommandspy.handlers;
 
 import me.lokka30.bettercommandspy.BetterCommandSpy;
+import me.lokka30.bettercommandspy.folia.FoliaRunnable;
+import me.lokka30.bettercommandspy.folia.SchedulerUtils;
 import me.lokka30.bettercommandspy.misc.DebugCategory;
 import me.lokka30.bettercommandspy.misc.Utils;
 import me.lokka30.microlib.messaging.MultiMessage;
 import me.lokka30.microlib.other.UpdateChecker;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
-import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.scheduler.BukkitTask;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -37,7 +37,7 @@ public class UpdateCheckerHandler {
     }
 
     private @Nullable UpdateCheckerResult cachedUpdateCheckerResult = null;
-    public @Nullable BukkitTask repeatingTask = null;
+    public @Nullable FoliaRunnable repeatingTask = null;
 
     /**
      * What type of result did the
@@ -213,14 +213,15 @@ public class UpdateCheckerHandler {
                 repeatingTask.cancel();
             } // cancel existing repeating task - if it exists of course
 
-            repeatingTask = new BukkitRunnable() {
+            repeatingTask = new FoliaRunnable() {
 
                 @Override
                 public void run() {
                     updateResult(UpdateCheckReason.FROM_REPEATING_TASK);
                 }
 
-            }.runTaskTimer(main, repeatPeriod, repeatPeriod);
+            };
+            SchedulerUtils.runTaskTimer(null, repeatingTask, repeatPeriod, repeatPeriod);
         }
     }
 
