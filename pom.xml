@@ -13,10 +13,10 @@
 
     <groupId>me.lokka30</groupId>
     <artifactId>BetterCommandSpy</artifactId>
-    <version>2.0.5</version>
+    <version>2.1.0</version>
 
     <name>BetterCommandSpy</name>
-    <description>The rock-solid command spying plugin for SpigotMC servers.</description>
+    <description>The rock-solid command spying plugin for MC servers.</description>
 
     <properties>
         <java.version>1.8</java.version>

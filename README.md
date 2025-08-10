@@ -4,7 +4,9 @@
 
 # BetterCommandSpy
 
-The Ultimate CommandSpy Plugin for SpigotMC Servers
+The Ultimate CommandSpy Plugin for MC Servers
+
+Spigot/Paper/Folia Supported
 
 </div>
 
@@ -32,7 +34,7 @@ There may be multiple different versions being developed in parallel.
 
 ## Copyright Notice
 
-    Copyright (C) 2020-2025  lokka30
+    Copyright (C) 2020-2025  lokka30 and contributors.
 
     Licensed under GNU AGPL v3.
 
